@@ -1,0 +1,208 @@
+<header class="main-header" ng-controller="sidebarController" ng-init="CheckLogin()">
+    <!-- Logo -->
+    <a href="" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+       
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>mBank</b></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                        <span class="hidden-xs">Alexander Pierce</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                            <p>
+                                Alexander Pierce - Web Developer
+                                <small>Member since Nov. 2012</small>
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                            <div class="col-xs-4 text-center">
+                                <a href="">Followers</a>
+                            </div>
+                            <div class="col-xs-4 text-center">
+                                <a href="">Sales</a>
+                            </div>
+                            <div class="col-xs-4 text-center">
+                                <a href="">Friends</a>
+                            </div>
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="" class="btn btn-default btn-flat">Profile</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Control Sidebar Toggle Button -->
+                <li>
+                    <a href="" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image" ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
+                <img src={{imgData.imgUrl}} style="width:100%;height:100px"  class="img-circle" alt="User Image">
+            </div> 
+        </div>
+        <!-- search form -->
+      
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            <li >
+                <a href="">
+                    <i class="fa fa-dashboard"></i>Dashboard 
+                </a>
+               
+            </li>
+            <li class="treeview">
+                <a href="">
+                    <i class="fa fa-files-o"></i>
+                    <span>Accounts </span>
+                    <i class="fa fa-angle-left pull-right"></i>
+
+                </a>
+                <ul class="treeview-menu">
+                    <li ng-repeat="acc in accounts | unique:'Account_Type'">
+                        <a ng-click="goToPage(id=acc.trx_type)">
+                            <i class="fa fa-circle-o"></i> {{acc.Account_Type}}
+                        </a>
+                    </li>
+                     
+                </ul>
+            </li>
+            
+            <li class="treeview">
+                <a href="">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Transactions </span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="sub-menu">
+                        <a ng-click="allTransactions()" class="">
+                            <i class="fa fa-circle-o"></i>
+                             All Transactions 
+
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="DateWiseTrxn()" class="">
+                            <i class="fa fa-circle-o"></i>
+                             Date Wise Trxn 
+
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="approvedTrxn()" class="">
+                            <i class="fa fa-circle-o"></i>
+                             Approve Trxns 
+
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="notApprovedTrxn()" class="">
+                            <i class="fa fa-circle-o"></i>
+                             Not Approve Trxn 
+                            
+                        </a>
+                    </li>
+
+                    <li>
+                        <a ng-click="TodaysTrxns()" class="">
+                            <i class="fa fa-circle-o"></i>
+                             Today Trxn 
+                           
+
+                        </a>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="">
+                    <i class="fa fa-search"></i>
+                    <span>Search </span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="sub-menu">
+                        <a ng-click="customers()" class="">
+                            <i class="glyphicon glyphicon-user" style="float:left"></i>
+                            <i class="fa fa-circle-o"></i> Search Customers 
+                        </a>
+
+                    </li>
+                    <li class="sub-menu">
+
+                        <a ng-click="search_agent()" class="">
+                            <i class="glyphicon glyphicon-search" style="float:left"></i>
+                            <i class="fa fa-circle-o"></i> Search Agent 
+                        </a>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="">
+                    <i class="fa fa-edit"></i> <span>Reports</span> 
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="sub-menu">
+                        <a ng-click="reportCustomer()" class="">
+                             <i class="fa fa-circle-o"></i>Customer Report 
+                            <i class="glyphicon glyphicon-list-alt " style="float:left"></i>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="reportAgent()" class="">
+                             <i class="fa fa-circle-o"></i>Agent Report 
+                            <i class="glyphicon glyphicon-user " style="float:left"></i>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="reportEOD()" class="">
+                             <i class="fa fa-circle-o"></i>End Of Day Report 
+                            <i class="glyphicon glyphicon-globe " style="float:left"></i>
+                        </a>
+                    </li>
+                     
+                </ul>
+            </li> 
+            <li class="header">Logout Here</li>
+            <li><a href="" ng-click="logout()"><i class="fa fa-exclamation-circle text-red"></i> <span>Logout</span> </a></li>
+            
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

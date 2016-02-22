@@ -1,0 +1,96 @@
+﻿<div class="wrapper" ng-init="CheckLogin()" ng-controller="fdController" style="height:1000px">
+    <ng-include src="'pages/sidebar/sidebar.html'"></ng-include>
+
+
+
+    <div class="content-wrapper">
+
+
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="panel">
+                <div class="box-body">
+                    <div class="col-lg-12 searchpanel" style="height:80px">
+                        <div class="col-lg-4">
+                            <span>Name:</span>
+                            <span class="">
+                                <input type="text" ng-model="Name.cust_name" class="form-control" style="float:right;" placeholder="Search Customer Here" /> </td>
+                            </span>
+                        </div>
+                        <div class="col-lg-4">
+                            <span>Account Number:</span>
+                            <span class="">
+                                <input type="text" ng-model="AccountNo.external_account_id" class="form-control" style="float:right;" placeholder="Search Customer Here" /> </td>
+                            </span>
+                        </div>
+                        <div class="col-lg-4">
+                            <span>Agent Name:</span>
+                            <span class="">
+                                <input type="text" ng-model="agentname.agent_name" class="form-control" style="float:right;" placeholder="Search Customer Here" /> </td>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row  search_content" style="margin-top:50px;">
+
+                        <div class="content">
+                            <div class="panel content_table">
+                                <div class="box-body">
+                                    <div class="col-lg-12" style="height:450px;overflow:scroll">
+                                        <table id="example2" class="table table-bordered table-hover">
+                                            <thead>
+
+                                                <!--  <tr style="background-color:skyblue;border-color:skyblue;">-->
+                                                <tr class="content_headrow  ">
+                                                    <th>Sr.No</th>
+                                                    <th style="width:30%">Name</th>
+                                                    <th style="width:30%">Account Number</th>
+                                                    <th style="width:30%">Agent Name</th>
+                                                    <th style="width:30%">Details</th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="data in transDetailsAccTypes | filter:Name | filter:AccountNo | filter:agentname |unique:cust_id">
+                                                    <th>{{$index+1}}</th>
+
+                                                    <th class="marathifont    ">{{data.cust_name}}</th>
+                                                    <th class=" ">{{data.external_account_id}}</th>
+                                                    <th class="marathifont  ">{{data.agent_name}}</th>
+                                                    <td class="">
+                                                        <a href="#/acc_detail/{{data.cust_id}}" class="btn btn-success btn-sm pull-left"><i class="glyphicon glyphicon-record"></i>Details</a>
+                                                        <!--<a ng-click="customerDetails(ID=data.cust_id)" class="btn btn-success btn-sm pull-left"><i class="glyphicon glyphicon-record"></i>Details</a>-->
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+
+    </div>
+
+    <ng-include class="navbar-fixed-bottom" src="'bankPages/sidebar/footer.html'"></ng-include>
+</div>

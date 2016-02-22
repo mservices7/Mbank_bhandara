@@ -1,0 +1,139 @@
+﻿
+<div class="wrapper" style="background-color:#222d32;">
+    <div class="navbar-fixed-top"><ng-include src="'pages/sidebar/sidebar.html'"></ng-include></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="margin-top:50px;padding-bottom:300px">
+
+        <!-- Content Header (Page header) -->
+
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <section class="content-header">
+                                <h1>
+                                    Date Wise Transaction's
+                                </h1>
+                                <ol class="breadcrumb">
+                                    <li><a href="#/home"><i class="fa fa-dashboard"></i> Home</a></li>
+                                    <li class="active">Date Wise Transactions</li>
+                                </ol>
+                            </section>
+                        </div> 
+                        <div class=" box-header col-sm-12 form-group">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label" style="font-size:15pt;padding-top:3px"> </label>
+                                <div class="col-sm-4">
+
+                                </div>
+                                <div class="col-sm-6">
+                                    <a name="xlsbtn1" class="pull-right btn btn-reddit btn-sm" ng-click="exportDatewise()"><i class="glyphicon glyphicon-download"></i> Generate XLS</a>
+                                    <a name="allapproved1" class="pull-right btn btn-reddit btn-sm" style="margin-right:5px" ng-click="allapproveddatewise()"><i class="glyphicon glyphicon-check"></i> Approve All</a>
+                                    <b class="pull-right btn btn-info btn-sm" style="margin-right:5px">Total Amount : {{amount1}}</b>
+                                    <a class="btn btn-success btn-sm pull-right" ng-show="alertLoading">Loading</a> <a class="btn btn-default btn-sm pull-right" ng-show="alertData">All Status Approved</a>
+                                    <a class="btn btn-primary btn-sm pull-right" style="margin-right:5px" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></a>
+
+                                </div>
+                            </div>
+
+
+                        </div> 
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr class="bg-info">
+                                        <th style="font-size:13pt;width:150px">Search By Date:</th>
+                                        <th colspan="2" class="form-group-sm" style="height:50px">
+                                            <select ng-model="datetrxn" class="selectpicker form-control ">
+                                                <option value="">Select Date Here</option>
+                                                <option value="{{date.trx_dt}}" ng-repeat="date in trxndate | unique:'trx_dt'">{{date.trx_dt}}</option>
+                                            </select>
+                                        </th>
+                                        <th style=" width:150px">Search Manually:</th>
+                                        <th colspan="3" class="form-group-sm">
+                                            <input type="text" ng-model="datetrxn" class="form-control" style="float:right;" placeholder="Search Customer Here" /> </td>
+                                        </th>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Customer_Name</th>
+                                        <th style="width:100px">Acc Type</th>
+                                        <th>Status</th>
+                                        <th>Transaction_Date</th>
+                                        <th>Amount</th>
+                                        <th style="width:100px">Agent ID</th>
+                                        <th style="width:100px">External Agent ID</th>
+                                        <th>Agent_Name</th>
+                                        <th style="width:100px;">Status_Approve</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr ng-show="!trans3">
+                                        <td colspan="7" style="font-size:15pt;color:green;text-align:center"><b>Loading.....</b></td>
+
+                                    </tr>
+                                    <tr ng-show="trans3.length == '0'">
+                                        <td colspan="7" style="font-size:15pt;color:red;text-align:center">
+                                            <b>
+                                                Their Is No Transactions Yet
+                                            </b>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr ng-model="data.trx_id" ng-repeat="data in trans3|filter:datetrxn |orderBy : '-sync_dt' | limitTo:limit">
+                                        <td ng-class="{marathifont:{{data.bank_id}}===1}" class="capitalize">{{data.cust_name}}</td>
+
+
+                                        <td>{{data.Account_Type}}</td>
+                                        <td>
+                                            <span style="color:blue;" ng-if="(data.status==7 || data.status ==10)"><b>Approve</b></span>
+                                            <span style="color:red;" ng-if="!(data.status ==10 || data.status ==7)"><b>Not Approve</b></span>
+
+                                        <td>{{data.trx_dt}}</td>
+                                        <td>{{data.amt}}</td>
+                                        <td>{{data.agent_id}}</td>
+                                        <td>
+                                            {{data.external_agent_id}}
+                                        </td>
+                                        <td ng-class="{marathifont:{{data.bank_id}}===1}">{{data.agent_name}}</td>
+                                        <td>
+                                            <button ng-disabled="(data.status==10 || data.status ==7)" name="approvedbtn1" class="btn btn-success btn-sm center-block"
+                                                    ng-click="statusApproveddatewise(trxId=data.trxId,status=data.status,selecttrx=data.trx_id,dateT=data.trx_dt,accountidT=data.acc_id,agentidT=data.agent_id,amtT=data.amt,bankidT=data.bank_id,banksyncdtT=data.bank_sync_dt,brachidT=data.brach_id,custidT=data.cust_id,externaltrxidT=data.external_trx_id,issyncT=data.is_sync,syncdtT=data.sync_dt,trxtypeT=data.trx_type,balance=data.trx_balance,interestAmount=data.InterestAmounts,days=data.NumberOfDay)">
+                                                Approve
+                                            </button>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr ng-show="trans3.length > 30">
+                                        <td colspan="6"></td>
+                                        <td><a class="btn btn-primary btn-sm" ng-click="limitTo()">Load More</a></td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </section>
+
+    </div>
+
+    <ng-include class="navbar-fixed-bottom" src="'bankPages/sidebar/footer.html'"></ng-include>
+</div>
+
+
+
+
+
+
+ 

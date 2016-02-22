@@ -1,0 +1,134 @@
+﻿<div class="wrapper" ng-init="CheckLogin()" ng-controller="acc_detailController"  >
+    <ng-include src="'pages/sidebar/sidebar.html'"></ng-include>
+     <div class="content-wrapper">
+
+        <!-- Main content -->
+        <section class="content">
+            
+                <div class="panel ">
+                    <div class="box-body">
+                        <div class="col-lg-12 searchpanel" style="height:80px">
+                            <div class="col-sm-12">
+                                <div class="col-sm-1">
+                                    <span><b>Name:</b></span>
+                                </div>
+                                <div class="col-sm-5 pull-left marathifont" style="font-size: x-large;">
+                                    <span><b>{{txtcust_name}}</b></span>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span>
+                                        <b>Mobile Number:</b>
+                                    </span>
+                                </div>
+                                <div class="col-sm-4 pull-left">
+                                    <span>{{txtcust_phoneno}}</span>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12" style="margin-top:20px">
+                                <div class="col-sm-2">
+                                    <span><b>Account Number:</b></span>
+                                </div>
+                                <div class="col-sm-4 pull-left">
+                                    <span>{{txtcust_accNo}}</span>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span>
+                                        <b>Email-Id:</b>
+                                    </span>
+                                </div>
+                                <div class="col-sm-4 pull-left">
+                                    <span>{{txtcust_emailId}}</span>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row  search_content">
+
+                            <div class="content">
+                                <div class="panel content_table">
+                                    <div class="box-body">
+                                        <div class="col-lg-12 " style=" height:450px;overflow:scroll">
+                                            <table id="example2" class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr class="success">
+                                                        <th>Transaction Date</th>
+                                                        <!--<th>Acc Type</th>-->
+                                                        <th>Debit</th>
+                                                        <th>Credit</th>
+                                                        <th>Balance</th>
+                                                        <!--<th>Intrest Paid</th>-->
+                                                        <!--<th ng-show="getDetails==3">Daily Installment Amount</th>-->
+                                                        <!--<th>Approve</th>-->
+
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-show="!datadetails ">
+                                                        <td colspan="7" style="font-size:15pt;color:green;text-align:center"><b>Loading.....</b></td>
+
+                                                    </tr>
+                                                    <tr ng-show="datadetails .length == '0'">
+                                                        <td colspan="7" style="font-size:15pt;color:red;text-align:center">
+                                                            <b>
+                                                                Their Is No Transactions Yet
+                                                            </b>
+                                                        </td>
+
+                                                    </tr>
+
+
+                                                    <!--<tr ng-repeat="data in datadetails |orderBy : '-sync_dt' |limitTo:limit">-->
+                                                    <tr ng-repeat="data in datadetails|orderBy : '-sync_dt'">
+                                                        <td>{{data.trx_dt}}</td>
+                                                        <!--<td>{{data.Account_Type}}</td>-->
+                                                        <td><span ng-show="(data.trx_type=='dbt' && data.status==7 || data.status==10 || data.status==11) ">{{data.amt}}</span></td>
+                                                        <td><span ng-show="data.trx_type=='cr'">{{data.amt}}</span></td>
+                                                        <td>{{data.trx_balance}}</td>
+
+                                                        <!--<td ng-show="dat
+                                                        a.trx_data==3">{{data.InterestAmounts}}</td>
+                                        <td>{{data.amt}}</td>
+                                        <td><input class="btn btn-primary" type="button" value="Approve" ng-disabled="(data.status==10 || data.status ==7 || data.status ==11)" ng-click="StatusApprove(trxid=data.trxId,status=11,accID=data.acc_id,DailyInAmt=data.amt)" /></td>-->
+                                                        </tr>
+                                                    </tr>
+                                                    <tr ng-show="datadetails.length > 30">
+                                                        <td colspan="5"></td>
+                                                        <td><a class="btn btn-primary btn-sm" ng-click="limitTo()">Load More</a></td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="accdetailpanel_2">
+                            <div class="accdetailpanel_2_left">
+                                <div class="accdetailpanel_2_heading">Account Statement</div>
+                                <div class="sublink"><a href="#">Click Here</a></div>
+                            </div>
+                            <div class="accdetailpanel_2_right">
+                                <div class="accdetailpanel_2_heading">Personal Details</div>
+                                <div class="sublink"><a href="#/customerDetail/{{customer_id}}">View / Edit</a></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+
+                </div>
+                
+
+        </section>
+    </div>
+
+    <ng-include class="navbar-fixed-bottom" src="'bankPages/sidebar/footer.html'"></ng-include>
+</div>

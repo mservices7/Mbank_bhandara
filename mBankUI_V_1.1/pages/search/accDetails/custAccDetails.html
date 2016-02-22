@@ -1,0 +1,353 @@
+
+<div class="wrapper" style="background-color:#222d32;">
+    <div class="navbar-fixed-top"><ng-include src="'pages/sidebar/sidebar.html'"></ng-include></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="margin-top:50px;padding-bottom:300px">
+
+       
+        <div class=" box  " style="padding:10px 4px 0px 4px;">
+            <!-- /.box-header -->
+            <!-- /.nav-tabs-custom -->
+            <div class="col-sm-4 pull-left">
+                <a class="btn btn-primary btn-sm pull-left" style="margin-top:15px; margin-bottom:10px; margin-left:20px; font-size:17px;" href="/#/customers">
+                    <i class="glyphicon glyphicon-circle-arrow-left">&nbsp;Back</i>
+                </a>
+            </div>
+           
+            <div class="nav-tabs-custom box-body" style="margin-top:10px">
+               
+                <div class="box-header with-border">
+
+                    <div ng-repeat="data in customer | unique:'cust_id'">
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-3" style="padding:0px">
+                                <div class="input-group">
+                                    <div class="input-group-addon bg-black">
+                                        Name
+                                    </div>
+                                    <input type="text" ng-class="{marathifont:{{imgIdDdURL}}===1}" ng-model="data.cust_name" placeholder="Please Enter Branch Name" class="form-control" />
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-addon bg-black">
+                                        Cust_id
+                                    </div>
+                                    <input type="text" ng-model="data.cust_id" placeholder="Please Enter Branch Name" class="form-control" disabled />
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3" style="padding:0px">
+                                <div class="input-group">
+                                    <div class="input-group-addon bg-black">
+                                        MobileNo1
+                                    </div>
+                                    <input type="text" ng-model="data.cust_phno_1" placeholder=" MobileNo1 Not Available" class="form-control" />
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-3" style="margin-top:5px">
+                                <div class="input-group">
+                                    <div class="input-group-addon bg-black">
+                                        MobileNo2
+                                    </div>
+                                    <input type="text" ng-model="data.cust_phno_2" placeholder=" MobileNo2 Not Available" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div><!-- /.tab-pane -->
+
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="" ng-repeat="data in customers | unique:'Account_Type'" ng-click="showTrns(trxId=data.trx_type)" ng-class="{active: $index == 0}"><a href="{{exact_user}}#{{data.Account_Type}}" style="cursor:pointer" data-toggle="tab">{{data.Account_Type}}</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane" ng-repeat="data in customers | unique:'Account_Type'" ng-class="{active: $index == 0}" id="{{data.Account_Type}}">
+
+                        <div class="col-sm-12">
+
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-addon" ng-class="{'success': data.Account_Type === 'SAVING' , 'bg-blue-active': data.Account_Type == 'LOAN'}">
+                                        AccNo
+                                    </div>
+                                    <input type="text" ng-model="data.acc_id" placeholder="Please Enter Branch Name" class="form-control" disabled />
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-addon " ng-class="{'success': data.Account_Type === 'SAVING' , 'bg-blue-active': data.Account_Type == 'LOAN'}">
+                                        Acc. Type
+                                    </div>
+                                    <input type="text" ng-model="data.Account_Type" placeholder="Please Enter Branch Name" class="form-control" disabled />
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-addon" ng-class="{'success': data.Account_Type === 'SAVING' , 'bg-blue-active': data.Account_Type == 'LOAN'}">
+                                        {{data.Account_Type}} Amount Rs.
+                                    </div>
+                                    <input type="text" ng-model="data.balance" placeholder="Please Enter Branch Name" class="form-control" disabled />
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-addon" ng-class="{'success': data.Account_Type === 'SAVING' , 'bg-blue-active': data.Account_Type == 'LOAN'}">
+                                        Opening Date
+                                    </div>
+                                    <input type="text" value="{{data.bank_sync_dt | yearDDMM}}" placeholder="Date" class="form-control" disabled />
+
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-addon" ng-class="{'success': data.Account_Type === 'SAVING' , 'bg-blue-active': data.Account_Type == 'LOAN'}">
+                                        No. Of Inst
+                                    </div>
+                                    <input type="text" value="100" class="form-control" disabled />
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12 text-right pull-right" style="margin-top:10px">
+                                <a class="btn btn-danger btn-sm " style="padding-right:15px" data-toggle="modal" ng-click="dbt()" ng-hide="data.Account_Type=='LOAN'" data-target="#{{data.acc_id}}">
+                                    <i style="color:wheat" class="glyphicon glyphicon-credit-card pull-left"></i>&nbsp; Debit Money
+                                </a>
+                                <a class="btn btn-primary btn-sm pull-left" style="margin-right:5px" ng-click="refresh()">
+                                    <i class="glyphicon glyphicon-refresh"></i>
+                                </a>
+
+                                <a class="btn btn-warning btn-sm  " style="padding-right:15px" data-toggle="modal" ng-hide="data.Account_Type=='LOAN'" ng-click="cr()" data-target="#1{{data.acc_id}}">
+                                    <i class="glyphicon glyphicon-credit-card pull-left"></i>&nbsp; Credit Money
+                                </a>
+                                <!--<a class="btn btn-primary btn-sm " style="padding-right:15px" ng-click="showMain()" >
+                    <i style="color:wheat" class="glyphicon glyphicon-credit-card pull-left"></i>&nbsp; Show Trx
+                </a>-->
+                                <a class="btn btn-info btn-sm " style="padding-right:15px" ng-click="collectB()">
+                                    <i style="color:wheat" class="glyphicon glyphicon-credit-card pull-left"></i>&nbsp; Collect By Bank
+                                </a>
+                                <a class="btn btn-success btn-sm  " style="padding-right:15px" ng-click="collectA()">
+                                    <i class="glyphicon glyphicon-credit-card pull-left"></i>&nbsp;  Collect By Agent
+                                </a>
+
+                                <a class="btn btn-reddit btn-sm " style="padding-right:15px" ng-click="exportData()">
+                                    <i class="glyphicon glyphicon-download"></i> Generate XLS
+                                </a>
+
+                                <div id="{{data.acc_id}}" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+
+                                            <div class="box box-info">
+                                                <div class="box-header with-border  text-center">
+                                                    <h3 class="box-title" ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.cust_name}}  </h3>
+                                                </div><!-- /.box-header -->
+                                                <!-- form start -->
+                                                <form class="form-horizontal">
+                                                    <div class="box-body">
+                                                        <div class="form-group text-center">
+                                                            <h3 style="padding:0px">A/c No. : {{data.acc_id}}</h3>
+
+                                                            <h3 style="padding:0px">A/c Type. :<b> {{data.Account_Type}}</b></h3>
+                                                            <h3 style="padding:0px">Mobile No. : {{data.cust_phno_1}}</h3>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputPassword3" class="col-sm-2 control-label">Amount :</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="number" ng-model="money" class="form-control" placeholder="Please Enter Amount Here" ng-change="latestId(idfound=data.acc_id)" id="inputPassword3" ng-minlength="1" required>
+                                                            </div>
+                                                        </div>
+
+                                                    </div><!-- /.box-body -->
+                                                    <div class="box-footer">
+                                                        <button data-dismiss="modal" class="btn btn-default btn-sm  pull-right" style="margin-left:3px" ng-click="clear(this.money='')">Cancel</button>
+                                                        <button data-dismiss="modal" class="btn btn-info btn-sm pull-right" ng-click="deposite(id=data.acc_id,type=data.trx_type);">Deposite</button>
+                                                    </div><!-- /.box-footer -->
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="1{{data.acc_id}}" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+
+                                            <div class="box box-info">
+                                                <div class="box-header with-border  text-center">
+                                                    <h3 class="box-title" ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.cust_name}}  </h3>
+                                                </div><!-- /.box-header -->
+                                                <!-- form start -->
+                                                <form class="form-horizontal">
+                                                    <div class="box-body">
+                                                        <div class="form-group text-center">
+                                                            <h3 style="padding:0px">A/c No. : {{data.acc_id}}</h3>
+
+                                                            <h3 style="padding:0px">A/c Type. :<b> {{data.Account_Type}}</b></h3>
+                                                            <h3 style="padding:0px">Mobile No. : {{data.cust_phno_1}}</h3>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputPassword3" class="col-sm-2 control-label">Amount :</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="number" ng-model="money" class="form-control" placeholder="Please Enter Amount Here" ng-change="latestId(idfound=data.acc_id)" id="inputPassword3" ng-minlength="1" required>
+                                                            </div>
+                                                        </div>
+
+                                                    </div><!-- /.box-body -->
+                                                    <div class="box-footer">
+                                                        <button data-dismiss="modal" class="btn btn-default btn-sm  pull-right" style="margin-left:3px" ng-click="clear(this.money='')">Cancel</button>
+                                                        <button data-dismiss="modal" class="btn btn-info btn-sm pull-right" ng-click="deposite(id=data.acc_id,type=data.trx_type);">Deposite</button>
+                                                    </div><!-- /.box-footer -->
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12" style="margin-top:4px;" ng-show="divshow">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr class="success">
+                                        <th>Transaction DT</th>
+                                        <th>Acc Type</th>
+                                        <th>Debit</th>
+                                        <th>Credit</th>
+                                        <th>Balance</th>
+                                        <th>Intrest Paid</th>
+                                        <th ng-show="getDetails==3">Daily Installment Amount</th>
+                                        <th>Approve</th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr ng-show="!datadetails ">
+                                        <td colspan="7" style="font-size:15pt;color:green;text-align:center"><b>Loading.....</b></td>
+
+                                    </tr>
+                                    <tr ng-show="datadetails .length == '0'">
+                                        <td colspan="7" style="font-size:15pt;color:red;text-align:center">
+                                            <b>
+                                                Their Is No Transactions Yet
+                                            </b>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr ng-repeat="data in datadetails |orderBy : '-sync_dt' |limitTo:limit">
+                                        <td>{{data.trx_dt}}</td>
+                                        <td>{{data.Account_Type}}</td>
+                                        <td><span ng-show="(data.trx_type=='dbt' && data.status==7 || data.status==10 || data.status==11) ">{{data.amt}}</span></td>
+                                        <td><span ng-show="data.trx_type=='cr'">{{data.amt}}</span></td>
+                                        <td>{{data.trx_balance}}</td>
+                                        <td ng-show="data.trx_data==3">{{data.InterestAmounts}}</td>
+                                        <td>{{data.amt}}</td>
+                                        <td><input class="btn btn-primary" type="button" value="Approve" ng-disabled="(data.status==10 || data.status ==7 || data.status ==11)" ng-click="StatusApprove(trxid=data.trxId,status=11,accID=data.acc_id,DailyInAmt=data.amt)" /></td>
+                                    </tr>
+                                    <tr ng-show="datadetails.length > 30">
+                                        <td colspan="5"></td>
+                                        <td><a class="btn btn-primary btn-sm" ng-click="limitTo()">Load More</a></td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+
+
+
+                        <div class="col-sm-12" style="margin-top:4px;" ng-show="divbank">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr class="success">
+                                        <th>Transaction DT</th>
+
+                                        <th>Debit</th>
+                                        <th>Credit</th>
+                                        <th>Balance</th>
+                                        <th>Intrest Paid</th>
+
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr ng-show="!datadetails ">
+                                        <td colspan="7" style="font-size:15pt;color:green;text-align:center"><b>Loading.....</b></td>
+
+                                    </tr>
+                                    <tr ng-show="datadetails .length == '0'">
+                                        <td colspan="7" style="font-size:15pt;color:red;text-align:center">
+                                            <b>
+                                                Their Is No Transactions Yet
+                                            </b>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr ng-repeat="data in datadetails |orderBy : '-sync_dt' |limitTo:limit">
+                                        <td>{{data.trx_dt}}</td>
+
+                                        <td><span ng-show="data.trx_type=='dbt'">{{data.amt}}</span></td>
+                                        <td><span ng-show="data.trx_type=='cr'">{{data.amt}}</span></td>
+                                        <td>{{data.trx_balance}}</td>
+                                        <td></td>
+
+
+                                    </tr>
+                                    <tr ng-show="datadetails.length > 30">
+                                        <td colspan="5"></td>
+                                        <td><a class="btn btn-primary btn-sm" ng-click="limitTo()">Load More</a></td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+
+                    </div><!-- /.tab-pane -->
+                </div><!-- /.tab-content -->
+            </div>
+
+
+        </div>
+    </div>
+
+    <ng-include class="navbar-fixed-bottom" src="'bankPages/sidebar/footer.html'"></ng-include>
+</div>
+

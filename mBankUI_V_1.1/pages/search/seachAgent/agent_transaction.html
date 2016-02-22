@@ -1,0 +1,150 @@
+
+<div class="wrapper" style="background-color:#222d32;">
+    <div class="navbar-fixed-top"><ng-include src="'pages/sidebar/sidebar.html'"></ng-include></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="margin-top:50px;padding-bottom:300px">
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <section class="content-header">
+                                <h1>
+                                    Agent - <span class="text-primary" ng-class="{marathifont:{{imgIdDdURL}}===1}">{{agentName}}</span>
+                                </h1>
+                                <ol class="breadcrumb">
+                                    <li><a href="#/home"><i class="fa fa-dashboard"></i> Home</a></li>
+                                    <li class="active">Agent - {{exact_user}}</li>
+                                </ol>
+
+                            </section>
+                        </div><!-- /.box-header -->
+                        <div class=" box-header col-sm-12 form-group">
+                            <div class="col-sm-12 form-group" style="padding:0px">
+                                <label for="inputEmail3" class="col-sm-3 control-label" style="font-size:15pt;padding-top:3px">Search Here :</label>
+                                <div class="col-sm-4">
+                                    <input type="text" ng-model="search" class="form-control" placeholder="Search Customer Here" />
+
+                                </div>
+                                <div class="col-sm-5">
+                                    <a name="xlsbtn1" class="pull-right btn btn-reddit btn-sm" ng-click="exportData()" style="font-size:15px;"><i class="glyphicon glyphicon-download"></i> Generate XLS</a>
+                                    <a name="allapproved1" class="pull-right btn btn-reddit btn-sm" style="margin-right:5px; font-size:15px;" ng-click="allapproved()"><i class="glyphicon glyphicon-check"></i> Approve All</a>
+                                    <b class="pull-right btn btn-info btn-sm" style="margin-right:5px; font-size:15px;">Total Amount : {{amount1}}</b>
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12 form-group" style="padding:0px">
+                                <label for="inputEmail3" class="col-sm-3 control-label" style="font-size:15pt;padding-top:3px">Count Amount By Date:</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" ng-model="getDateAgent" ng-change="getDateAgentTrxnCount()">
+                                        <option value="">Select Date Here</option>
+                                        <option value="{{trxdt.trx_dt}}" ng-repeat="trxdt in transactionsT | unique:'trx_dt'">{{trxdt.trx_dt}}</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-sm-5" ng-show="showdatecount">
+                                    <a style="font-size:15pt" class="btn btn-default btn-sm">Date : <b class="text-red">{{getDateAgent}}</b></a><a style="font-size:14pt" class="btn btn-success btn-sm">Rs. <b>{{amount12}} </b><span ng-show="!amount12" style="color:yellow">Loading..</span> </a>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12 text-left">
+                                <a class="btn btn-primary btn-sm pull-left" style="margin-right:5px; margin-left:5px; font-size:20px;" ng-click="refresh()">
+                                    <i class="glyphicon glyphicon-refresh"></i>
+                                </a>
+                                <a ng-repeat="acc in pData | unique:'pType'" style="margin-right:5px; font-size:20px;" ng-click="getfd(id=acc.Id)" class="btn btn-info btn-sm">
+                                    <i class="fa fa-circle-o"></i> {{acc.pType}}
+                                </a>
+
+
+                            </div>
+                           
+                        </div>
+                        <div class="col-sm-4 pull-left">
+                            <a class="btn btn-primary btn-sm pull-left" style="margin-right:5px; margin-left:5px; font-size:20px;" href="/#/search_agent">
+                                <i class="glyphicon glyphicon-circle-arrow-left">&nbsp;Back</i>
+                            </a>
+                        </div>
+
+
+
+
+
+
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr class="text-center bg-aqua-active">
+                                        <td colspan="3"><i class="glyphicon glyphicon-user"></i> Agent[{{exact_user}}] Transactions Amount : Rs.<b style="color:red"> {{agentTransactions}}</b></td>
+
+                                        <td colspan="3"><i class="glyphicon glyphicon-signal"></i> Total Transactions Amount :<b> Rs. {{amount1}}</b></td>
+
+                                    </tr>
+                                    <tr class="active">
+                                        <th>Customer_Name</th>
+                                        <th>Acc Type</th>
+                                        <th>Status</th>
+                                        <th>Transaction_Date</th>
+                                        <th>Amount</th>
+
+                                        <th class="text-center">Status_Approve</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr ng-show="!transactions">
+                                        <td colspan="7" style="font-size:15pt;color:green;text-align:center"><h2>Loading.....</h2></td>
+
+                                    </tr>
+                                    <tr ng-show="transactions.length == '0'">
+                                        <td colspan="7" style="font-size:15pt;color:red;text-align:center"><h2>Their Is No By Transactions</h2></td>
+
+                                    </tr>
+                                    <tr ng-model="data.trx_id" ng-repeat="data in transactions| filter:search|orderBy : '-sync_dt' |limitTo:limit ">
+                                        <td style="color:black;font-size:12pt;" ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.cust_name}}</td>
+
+                                        <td>{{data.Account_Type}}</td>
+                                        <td>
+                                            <span style="color:blue;" ng-if="(data.status==7 || data.status ==10)"><b>Approve</b></span>
+                                            <span style="color:red;" ng-if="!(data.status ==10 || data.status ==7)"><b>Not Approve</b></span>
+
+                                        <td>{{data.trx_dt}}</td>
+                                        <td>{{data.amt}}</td>
+
+                                        <td>
+                                            <button ng-disabled="(data.status==10 || data.status ==7)" name="approvedbtn1" class="btn btn-success btn-sm center-block" ng-click="statusApproved(trxId=data.trxId,status=data.status,selecttrx=data.trx_id,dateT=data.trx_dt,accountidT=data.acc_id,agentidT=data.agent_id,amtT=data.amt,bankidT=data.bank_id,banksyncdtT=data.bank_sync_dt,brachidT=data.brach_id,custidT=data.cust_id,externaltrxidT=data.external_trx_id,issyncT=data.is_sync,syncdtT=data.sync_dt,trxtypeT=data.trx_type)">Approve</button>
+
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="transactions.length > 30">
+                                        <td colspan="5"></td>
+                                        <td><a class="btn btn-primary btn-sm" ng-click="limitTo()">Load More</a></td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </section>
+
+    </div>
+
+    <ng-include class="navbar-fixed-bottom" src="'bankPages/sidebar/footer.html'"></ng-include>
+</div>
+
+
+
+
+
+
+
+
+
+
+

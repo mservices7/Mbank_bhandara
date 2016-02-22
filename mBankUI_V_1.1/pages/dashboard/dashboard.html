@@ -1,0 +1,120 @@
+﻿   <div class="wrapper" ng-init="CheckLogin()" ng-controller="dashboardController" style="height:1000px">
+       <ng-include src="'pages/sidebar/sidebar.html'"></ng-include>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        
+        <!-- Main content -->
+        <section class="content">
+            <!-- Info boxes -->
+            <div class="box box-info">
+
+                <div class="box-header with-border">
+                    <section class="content-header">
+                        <h1>
+                            Dashboard
+                            <small> </small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li><a href="#/home"><i class="fa fa-dashboard"></i> Home</a></li>
+                            <li class="active">Dashboard</li>
+                        </ol>
+                    </section>
+                </div>
+                </div><!-- /.box-header -->
+
+                <div class="row">
+
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-aqua"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Transaction <br />Amount!</span>
+                                <span class="info-box-number">
+                                    {{amountTotal}} ₹
+                                    <span ng-show="!transactionsT" style="font-size:15pt;color:yellow">Loading...</span>
+                                </span>
+
+
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div><!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-red"><i class="glyphicon glyphicon-credit-card "></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Month Total<br /> Amount!</span>
+                                <span class="info-box-number">{{thisMontsCollection}} ₹ <span ng-show="!transactionsT" style="font-size:15pt;color:yellow">Loading...</span></span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div><!-- /.col -->
+                    <!-- fix for small devices only -->
+                    <div class="clearfix visible-sm-block"></div>
+
+                    <!--<div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-green"><i class="glyphicon glyphicon-credit-card "></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Last Seven Days<br /> Total Amount!</span>
+                                <span class="info-box-number">{{weedDAte}} ₹ <span ng-show="!transactionsT" style="font-size:15pt;color:yellow">Loading...</span></span>
+                            </div><!-- /.info-box-content 
+                        </div><!-- /.info-box 
+                    </div><!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Today's Number Of<br /> Transactions!</span>
+                                <span class="info-box-number">{{todaystrxsDashBoard.length}} <span ng-show="!todaystrxsDashBoard" style="font-size:15pt;color:yellow">Loading...</span></span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+
+
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-aqua"><i class="glyphicon glyphicon-credit-card "></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Today Transactions<br /> Amount!</span>
+                                <span class="info-box-number">
+                                    {{amountToday}} ₹
+                                    <span ng-show="!trxs" style="font-size:15pt;color:yellow">Loading...</span>
+                                </span>
+
+
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div><!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-red"><i class="glyphicon glyphicon-user  "></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Number Of<br /> Agents!</span>
+                                <span class="info-box-number">{{agents.length}} <span ng-show="!agents" style="font-size:15pt;color:yellow">Loading...</span></span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div><!-- /.col -->
+                    <!-- fix for small devices only -->
+                    <div class="clearfix visible-sm-block"></div>
+
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-green"><i class="glyphicon glyphicon-user "></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Number Of <br />Customers!</span>
+                                <span class="info-box-number"><span class="huge">{{customers.length}}<span ng-show="!customers" style="font-size:15pt;color:yellow">Loading...</span></span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div><!-- /.col -->
+
+                </div><!-- /.row -->
+</section>
+
+  
+        
+
+</div>
+
+       <ng-include class="navbar-fixed-bottom" src="'bankPages/sidebar/footer.html'"></ng-include>
+</div>

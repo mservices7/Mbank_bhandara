@@ -1,0 +1,163 @@
+﻿
+<div class="wrapper" style="background-color:#222d32;">
+    <div class="navbar-fixed-top"><ng-include src="'pages/sidebar/sidebar.html'"></ng-include></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="margin-top:50px;padding-bottom:300px">
+
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <section class="content-header">
+                                <h1>
+                                    Customer's
+                                </h1>
+                                <ol class="breadcrumb">
+                                    <li><a href="#/home"><i class="fa fa-dashboard"></i> Home</a></li>
+                                    <li class="active"> All Customer's</li>
+                                </ol>
+                            </section>
+                        </div><!-- /.box-header -->
+                        <div class=" box-header col-sm-12 form-group">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label" style="font-size:15pt;padding-top:3px">Search Here :</label>
+                                <div class="col-sm-4">
+                                    <input type="text" ng-model="datetrxn" class="form-control" placeholder="Search Customer Here" />
+
+                                </div>
+                                <div class="col-sm-6">
+                                    <a class="btn btn-primary btn-sm pull-right" style="text-decoration:none;" href="#/createcustomer"><i class="glyphicon glyphicon-plus"></i>&nbsp;Create New Customer</a>
+                                     
+                                </div>
+                                
+                            </div>
+                           
+
+                        </div><!-- /.box-header -->
+                        <div class="col-sm-12">
+                            <a class="btn btn-primary btn-sm pull-left" style="margin-right:5px; margin-left:5px" ng-click="refresh()">
+                                <i class="glyphicon glyphicon-refresh"></i>
+                            </a>
+                        </div>
+
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+
+                                    <tr>
+                                        <th>Customer Name</th>
+                                        <th>Customer Acc Id</th>
+                                        <th style="width:100px">Acc. Type</th>
+                                        <th>Address</th>
+                                        <th>Mobile No.</th>
+                                        <th style="width:120px">Deposite Money</th>
+                                        <th style="width:100px">Acc Details</th>
+                                        <th style="width:80px">Edit</th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr ng-show="!customers">
+                                        <td colspan="7" style="font-size:15pt;color:green;text-align:center"><b>Loading.....</b></td>
+
+                                    </tr>
+                                    <tr ng-show="customers.length == '0'">
+                                        <td colspan="7" style="font-size:15pt;color:red;text-align:center">
+                                            <b>
+                                                Their Is No Transactions Yet
+                                            </b>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr ng-model="data.trx_id" ng-repeat="data in customers|filter:datetrxn | limitTo:limit">
+                                        <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.cust_name}}</td>
+                                        <!--  <td ng-show="{{data.trx_data}}!=1">{{data.cust_name}}</td>-->
+                                        <td >{{data.external_account_id}}</td>
+                                        <td>
+                                            {{data.Account_Type}}
+                                        </td>
+                                        <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">
+                                            {{data.cust_local_add}}
+                                        <td>{{data.cust_phno_1}}</td>
+                                        <td class="">
+                                            <a class="btn btn-warning btn-sm " style="padding-right:15px" data-toggle="modal" data-target="#{{data.acc_id}}">
+                                                <i class="glyphicon glyphicon-credit-card pull-left"></i>&nbsp; Deposite Money
+                                            </a>
+                                            <div id="{{data.acc_id}}" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+
+                                                        <div class="box box-info">
+                                                            <!--<div class="box-header with-border  text-center">
+                                                                <h1 class="box-title" ng-class="{marathifont:{{data.bank_id}}===1}">{{data.cust_name}}</h1>
+                                                            </div>--><!-- /.box-header -->
+                                                            <!-- form start -->
+                                                            <form class="form-horizontal">
+                                                                <div class="box-body">
+                                                                    <div class="form-group text-center">
+                                                                        <h3 style="padding:0px">Name : {{data.cust_name}}</h3>
+                                                                        <h3 style="padding:0px">A/c No. : {{data.acc_id}}</h3>
+                                                                        <h3 style="padding:0px">Mobile No. : {{data.cust_phno_1}}</h3>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="inputPassword3" class="col-sm-2 control-label">Amount :</label>
+                                                                        <div class="col-sm-10">
+                                                                            <input type="number" ng-model="money" class="form-control" placeholder="Please Enter Amount Here" ng-change="latestId()" id="inputPassword3" ng-minlength="1" required>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div><!-- /.box-body -->
+                                                                <div class="box-footer">
+                                                                    <button data-dismiss="modal" class="btn btn-default btn-sm  pull-right" style="margin-left:3px" ng-click="clear(this.money='')">Cancel</button>
+                                                                    <button data-dismiss="modal" class="btn btn-info btn-sm pull-right" ng-click="deposite(id=data.acc_id,type=data.trx_type);">Deposite</button>
+                                                                </div><!-- /.box-footer -->
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class=""><a href="#/depositeAmt/{{data.cust_id}}" class="btn btn-success btn-sm pull-left"><i class="glyphicon glyphicon-record"></i> Acc Details</a></td>
+                                        <td class="text-center"><a href="#/customer_details/{{data.cust_id}}"><i class="btn btn-success btn-sm glyphicon glyphicon-edit"></i></a></td>
+
+                                    </tr>
+                                    <tr ng-show="customers.length > 9">
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" ng-click="next()">Load More&nbsp;&nbsp;&nbsp; <i class="glyphicon glyphicon-arrow-right"></i></a>
+
+                                        </td>
+                                    </tr>
+                                   
+                                    
+                                </tbody>
+
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </section>
+
+    </div>
+
+    <ng-include class="navbar-fixed-bottom" src="'bankPages/sidebar/footer.html'"></ng-include>
+</div>
+
+
+
+
+
+
+
+
+
+
+

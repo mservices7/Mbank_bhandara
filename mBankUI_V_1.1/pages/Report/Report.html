@@ -1,0 +1,177 @@
+﻿<div ng-init="CheckLogin()">
+    <!-- container section start -->
+    <section>
+        <!--sidebar start-->
+        <div>
+            <ng-include src="'pages/sidebar/sidebar.html'"></ng-include>
+
+        </div>
+
+
+
+        <section id="main-content" style="padding-top:0px;height:100%;">
+            <section class="wrapper" style="margin-top:20px;margin-bottom:0px;">
+                <!--overview start-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="glyphicon glyphicon-search"></i> Report<a style="float:right" class="refresha btn btn-warning btn-sm" href="" ng-click="refresh()"><span class="glyphicon glyphicon-refresh"></span> Refresh</a></h3>
+                        <!--<h4><i class="glyphicon glyphicon-signal"></i>&nbsp;&nbsp;&nbsp;Total Transactions Amount : Rs. {{amount1}}</h4>-->
+                        <ol class="breadcrumb">
+                            <li><i class="glyphicon glyphicon-home"></i><a style="text-decoration:none;" href="#/dashboard">Home</a></li>
+                            <li><i class="glyphicon glyphicon-user"></i>Report By Dates</li>
+                        </ol>
+
+
+
+                    </div>
+
+                </div>
+
+
+                <div class=" panel panel-default panel-body">
+                     
+                    <label  class="col-sm-1 control-label">
+                        <b>Period :</b>
+                    </label>
+                    <div class="col-sm-10">
+                        <select id="test" class="form-control">
+                            <option value="0">Select</option>
+                            <option value="1">Monthly</option>
+                            <option value="2">Quarterly</option>
+                            <option value="3">Halferly</option>
+                            <option value="4">Annualy</option>
+                        </select>
+                        <div id="MonthDayDynamicBlock"></div>
+                    </div>
+                   
+
+
+                    <script>
+                        $("#test").change(function () {
+                            CreateMonthDayBlock($(this).val(), "#MonthDayDynamicBlock");
+                            $(".month").change(function () {
+                                var Month = $(this).val();
+                                var divid = $(this).parent("div").attr('id');
+                                CreateDayDrop("#" + divid, Month, "Day");
+                            });
+                        });
+
+                        function CreateMonthDayBlock(Period, DivBlock) {
+                            var MonthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                            var TotalSelect;
+                            var TotalOption;
+                            var RemoveOption;
+                            var StartRemoveOption;
+                            var EndRemoveOption;
+                            var SelectOptionArray = [];
+                            var RemoveOptionArray = [];
+                            var Monthval;
+
+                            $(DivBlock).find("div").remove();
+                            if (Period == 1) {
+                                $(DivBlock).append("<div id='MonthDayBlock' class='MonthDayEachBlock divblock paddingbotomfivepx'></div>");
+                                CreateDayDrop("#MonthDayBlock", 0, "Day");
+                            }
+                            if (Period == 2) {
+                                TotalSelect = 4;
+                            }
+                            if (Period == 3) {
+                                TotalSelect = 2;
+                            }
+                            if (Period == 4) {
+                                TotalSelect = 1;
+                            }
+                            TotalOption = (MonthNames.length / TotalSelect);
+                            RemoveOption = MonthNames.length - TotalOption;
+
+                            if (Period > 1) {
+                                for (var i = 1; i <= TotalSelect; i++) {
+                                    $(DivBlock).append("<div id='MonthDayBlock" + i + "' class='MonthDayEachBlock divblock paddingbotomfivepx'></div>");
+                                    CreateMonthBlock("#MonthDayBlock" + i, MonthNames, "Month");
+                                    EndRemoveOption = i * TotalOption;
+                                    StartRemoveOption = (EndRemoveOption - TotalOption) + 1;
+
+                                    SelectOptionArray = [];
+                                    for (var j = StartRemoveOption; j <= EndRemoveOption; j++) {
+                                        SelectOptionArray.push(j);
+                                    }
+                                    RemoveOptionArray = [];
+                                    $.each(MonthNames, function (ikey, val) {
+                                        if ($.inArray(ikey + 1, SelectOptionArray) < 0) RemoveOptionArray.push(ikey + 1);
+                                    });
+
+                                    $.each(RemoveOptionArray, function (indexa, valuea) {
+                                        $("#MonthDayBlock" + i + " select.month option[value=" + valuea + "]").remove();
+
+                                    });
+
+                                    CreateDayDrop("#MonthDayBlock" + i, SelectOptionArray[0], "Day");
+                                }
+                            }
+
+                        }
+
+
+                        function CreateMonthBlock(MonthDayBlock, MonthNames, Text) {
+                            var month_select = $("<select class='month floatleft'></select>");
+                            $.each(MonthNames, function (index, value) {
+                                var keynum = index + 1;
+                                month_select.append($('<option></option>').val(keynum).html(value));
+                            });
+                            $(MonthDayBlock).append(month_select);
+                            $(MonthDayBlock).find(".monthtext").remove();
+                            $(MonthDayBlock).find(".month").before("<div class='monthtext floatleft paddingsidefivepx'>" + Text + "</div>");
+
+                        }
+
+                        function CreateDayDrop(MonthDayBlock, Month, Text) {
+                            if (Month != 0 || Month != "") {
+                                $(MonthDayBlock).find(".day").remove();
+                                var dd = new Date(2012, Month, 0);
+                                var lastday = dd.getDate();
+                                var day_select = $("<select class='day floatleft'></select>");
+                                for (var i = 1; i <= lastday; i++) {
+                                    day_select.append($('<option></option>').val(i).html(i));
+                                }
+                                $(MonthDayBlock).find(".month").after(day_select);
+                                $(MonthDayBlock).find(".daytext").remove();
+                                $(MonthDayBlock).find(".day").before("<div class='daytext floatleft paddingsidefivepx'>" + Text + "</div>");
+                            } else {
+                                $(MonthDayBlock).find(".day").remove();
+                                var day_select = $("<select class='day floatleft'></select>");
+                                for (var i = 1; i <= 31; i++) {
+                                    day_select.append($('<option></option>').val(i).html(i))
+                                }
+                                $(MonthDayBlock).append(day_select);
+                                $(MonthDayBlock).find(".daytext").remove();
+                                $(MonthDayBlock).find(".day").before("<div class='daytext floatleft paddingsidefivepx'>" + Text + "</div>");
+                            }
+                        }
+
+
+                    </script>
+                    <style type="text/css">
+                        .MonthDayEachBlock {
+                            width: 100%;
+                            float: left;
+                        }
+
+                        .monthtext, .daytext, .month, .day {
+                            float: left;
+                        }
+
+                        .monthtext, .daytext {
+                            padding: 0 5px;
+                        }
+
+                        select.month {
+                            width: 100px;
+                        }
+                    </style>
+                </div>
+            </section>
+
+            <!--main content end-->
+        </section>
+    </section>
+</div>

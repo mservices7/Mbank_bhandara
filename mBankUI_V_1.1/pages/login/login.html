@@ -1,0 +1,80 @@
+
+<body class="hold-transition login-page" style="background-color:#583a63;  ">
+    <div class="login-box">
+        <div class="login-box-body text-center bg-aqua" >
+            <b style="font-size:15pt;color:whitesmoke"><b>{{mBank}}</b></b>
+        </div><!-- /.login-logo -->
+
+        <div class="login-box-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            <form class="form-horizontal" name="myForm" novalidate>
+                <div class="form-group has-feedback">
+                    <input type="text" name="user" ng-model="username" class="form-control" placeholder="Usernname" required>
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    <div class="text-center" style="color:orange;" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+                        <b ng-show="myForm.user.$error.required">  Username is required.</b>
+                    </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                    <input type="password" name="password" ng-model="password" class="form-control" placeholder="Password" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    <div class="text-center" style="color:orange" ng-show="myForm.password.$dirty && myForm.password.$invalid">
+                        <b class="text-center" ng-show="myForm.password.$error.required">  Password is required.</b>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-2">
+                        <div class="checkbox icheck">
+
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-xs-10 text-right">
+                        <a class="btn btn-primary  btn-flat" ng-click="buttonclick()">Sign In</a>
+                        <a class="btn btn-warning   btn-flat" ng-click="clear(username='',password='')">Clear</a>
+                    </div><!-- /.col -->
+                </div>
+                <h4 ng-show="loadLogin" class="text-center" style="color:green"><b>Loading...</b></h4>
+                <h5 ng-show="detailsLogin" class="text-center" style="color:orangered"><b>Please Enter Login Details</b></h5>
+                <h5 ng-show="loadLoginFail" class="text-center" style="color:red"><b>Incorrect Username and Password</b></h5>
+
+                <h5 ng-show="loadLoginUserFail" class="text-center" style="color:red"><b>Incorrect Username</b></h5>
+                <h5 ng-show="loadLoginPasswordFail" class="text-center" style="color:red"><b>Incorrect Password</b></h5>
+
+                <h5 ng-show="loadLoginFailInt" class="text-center" style="color:brown"><b>Server Down</b></h5>
+            </form>
+
+            <div class="social-auth-links text-center">
+
+            </div><!-- /.social-auth-links -->
+
+          <!--  <a class="" href="" onclick="myFunction()">I forgot my password</a><br>-->
+            <a href="register.html" class="text-center"></a>
+
+
+        </div><!-- /.login-box-body -->
+    </div><!-- /.login-box -->
+    <!-- jQuery 2.1.4 -->
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <!--<div class="modal-footer navbar-fixed-bottom" style="margin-right:0px;border:none;color:white">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 2.3.0
+        </div>
+        <strong class="col-sm-7 pull-left">Copyright &copy;<a href="http://mservices.in">Mservices Solution Pvt Ltd</a>. All rights reserved.</strong>
+    </div>-->
+    <script>
+      $(function () {
+        $('input').iCheck({
+          checkboxClass: 'icheckbox_square-blue',
+          radioClass: 'iradio_square-blue',
+          increaseArea: '20%' // optional
+        });
+      });
+    </script>
+</body>
+

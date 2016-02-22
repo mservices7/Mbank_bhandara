@@ -1,0 +1,104 @@
+﻿   <div class="wrapper" ng-init="CheckLogin()" ng-controller="homeController">
+       <ng-include src="'pages/sidebar/sidebar.html'"></ng-include>
+       
+        <!-- <header class="main-header">
+           Logo  
+           <a href="" class="logo">
+               <!-- mini logo for sidebar mini 50x50 pixels -->
+       <!-- logo for regular state and mobile devices  
+               <span class="logo-lg"><b>mBank</b></span>
+           </a>
+           <!-- Header Navbar: style can be found in header.less  
+           <nav class="navbar navbar-static-top" role="navigation">
+               <!-- Sidebar toggle button 
+
+               <div class="navbar-custom-menu">
+                   <ul class="nav navbar-nav">
+                       <li ng-show="logoutLoading">
+                           <a href="" class="">
+                               <i class="fa fa-spinner"></i> Logout in {{counter}} Sec....
+
+                           </a>
+                       </li>
+                       <!-- Messages: style can be found in dropdown.less-->
+       <!-- User Account: style can be found in dropdown.less  
+                       <li class="dropdown user user-menu">
+                           <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                               <span ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
+                                   <img src={{imgData.imgUrl}} class="user-image pull-left" alt="User Image">
+                               </span>
+                               <span ng-style="{'width':dataLength}">{{bmName}}</span>
+                           </a>
+
+                           <ul class="dropdown-menu">
+                               <!-- User image  
+                               <li class="user-header">
+                                   <div ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
+                                       <img src={{imgData.imgUrl}} style="width:100%;height:100px" alt="User Image">
+                                   </div>
+                                   <p>
+                                       {{bmName}} <br /> Branch Manager
+                                       <!--  <small>Member since Nov. 2012</small> 
+                                   </p>
+                               </li>
+
+                               <li class="user-footer">
+                                   <div class="pull-left">
+                                       <a href="#/home" class="btn btn-default btn-flat">Profile</a>
+                                   </div>
+                                   <div class="pull-right">
+                                       <a href="" class="btn btn-default btn-flat" ng-click="logout()">Sign out</a>
+                                   </div>
+                               </li>
+
+                           </ul>
+                       </li>
+
+                   </ul>
+               </div>
+           </nav>
+       </header>
+    <!-- Content Wrapper. Contains page content -->
+          <!-- <div class="content-wrapper">
+        
+        <!-- Main content 
+        <section class="content">
+            <!-- Info boxes 
+            <div class="row col-lg-12">
+                <div class="col-lg-4">
+                    <a class="btn btn-danger" href="#/dd"><i>SAVING</i></a>
+
+
+                </div>
+                <div class="col-lg-4">
+                    <a class="btn btn-primary"><i>LOAN</i></a>
+
+
+                </div>
+                <div class="col-lg-4">
+                    <a class="btn btn-default"><i>MANAGEMENT</i></a>
+
+
+                </div>
+
+
+            </div><!-- /.row  
+
+
+             
+</section>
+
+  
+        
+
+</div>-->
+       <div class="contentarearight">
+           <div class="contentarearight_panel">
+               <div class="contentarearight_panel_1"><a href="#/dd"><img src="images/saving_img.png" border="0" /></a></div>
+               <div class="contentarearight_panel_2"><a href="#"><img src="images/loan_img.png" border="0" /></a></div>
+               <div class="clear"></div>
+               <div class="contentarearight_panel_3"><a href="#"><img src="images/management_img.png" border="0" /></a></div>
+           </div>
+       </div>
+   <ng-include class="navbar-fixed-bottom" src="'bankPages/sidebar/footer.html'"></ng-include>
+</div>

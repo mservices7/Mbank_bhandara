@@ -1,0 +1,127 @@
+﻿<div ng-controller="sidebarController" ng-init="CheckLogin()">
+    
+    
+
+    <div class="header">
+        <div class="header_left">
+            <div class="logo_mbank"><a href="#/homes"><img src="images/mbank_logo.png" /></a></div>
+            <div class="companyname1">MBANK</div>
+        </div>
+        <div class="header_right">
+            <div class="logo">
+                <a href="index.html">
+                    <!--<img src="images/logo.png" />-->
+                    <span ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
+                        <img src={{imgData.imgUrl}} alt="User Image" />
+                    </span>
+                </a>
+            </div>
+            <!-- <div class="companyname2">The Maharashtra Nagri Sahakari Patasanstha</div>-->
+            <div class="companyname2"> {{brName}}</div>
+            <div class="logoutbar">
+                <!--<div class="logoutbar_text">Mugdha Damle</div>
+                <div class="logoutbar_img"><img src="images/photoicon1.png" /></div>-->
+
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!--<li ng-show="logoutLoading">
+                            <a href="" class="">
+                                <i class="fa fa-spinner"></i> Logout in {{counter}} Sec....
+
+                            </a>
+                        </li>-->
+                        <!-- Messages: style can be found in dropdown.less-->
+                        <!-- User Account: style can be found in dropdown.less-->
+                        <li class="dropdown user user-menu" style="width: 160px;">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                <!--  <span ng-style="{'width':dataLength}">{{bmName}}</span>-->
+                                <span ng-style="{'width':dataLength}">Suresh Bharane</span>
+                                <span ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
+                                    <img src={{imgData.imgUrl}} class="user-image pull-left" alt="User Image">
+                                </span>
+
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image-->
+                                <li class="user-header">
+                                    <div class="pull-left" ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
+                                        <img src={{imgData.imgUrl}} style="width:120%;height:95px" alt="User Image">
+                                    </div>
+
+                                    <div class="pull-right">
+                                        <b> {{bmName}} </b>  <br /> <b>Branch Manager</b>
+                                        <!--  <small>Member since Nov. 2012</small>-->
+                                    </div>
+                                </li>
+
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <!-- <a href="#/home" class="btn btn-default btn-flat">Profile</a>-->
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="" class="btn btn-default btn-flat" ng-click="logout()">Sign out</a>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+
+
+    
+    <div class="contentarea">
+        <div class="contentarealeft">
+            <div class="userbar">
+                <div class="userbar_1"><img src="images/photoicon2.png" class="circular" /></div>
+                <div class="userbar_2">MANAGER</div>
+                <div class="clear"></div>
+                <!--<div class="userbar_3">
+                    <div class="userbar_3_img1"><a href="#"><img src="images/profileicon.png" /></a></div>
+                    <div class="userbar_3_img1"><a href="#"><img src="images/emailicon.png" /></a></div>
+                    <div class="userbar_3_img1"><a href="#"><img src="images/notificationicon.jpg" /></a></div>
+                    <div class="userbar_3_img2"><a href="#"><img src="images/logouticon.jpg" /></a></div>
+                    <div class="clear"></div>
+                </div>-->
+            </div>
+            <div class="menubar">
+                <ul class="menu">
+                    <li><a class="active" href="#/homes">Dashboard</a></li>
+                    <li><a class="active" href="savings.html">Savings</a></li>
+                    <!--<li><a href="#">Bank</a></li>
+                    <li><a href="#">Management</a></li>-->
+                </ul>
+               
+
+
+            </div>
+
+            <div class="circle_dd"><a href="#/dd">DD</a></div>
+            <div class="circle_rd"><a href="#/rd">RD</a></div>
+            <div class="circle_fd"><a href="#/fd">FD</a></div>
+            <div class="circle_savings"><a href="#/saving">Savings</a></div>
+
+        </div>
+        <!--<div class="contentarearight">
+            <div class="contentarearight_panel">
+                <div class="contentarearight_panel_1"><a href="#"><img src="images/saving_img.png" border="0" /></a></div>
+                <div class="contentarearight_panel_2"><a href="#"><img src="images/loan_img.png" border="0" /></a></div>
+                <div class="clear"></div>
+                <div class="contentarearight_panel_3"><a href="#"><img src="images/management_img.png" border="0" /></a></div>
+            </div>
+        </div>
+        <div class="clear"></div>-->
+    </div>
+
+
+
+</div>

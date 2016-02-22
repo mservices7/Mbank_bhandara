@@ -1,0 +1,218 @@
+﻿
+<div class="wrapper" style="height:1000px">
+    <ng-include src="'pages/sidebar/sidebar.html'"></ng-include>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <section class="content-header">
+                                <h1>
+                                    Approve Customer's Request
+                                </h1>
+                                <ol class="breadcrumb">
+                                    <li><a href="#/home"><i class="fa fa-dashboard"></i> Home</a></li>
+                                    <li class="active"> Approve Customer's Request</li>
+                                </ol>
+                            </section>
+                        </div><!-- /.box-header -->
+                         <!-- /.box-header -->
+                        <div class="box-body">
+                            <form class="form-horizontal panel panel-primary" name="form">
+                                <div class="panel-heading text-center">
+                                    <b style="font-size:20pt;padding-top:10px"> {{reqCustName}}</b>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-sm-6" style="padding:0px">
+                                        <div class="form-group has-success has-feedback col-sm-12" ng-class="{ 'has-error': form.firstName.$dirty &&( form.firstName.$error.required || form.firstName.$error.pattern || form.firstName.$error.maxlength) }">
+                                            <label class="control-label col-sm-3" for="inputSuccess3">Name</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="firstName" ng-model="reqCustName" class="form-control capitalize" id="inputSuccess3"  placeholder="Please Update Name" aria-describedby="inputSuccess3Status" maxlength="20" ng-pattern="/^[a-zA-Z ]*$/">
+                                                <span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block"> Name is required</span>
+                                                <span ng-show="form.firstName.$dirty && form.firstName.$error.pattern" class="help-block"> Name should only contain alphabets</span>
+                                                <span ng-show="form.firstName.$dirty && form.firstName.$error.maxlength" class="help-block">Length should be within 30 characters.</span>
+
+                                                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                                <span id="inputSuccess3Status" class="sr-only">(success)</span>
+                                               
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-success has-feedback col-sm-12">
+                                            <label class="control-label col-sm-3" for="inputGroupSuccess2">Acc Type:</label>
+                                            <div class="col-sm-9">
+
+
+                                                <select class="form-control" ng-model="reqCustAccType" aria-describedby="inputGroupSuccess2Status" disabled>
+                                                   
+                                                     <option value="">Select Acc type</option>
+                                                    <option ng-repeat="acc in accounts" value="{{acc.pType}}">{{acc.pType}}</option>
+                                                    
+
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-success has-feedback col-sm-12" ng-class="{'has-error':panCard.$dirty &&( form.panCard.$error.required || form.panCard.$error.maxlength) }">
+                                            <label class="control-label col-sm-3" for="inputSuccess3">Pan No.</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="panCard" ng-model="reqCustPanNo" placeholder="Enter Pan Card Number" class="form-control" id="inputSuccess3" aria-describedby="inputSuccess3Status" maxlength="10">
+                                                <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="reqCustPanNo" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-remove form-control-feedback" style="color:red" ng-show="!reqCustPanNo" aria-hidden="true"></span>
+                                                <span id="inputSuccess3Status" class="sr-only">(success)</span>
+                                                <span ng-show="form.panCard.$dirty && form.panCard.$error.pattern" class="help-block">PAN is required </span>
+                                                <span ng-show="form.panCard.$dirty && form.panCard.$error.maxlength" class="help-block">Enter only Valid PAN.</span>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group has-success has-feedback col-sm-12" ng-class="{ 'has-error': form.mobileNo.$dirty && (form.mobileNo.$error.required || form.mobileNo.$error.pattern || form.mobileNo.$error.minlength || form.mobileNo.$error.maxlength) }">
+                                            <label class="control-label col-sm-3" for="inputSuccess3">Contact No.</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="mobileNo" ng-model="reqCustMobNumber" class="form-control" id="inputSuccess3" aria-describedby="inputSuccess3Status" maxlength="10">
+                                                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                                <span id="inputSuccess3Status" class="sr-only">(success)</span>
+                                                <span ng-show="form.mobileNo.$dirty && form.mobileNo.$error.required" class="help-block">Mobile No is required</span>
+                                                <span ng-show="form.mobileNo.$dirty && (form.mobileNo.$error.minlength || form.mobileNo.$error.maxlength)" class="help-block">Enter 10 digit only</span>
+                                                <span ng-show="form.mobileNo.$dirty && form.mobileNo.$error.pattern" class="help-block">Enter valid 10 digit mobile no.</span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-success has-feedback col-sm-12" ng-class="{'has-error': form.permanentAddress.$dirty &&( form.permanentAddress.$error.required || form.permanentAddress.$error.maxlength) }">
+                                            <label class="control-label col-sm-3" for="inputSuccess3">Address.</label>
+                                            <div class="col-sm-9">
+                                                <textarea type="text" name="permanentAddress" ng-model="reqCustAdd" class="form-control capitalize" id="inputSuccess3" aria-describedby="inputSuccess3Status"></textarea>
+                                                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                                <span id="inputSuccess3Status" class="sr-only">(success)</span>
+                                                <span ng-show="form.permanentAddress.$dirty && form.permanentAddress.$error.pattern" class="help-block">Parmanent Address is required </span>
+                                                <span ng-show="form.permanentAddress.$dirty && form.permanentAddress.$error.maxlength" class="help-block">Length should be within 50 characters.</span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-success has-feedback col-sm-12" ng-class="{ 'has-error': form.email.$dirty && ( form.email.$error.required || form.email.email.$invalid)}">
+                                            <label class="control-label col-sm-3" for="inputGroupSuccess2">Email:</label>
+                                            <div class="col-sm-9">
+                                                <div class="input-group" ng-class="{ 'has-error': form.email.$dirty && ( form.email.$error.required || form.email.email.$invalid)}">
+                                                    <span class="input-group-addon">@</span>
+                                                    <input type="email" name="email" class="form-control" ng-model="reqCustEmail" id="inputGroupSuccess2" aria-describedby="inputGroupSuccess2Status">
+                                                    <span ng-show="form.email.$dirty && form.email.$error.email" class="help-block">Invalid Mail Id</span>
+                                                    <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+
+                                                </div>
+                                                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                                <span id="inputGroupSuccess2Status" class="sr-only">(success)</span>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-sm-6" style="padding:0px">
+                                        <div class="form-group has-success has-feedback col-sm-12">
+                                            <label class="control-label col-sm-3" for="inputSuccess3">Account No.</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" ng-model="reqCustAcc" id="inputSuccess3" aria-describedby="inputSuccess3Status" disabled>
+                                                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                                <span id="inputSuccess3Status" class="sr-only">(success)</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-warning has-feedback col-sm-12" ng-class="{ 'has-error': form.lastName.$dirty && ( form.lastName.$error.required || form.lastName.$error.pattern || form.lastName.$error.maxlength)}">
+                                            <label class="control-label col-sm-3" for="inputSuccess3">Reqest By.</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="lastName" class="form-control marathifont capitalize" ng-model="reqCustAgent" id="inputSuccess3" aria-describedby="inputSuccess3Status" ng-pattern="/^[a-zA-Z ]*$/" maxlength="20">
+                                                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                                <span id="inputSuccess3Status" class="sr-only">(success)</span>
+                                                <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last Name is required</span>
+                                                <span ng-show="form.lastName.$dirty && form.lastName.$error.pattern" class="help-block">Last Name should only contain alphabets</span>
+                                                <span ng-show="form.lastName.$dirty && form.lastName.$error.maxlength" class="help-block">Length should be within 30 characters.</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-success has-feedback col-sm-12">
+                                            <label class="control-label col-sm-3" for="inputSuccess3">Request Date.</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" ng-model="reqCustReqDate" class="form-control" id="inputSuccess3" aria-describedby="inputSuccess3Status">
+                                                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                                <span id="inputSuccess3Status" class="sr-only">(success)</span>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+                                </div>
+
+                                <div class="panel-footer text-center bg-warning" style="background-color:lightgray">
+                                    <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">Approved & Create Customer </a>
+                                    <a class="btn btn-danger btn-sm" ng-href="#/req_cust"><i class="glyphicon glyphicon-backward"></i> Cancel & Go To Req Customer </a>
+                                </div>
+
+                                <div id="myModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">{{reqCustName}}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-bordered">
+                                                    <tr>
+                                                        <td>Name:</td>
+                                                        <td>{{reqCustName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Acc No.:</td>
+                                                        <td>{{reqCustAcc}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Acc Type:</td>
+                                                        <td>
+                                                           {{reqCustAccType}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Agent Alloted:</td>
+                                                        <td>{{reqCustAgent}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Customer Mob.:</td>
+                                                        <td>{{reqCustMobNumber}}</td>
+                                                    </tr>
+
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a class="btn btn-success btn-sm" data-dismiss="modal" ng-click="approvedCustomer();">Approved & Create Customer </a>
+                                                <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </section>
+
+    </div>
+
+    <ng-include class="navbar-fixed-bottom" src="'bankPages/sidebar/footer.html'"></ng-include>
+</div>
+
+ 

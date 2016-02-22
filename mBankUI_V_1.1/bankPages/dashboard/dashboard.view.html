@@ -1,0 +1,277 @@
+﻿
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div ng-init="CheckLogin()" ng-controller="dashboardController">
+    <!-- container section start -->
+    <section>
+        <!--sidebar start-->
+        <div>
+            <ng-include src="'pages/sidebar/sidebar.html'"></ng-include>
+        </div>
+        <!--sidebar end-->
+        <!--main content start-->
+
+
+        <section id="main-content" style="padding-top:0px;height:800px;">
+            <section class="" style="margin-top:20px;margin-bottom:0px;">
+                <!--overview start-->
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <h3 class="page-header">
+                            <i class="glyphicon glyphicon-blackboard"></i>
+                            Dashboard
+                            <a style="float:right" class="refresha btn btn-warning btn-sm" href="" ng-click="refreshdash()">
+                                <span class="glyphicon glyphicon-refresh"></span> Refresh
+                            </a>
+                        </h3>
+
+
+                        <!--<h3>
+                            <a class="" ng-click="alldata()">
+                                <i class="glyphicon glyphicon-refresh" style="float:left"></i>
+                            </a>
+                        </h3>-->
+
+                        <ol class="breadcrumb">
+                            <li><i class="glyphicon glyphicon-home"></i><a style="text-decoration:none;" href="#/dashboard">Home</a></li>
+                            <li><i class="glyphicon glyphicon-blackboard"></i>Dashboard</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3 ">
+                                        <span class="glyphicon glyphicon-calendar iconsize"></span>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div style="padding-top:15px"><span class="huge">{{amountTotal}} ₹
+                                             </span><span ng-show="!transactionsT" style="font-size:15pt;color:yellow">Loading...</span>
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="index.html#/dashboard">
+                                <div class="panel-footer" style="color:white">
+                                    <span class="pull-right">Total Transactions Amount!</span>
+                                    <span class="pull-left"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel panel-warning" style="color:#fff;">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3 ">
+                                        <span class="glyphicon glyphicon-credit-card iconsize"></span>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div style="padding-top:15px"><span class="huge">{{thisMontsCollection}} ₹</span><span ng-show="!transactionsT" style="font-size:15pt;color:yellow">Loading...</span></div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="index.html#/dashboard">
+                                <div class="panel-footer" style="">
+                                    <span class="pull-right">This Month Total Amount!</span>
+                                    <span class="pull-left"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3 ">
+                                        <span class="glyphicon glyphicon-credit-card iconsize"></span>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div style="padding-top:15px"><span class="huge">{{weedDAte}} ₹ </span><span ng-show="!transactionsT" style="font-size:15pt;color:yellow">Loading...</span></div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="index.html#/dashboard">
+                                <div class="panel-footer">
+                                    <span class="pull-right">Last Seven Days Total Amount!</span>
+                                    <span class="pull-left"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel " style="color:#fff;background:#1a2732;background-color:#1a2732;">
+                            <div class="panel-heading" style="color:#fff;background:#1a2732;border-bottom-color:black;background-color:#1a2732;">
+                                <div class="row">
+                                    <div class="col-xs-3 ">
+                                        <span class="glyphicon glyphicon-ok-circle iconsize"></span>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div style="padding-top:15px"><span class="huge">{{todaystrxsDashBoard.length}} </span><span ng-show="!todaystrxsDashBoard" style="font-size:15pt;color:yellow">Loading...</span></div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="index.html#/dashboard">
+                                <div class="panel-footer" style="color:#fff;background:#1a2732;background-color:#1a2732;">
+                                    <span class="pull-right">Today's No. Of Trxs!</span>
+                                    <span class="pull-left"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel " style="background-color: #d95043;border:#d95043;color:black">
+                            <div class="panel-heading" style="background-color: #d95043;color:black">
+                                <div class="row">
+                                    <div class="col-xs-3 ">
+                                        <span class="glyphicon glyphicon-credit-card iconsize"></span>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div style="padding-top:15px"><span class="huge">{{amountToday}} ₹ </span><span ng-show="!trxs" style="font-size:15pt;color:yellow">Loading...</span></div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="index.html#/dashboard">
+                                <div class="panel-footer" style="background-color: #d95043;color:white">
+                                    <span class="pull-right">Today Transactions Amount!</span>
+                                    <span class="pull-left"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel " style="color:black; background : #57889c; background-color : #57889c;">
+                            <div class="panel-heading" style="color:black; background : #57889c; background-color : #57889c;">
+                                <div class="row">
+                                    <div class="col-xs-3 ">
+                                        <span class="glyphicon glyphicon-user  iconsize"></span>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div style="padding-top:15px"><span class="huge">{{agents.length}} </span><span ng-show="!agents" style="font-size:15pt;color:yellow">Loading...</span></div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="index.html#/dashboard">
+                                <div class="panel-footer" style="color:#fff; background : #57889c; background-color : #57889c;">
+                                    <span class="pull-right">Total Number Of Agents!</span>
+                                    <span class="pull-left"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3 ">
+                                        <span class="glyphicon glyphicon-user  iconsize"></span>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div style="padding-top:15px"><span class="huge">{{customers.length}}</span><span ng-show="!customers" style="font-size:15pt;color:yellow">Loading...</span></div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="index.html#/dashboard">
+                                <div class="panel-footer" style="color:#fff; ">
+                                    <span class="pull-right">Total Number Of Customers!</span>
+                                    <span class="pull-left"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+                <!--chart-->
+                <div class="row text-center" style="margin-left:3px;margin-right:3px">
+
+                    <section class="panel" style="width:100%;">
+                        <header class="panel-heading bg-primary">
+                            Date Wise Transactions Graph
+                        </header>
+                        <span style="padding-right:850px; padding-top:40px; color:tomato;"><b>Amount</b></span>
+
+                        <div class="panel-body text-cente" style="width:100%;">
+                            <canvas id="line" height="300" width="1200"></canvas>
+                            <span ng-show="!tr2" class="count" style="color:yellow">Loading...</span>
+                            <span style="padding-left:80px; color:tomato;"><b>Date</b></span>
+                        </div>
+                    </section>
+
+                </div>
+                <!--chart close-->
+                <!--chart-->
+
+                <div class="row text-center" style="margin-left:3px;margin-right:3px">
+                    <section class="panel" style="width:100%;">
+                        <header class="panel-heading bg-primary">
+                            Agent Wise Transactions Graph
+                        </header>
+                        <span style="padding-left:30px; padding-top:40px; color:tomato;"><b>Amount</b></span>
+
+                        <div class="panel-body text-center">
+                            <canvas id="bar" height="300" width="1200"></canvas>
+                            <span style="color:tomato;"><b>Agent</b></span>
+                        </div>
+                    </section>
+                </div>
+
+
+                <!--close chart-->
+            </section>
+
+            <section class="wrapper" style="margin-top:0px;"></section>
+
+            <!--main content end-->
+        </section>
+    </section>
+</div>

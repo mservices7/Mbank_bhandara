@@ -1,0 +1,623 @@
+﻿
+<div class="wrapper" style="background-color:#222d32;">
+    <div class="navbar-fixed-top"><ng-include src="'pages/sidebar/sidebar.html'"></ng-include></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="margin-top:50px;padding-bottom:300px">
+        <!-- Main content -->
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <section class="content-header">
+                                <h1>
+                                    End Of The Day Record
+                                </h1>
+                                <ol class="breadcrumb">
+                                    <li><a href="#/home"><i class="fa fa-dashboard"></i> Home</a></li>
+                                    <li class="active"> End Of The Day Record</li>
+                                </ol>
+                            </section>
+                        </div><!-- /.box-header -->
+                        <!-- form start -->
+
+
+                        <div class="box-body">
+                            <div class="panel panel-default">
+
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="/reportEOD#home" data-toggle="tab" aria-expanded="true">Agent Data</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="/reportEOD#profile" data-toggle="tab" aria-expanded="false">Customer Data</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="/reportEOD#DateReport" data-toggle="tab" aria-expanded="false">Report By Date</a>
+                                        </li>
+
+                                    </ul>
+
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade  active in" id="home">
+                                            <!-- <h4 class=" btn btn-info btn-sm">Agent Wise EOD Report</h4>-->
+
+                                            <table class="table table-bordered table-striped" style="margin-top:10px">
+                                                <thead>
+                                                    <tr style="background-color:greenyellow">
+
+                                                        <th>Agent Name</th>
+                                                        <th>Date</th>
+                                                        <th class="text-center">Customer Details</th>
+                                                        <th class="text-center">Today Report</th>
+
+                                                    </tr>
+                                                    <tr style="background-color:lightgray">
+
+                                                        <th>
+                                                            <div class=" form-group-sm">
+                                                                <input type="text" class="form-control" ng-model="search" placeholder="Search Agent" />
+                                                            </div>
+                                                        </th>
+                                                        <th colspan="3">Search Agent Here</th>
+
+
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr class="warning text-center" ng-show="!todayRecordTrans">
+                                                        <th colspan="4">Loading...</th>
+
+                                                    </tr>
+                                                    <tr class="warning text-center" ng-show="todayRecordTrans.length == 0">
+                                                        <th colspan="4">No Transactions Today</th>
+
+                                                    </tr>
+
+                                                    <tr ng-repeat="data in todayRecordTrans |filter:search  | unique:'agent_id'">
+
+                                                        <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.agent_name}}</td>
+                                                        <td>{{todayDates}}</td>
+
+                                                        <td class="text-center"><a ng-click="agetCustReport(agentIDData=data.agent_id);" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#{{data.agent_id}}1">Cust. Details</a></td>
+
+                                                        <td class="text-center">
+                                                            <a ng-click="agetTodayReport(agentIDData=data.agent_id);" data-toggle="modal" data-target="#{{data.agent_id}}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-calendar"></i> Todays Report</a>
+
+                                                            <div id="{{data.agent_id}}" class="modal fade" role="dialog">
+                                                                <div class="modal-dialog modal-lg">
+
+                                                                    <!-- Modal content-->
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                            <h4 class="modal-title"><b ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.agent_name}}</b></h4>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <table class="table table-bordered">
+
+                                                                                <tr>
+                                                                                    <td class="info">Name:</td>
+                                                                                    <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.agent_name}}</td>
+
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="info">Today Transaction:</td>
+                                                                                    <td class="">{{agentTodayTotalTrx}}</td>
+
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="info">Today Collection:</td>
+                                                                                    <td class=""><b>{{agentTodayTotalColl}}  ₹</b></td>
+
+                                                                                </tr>
+                                                                            </table>
+                                                                        </div>
+                                                                        <div class="modal-footer" style="padding:2px 5px 2px">
+                                                                            <a class="btn btn-default" data-dismiss="modal">Close</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div id="{{data.agent_id}}1" class="modal fade" role="dialog">
+                                                                <div class="modal-dialog modal-lg">
+
+                                                                    <!-- Modal content-->
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                            <h4 class="modal-title"><b ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.agent_name}}</b></h4>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <table class="table table-bordered table-hover">
+                                                                                <tr style="background-color:greenyellow">
+                                                                                    <th>Name</th>
+                                                                                    <th>Amount</th>
+                                                                                    <th>Time</th>
+                                                                                </tr>
+                                                                                <tr style="background-color:lightgray">
+                                                                                    <th><div class="form-group-sm"><input type="text" class="form-control" ng-model="searchtrx" placeholder="Search Customer" /></div></th>
+                                                                                    <th colspan="2">Search Here</th>
+
+                                                                                </tr>
+                                                                                <tr class="warning text-center" ng-show="!agentTodayTotalCust">
+                                                                                    <th colspan="3">Loading...</th>
+
+                                                                                </tr>
+                                                                                <tr ng-repeat="CustToday in agentTodayTotalCust |filter:searchtrx">
+
+                                                                                    <td ng-class="{marathifont:{{CustToday.bank_id}}===1}" class="text-left">{{CustToday.cust_name}}</td>
+                                                                                    <td>{{CustToday.amt}} ₹</td>
+                                                                                    <td>{{CustToday.trx_dt}}</td>
+
+                                                                                </tr>
+
+                                                                            </table>
+                                                                        </div>
+                                                                        <div class="modal-footer" style="padding:2px 5px 2px">
+                                                                            <a class="btn btn-default" data-dismiss="modal">Close</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+
+
+                                        <div class="tab-pane fade" id="profile">
+
+                                            <!--<h4 class=" btn btn-info btn-sm">Customer Wise EOD Report</h4>-->
+
+
+                                            <table class="table table-bordered table-striped" style="margin-top:10px">
+                                                <thead>
+                                                    <tr style="background-color:greenyellow">
+
+                                                        <th>Customer Name</th>
+                                                        <th>Date</th>
+                                                        <th class="text-center">Customer Details</th>
+                                                        <th class="text-center">Today Report</th>
+
+                                                    </tr>
+                                                    <tr style="background-color:lightgray">
+
+                                                        <th>
+                                                            <div class=" form-group-sm">
+                                                                <input type="text" class="form-control" ng-model="searchdd" placeholder="Search Customer" />
+                                                            </div>
+                                                        </th>
+                                                        <th colspan="3">Search Agent Here</th>
+
+
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr class="warning text-center" ng-show="!todayRecordTrans">
+                                                        <th colspan="4">Loading...</th>
+
+                                                    </tr>
+                                                    <tr class="warning text-center" ng-show="todayRecordTrans.length == 0">
+                                                        <th colspan="4">No Transactions Today</th>
+
+                                                    </tr>
+                                                    <tr ng-repeat="data in todayRecordTrans |filter:searchdd | unique:'cust_id'">
+
+                                                        <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.cust_name}}</td>
+                                                        <td>{{todayDates}}</td>
+
+                                                        <td class="text-center"><a ng-click="custCustReport(custIDData=data.cust_id);" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#{{data.cust_id}}2">Cust. Details</a></td>
+
+                                                        <td class="text-center">
+                                                            <a ng-click="custTodayReport(custIDData=data.cust_id);" data-toggle="modal" data-target="#{{data.agent_id}}2" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-calendar"></i> Todays Report</a>
+
+                                                            <div id="{{data.cust_id}}2" class="modal fade" role="dialog">
+                                                                <div class="modal-dialog modal-lg">
+
+                                                                    <!-- Modal content-->
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                            <h4 class="modal-title"><b ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.cust_name}}</b></h4>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <table class="table table-bordered">
+
+                                                                                <tr>
+                                                                                    <td class="info">Name:</td>
+                                                                                    <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.cust_name}}</td>
+
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="info">Address:</td>
+                                                                                    <td><span ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{custAddReport}}</span><span class="text-danger" ng-show="!custAddReport">Not Available</span></td>
+
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="info">Contact Details:</td>
+                                                                                    <td class="">{{custMobileReport}} <span class="text-danger" ng-show="!custMobileReport">Not Available</span></td>
+
+                                                                                </tr>
+                                                                            </table>
+                                                                        </div>
+                                                                        <div class="modal-footer" style="padding:2px 5px 2px">
+                                                                            <a class="btn btn-default" data-dismiss="modal">Close</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div id="{{data.agent_id}}2" class="modal fade" role="dialog">
+                                                                <div class="modal-dialog modal-lg">
+
+                                                                    <!-- Modal content-->
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                            <h4 class="modal-title"><b ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.cust_name}}</b></h4>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <table class="table table-bordered table-hover">
+                                                                                <tr>
+                                                                                    <td class="info">Name</td>
+                                                                                    <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.cust_name}}</td>
+
+
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="info">Number Of TRXN</td>
+                                                                                    <td class=" ">{{custTodayTotalCusts}}</td>
+
+
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="info">Total Amount</td>
+                                                                                    <td class=" "><b>{{custTodayTotalCustsColl}} ₹</b></td>
+
+
+                                                                                </tr>
+
+                                                                            </table>
+                                                                        </div>
+                                                                        <div class="modal-footer" style="padding:2px 5px 2px">
+                                                                            <a class="btn btn-default" data-dismiss="modal">Close</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+
+                                        <div class="tab-pane fade " id="DateReport">
+
+                                            <!-- /.panel-heading -->
+                                            <div iv class=" " style="margin-top:15px">
+                                                <!-- Nav tabs -->
+                                                <ul class="nav nav-pills">
+                                                    <li class="active">
+                                                        <a href="/reportEOD#weekly" ng-click="getDateDataClick();" class="btn btn-default" data-toggle="tab">Weekly Reports</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/reportEOD#Monthly" class="btn btn-default" data-toggle="tab">Monthly Reports</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/reportEOD#yearly" class="btn btn-default" data-toggle="tab">Yearly Reports</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="/reportEOD#betweenDates" class="btn btn-default" data-toggle="tab">Between Dates Reports</a>
+                                                    </li>
+                                                </ul>
+
+
+                                                <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                    <div class="tab-pane fade active in" style="border-top:thick" id="weekly">
+
+                                                        <div class="col-sm-12 bg-danger panel-body" style="margin-top:10px">
+                                                            <div class="col-sm-6">
+                                                                <select style="color:black" class="form-control" ng-model="recordDates" ng-change="showBackData()">
+                                                                    <option style="color:black" value="">Select Date Here</option>
+                                                                    <option style="color:black" value="{{dataDate.trx_dt}}" ng-repeat="dataDate in trxndate | unique:'trx_dt'">{{dataDate.trx_dt}}</option>
+                                                                </select>
+                                                            </div>
+                                                            <!--<input type="datetime" ng-model="recordDates" class="form-control"> </div>-->
+                                                            <div class="col-lg-6">
+                                                                <a class="btn btn-success btn-block" ng-click="showBackData()">
+                                                                    Show Transaction of Before 7 Days From Selected Date
+                                                                </a>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div class="col-sm-12" style="margin-top:10px">
+                                                            <h2 class="text-center" ng-show="!sevenDaysCollection">Loading...</h2>
+                                                            <table class="table table-bordered table-striped" ng-show="showWhenClickDate">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="bg-success" style="width:400px;font-size:20pt">Total Amout Found</th>
+                                                                        <th style="font-size:20pt">{{amountFound}} ₹</th>
+                                                                        <th style="font-size:20pt" class="bg-primary text-center">From: {{recordDates}}</th>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Agent Name</th>
+                                                                        <th>Date</th>
+                                                                        <th>Collections</th>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th><input type="text" class="form-control" ng-model="searchdatedata" /></th>
+                                                                        <th>Collection</th>
+                                                                        <th>Details</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                    <tr ng-repeat="datesExact in sevenDaysCollection |filter:searchdatedata| limitTo:20">
+                                                                        <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{datesExact.anamse}}</td>
+                                                                        <td>{{datesExact.datess}}</td>
+
+                                                                        <td>{{datesExact.amtst}} ₹</td>
+
+
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="tab-pane fade " id="Monthly">
+
+
+
+                                                        <div class="col-sm-12 bg-danger panel-body" style="margin-top:10px">
+                                                            <div class="col-sm-6">
+                                                                <select style="color:black" class="form-control" ng-model="recordMonts" ng-change="showMonthsData()">
+                                                                    <option style="color:black" value="">Select Month Here</option>
+                                                                    <option style="color:black" value="{{dataee.getMonths}}" ng-repeat="dataee in filterDatesfound | unique:'getMonths2'">{{dataee.getMonths| datetime}}</option>
+                                                                </select>
+                                                            </div>
+                                                            <!--<input type="datetime" ng-model="recordDates" class="form-control"> </div>-->
+                                                            <div class="col-lg-6">
+                                                                <a class="btn btn-info btn-block" ng-click="showMonthsData()">
+                                                                    Show Transaction From Selected Month
+                                                                </a>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div class="col-sm-12" style="margin-top:10px">
+                                                            <h2 class="text-center" ng-show="!sevenDaysCollection">Loading...</h2>
+                                                            <table class="table table-bordered table-striped" ng-show="showWhenClickMon">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="bg-success" style="width:400px;font-size:20pt">Total Amout Found</th>
+                                                                        <th style="font-size:20pt">{{amountFFound}} ₹</th>
+                                                                        <th style="font-size:20pt" class="bg-primary text-center">Month: {{recordMonts | datetime}}</th>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Agent Name</th>
+                                                                        <th>Date</th>
+                                                                        <th>Collections</th>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th><input type="text" class="form-control" ng-model="mondatedata" placeholder="Search Here" /></th>
+                                                                        <th colspan="2" style="font-size:20pt">Seach Here</th>
+
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                    <tr ng-repeat="datessExact in monDaysCollection |filter:mondatedata">
+                                                                        <td ng-class="{marathifont:{{datessExact.bank_id}}===1}">{{datessExact.manamse}}</td>
+
+                                                                        <td>{{datessExact.mdatess}}</td>
+
+                                                                        <td>{{datessExact.mamtst}} ₹</td>
+
+
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+
+
+
+
+                                                    </div>
+
+                                                    <div class="tab-pane fade" id="yearly">
+
+
+
+                                                        <div class="col-sm-12 bg-info panel-body" style="margin-top:10px">
+                                                            <div class="col-sm-6">
+                                                                <select style="color:black" class="form-control" ng-model="recordYear" ng-change="showYearData()">
+                                                                    <option style="color:black" value="">Select Month Here</option>
+                                                                    <option style="color:black" value="{{dataee.getMonths | yearFormat}}" ng-repeat="dataee in filterDatesfound | unique:'getYear'">{{dataee.getMonths| yearFormat}}</option>
+                                                                </select>
+                                                            </div>
+                                                            <!--<input type="datetime" ng-model="recordDates" class="form-control"> </div>-->
+                                                            <div class="col-lg-6">
+                                                                <a class="btn btn-warning btn-block" ng-click="showYearData()">
+                                                                    Show Transaction From Selected Year
+                                                                </a>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div class="col-sm-12" style="margin-top:10px">
+                                                            <h2 class="text-center" ng-show="!yearDaysCollection">Loading...</h2>
+                                                            <table class="table table-bordered table-striped" ng-show="showWhenClickYear">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="bg-success" style="width:400px;font-size:20pt">Total Amout Found</th>
+                                                                        <th style="font-size:20pt">{{amountYFound}} ₹</th>
+                                                                        <th style="font-size:20pt" class="bg-primary text-center">Year: {{recordYear}}</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Agent Name</th>
+                                                                        <th>Date</th>
+                                                                        <th>Collections</th>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th><input type="text" class="form-control" ng-model="yerdatedata" placeholder="Search Here" /></th>
+                                                                        <th colspan="2" style="font-size:20pt">Seach Here</th>
+
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                    <tr ng-repeat="dateyExact in yearDaysCollection |filter:yerdatedata |limitTo:30">
+                                                                        <td ng-class="{marathifont:{{dateyExact.bank_id}}===1}">{{dateyExact.ymanamse}}</td>
+
+                                                                        <td>{{dateyExact.ymdatess}}</td>
+
+                                                                        <td>{{dateyExact.ymamtst}} ₹</td>
+
+
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+
+
+
+
+                                                    </div>
+
+
+                                                    <div class="tab-pane fade" id="betweenDates">
+
+
+
+                                                        <div class="col-sm-12 bg-info panel-body" style="margin-top:10px">
+                                                            <div class="col-sm-5">
+                                                                <input type="date" class="form-control" ng-model="sdates" />
+                                                            </div>
+                                                            <div class="col-sm-5">
+                                                                <input type="date" class="form-control" ng-model="edates" />
+                                                            </div>
+
+                                                            <div class="col-sm-2">
+                                                                <a class="btn btn-primary btn-block" ng-click="showBeetwData()">
+                                                                    Show Record
+                                                                </a>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                        <div class="col-sm-12" style="margin-top:10px">
+                                                            <h2 class="text-center" ng-show="!yearDaysCollection">Loading...</h2>
+                                                            <table class="table table-bordered table-condensed" ng-show="showWhenClickBDate">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="bg-success" style="width:400px;font-size:20pt">Total Amout Found</th>
+                                                                        <th colspan="3" style="font-size:20pt">{{amountDBFound}} ₹</th>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="bg-success" style=" font-size:20pt">Start Date:</th>
+                                                                        <th style="font-size:20pt">{{sdates |yearDDMM}}</th>
+                                                                        <th class="bg-success" style=" font-size:20pt">Start Date:</th>
+                                                                        <th style="font-size:20pt">{{edates |yearDDMM}}</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th><input type="text" class="form-control" ng-model="BDdatedata" placeholder="Search Here" /></th>
+                                                                        <th colspan="3" style="font-size:20pt">Seach Here</th>
+
+
+                                                                    </tr>
+                                                                    <tr class="active">
+                                                                        <th>Agent Name</th>
+                                                                        <th colspan="2">Date</th>
+                                                                        <th>Collections</th>
+
+                                                                    </tr>
+
+                                                                </thead>
+                                                                <tbody>
+
+                                                                    <tr ng-repeat="dateBDExact in beetWDaysCollection |filter:BDdatedata |limitTo:30">
+                                                                        <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{dateBDExact.banamse}}</td>
+
+                                                                        <td colspan="2">{{dateBDExact.bdatess}}</td>
+
+                                                                        <td>{{dateBDExact.bamtst}} ₹</td>
+
+
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.panel-body -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </section>
+    </div>
+
+    <ng-include class="navbar-fixed-bottom" src="'bankPages/sidebar/footer.html'"></ng-include>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
