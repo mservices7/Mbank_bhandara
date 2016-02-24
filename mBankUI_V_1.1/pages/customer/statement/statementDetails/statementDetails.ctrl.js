@@ -1,9 +1,9 @@
 ﻿
 // create the module and name it scotchApp
-var scotchApp = angular.module('app.fd', ['ngRoute', 'ngCookies'])
+var scotchApp = angular.module('app.dd', ['ngRoute', 'ngCookies'])
 
 
-scotchApp.controller('fdController', function ($rootScope, $interval, $timeout, $scope, $http, $routeParams, $location, $filter, $cookieStore) {
+scotchApp.controller('ddController', function ($rootScope, $interval, $timeout, $scope, $http, $routeParams, $location, $filter, $cookieStore) {
 
     $scope.CheckLogin = function () {
         if ($cookieStore.get('bankIDImg') == undefined) { $location.path('/'); }
@@ -14,11 +14,7 @@ scotchApp.controller('fdController', function ($rootScope, $interval, $timeout, 
     var imageIDData = $cookieStore.get('bankIDImg');
     $scope.imgIdDdURL = imageIDData;
 
-    $scope.savingMenu = true;
-    $scope.rd = true;
-    $scope.dd = true;
-    $scope.fd = true;
-    $scope.saving1 = true;
+    
 
 
     $scope.imgDetails = [
@@ -40,19 +36,19 @@ scotchApp.controller('fdController', function ($rootScope, $interval, $timeout, 
     //Route Data
     $scope.trxData = $routeParams.exbank_id;
 
-
-    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data eq 3')
+ 
+    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data eq 1')
                                .success(function (response) {
                                    var trans1 = response;
                                    var user1 = trans1.value;
                                    $scope.transDetailsAccTypes = user1;
 
                                    var count = user1.length;
-                                   // alert(count);
+                                  // alert(count);
                                });
 
 
-
+    
 
 
 
@@ -69,7 +65,7 @@ scotchApp.controller('fdController', function ($rootScope, $interval, $timeout, 
         $scope.customerinfo = true;
         $scope.divCustomerAccountDetails = true;
 
-
+     
 
         $http.get(linkglobal + '/accounts?$filter=cust_id eq ' + custmerId).success(function (response) {
             var cust1 = response; var cust2 = cust1.value; $scope.customers = cust2; var count = cust2.length;
@@ -97,12 +93,12 @@ scotchApp.controller('fdController', function ($rootScope, $interval, $timeout, 
     //customer Search
     $scope.customerName = function () {
 
-        // alert('working...');
+       // alert('working...');
+       
 
+       // $location.path('/dd');
 
-        // $location.path('/dd');
-
-        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data eq 3')
+        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data eq 1')
                                .success(function (response) {
                                    var trans1 = response;
                                    var user1 = trans1.value;
@@ -111,7 +107,7 @@ scotchApp.controller('fdController', function ($rootScope, $interval, $timeout, 
                                    var count = user1.length;
                                });
 
-
+ 
 
     }
 })

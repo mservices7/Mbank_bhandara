@@ -4,8 +4,14 @@ var scotchApp = angular.module('scotchApp',
     ['ngRoute', 'app.login', 'app.dashboard', 'app.sidebar', 'app.accData', 'app.all_transactions', 'app.datewise_transactions', 'app.approve_transactions',
         'app.notApprove_transactions', 'app.custAccDetailsController', 'app.branchCreate', 'app.userCreate', 'app.profile', 'app.create_customer', 'app.approveCustomer', 'app.RequestedCustomer', 'app.EOD', 'app.ReportCustomer', 'app.ReportAgent', 'app.today_transactions', 'app.search_customer', 'app.customer_details', 'app.search_agentssTrxn', 'app.search_agentss', 'app.create_account', 'app.create_product',
         'app.home',
-        'app.dd', 'app.rd', 'app.saving', 'app.acc_detail', 'app.customerDetails', 'app.fd'
-          
+        'app.dd',
+        'app.rd',
+        'app.saving',
+        'app.acc_detail',
+        'app.customerDetails',
+        'app.fd',
+        'app.statementSearch'
+
     ]);
 
 
@@ -18,18 +24,20 @@ scotchApp.config(function ($routeProvider, $httpProvider) {
 
 
         .when('/homes', { templateUrl: 'pages/home/home.html', controller: 'homeController' })
-         .when('/dd', { templateUrl: 'pages/customer/dd/dd.html', controller: 'ddController' })
+         .when('/dd/:Navigation', { templateUrl: 'pages/customer/dd/dd.html', controller: 'ddController' })
+      .when('/dd', { templateUrl: 'pages/customer/dd/dd.html', controller: 'ddController' })
          .when('/fd', { templateUrl: 'pages/customer/fd/fd.html', controller: 'fdController' })
         .when('/rd', { templateUrl: 'pages/customer/rd/rd.html', controller: 'rdController' })
         .when('/saving', { templateUrl: 'pages/customer/saving/saving.html', controller: 'savingController' })
-          .when('/acc_detail/:Cust_Id', { templateUrl: 'pages/customer/acc_detail/acc_detail.html', controller: 'acc_detailController' })
+        .when('/acc_detail/:Cust_Id', { templateUrl: 'pages/customer/acc_detail/acc_detail.html', controller: 'acc_detailController' })
         .when('/customerDetail/:Cust_ID', { templateUrl: 'pages/customer/acc_detail/customerDetail/customerDetail.html', controller: 'customerDetailsController' })
+        .when('/statementSearch/:Cust_ID',
+        {
+            templateUrl: 'pages/customer/statement/statementSearch/statementSearch.html',
+            controller: 'statementSearchController'
+        })
 
-        //rohit
-         //.when('/ddCustomerAccountDetails/:cust_id', {
-         //    templateUrl: 'pages/customer/dd/customerAccountsDetails/ddcustomerAccountsDetails.html',
-         //    controller: 'ddcustomerAccountsDetailsController'
-         //})
+
 
 
 
@@ -59,7 +67,7 @@ scotchApp.config(function ($routeProvider, $httpProvider) {
         .when('/depositeAmt/:user_id', { templateUrl: 'pages/search/accDetails/custAccDetails.html', controller: 'custAccDetailsController' })
         .when('/createAccount', { templateUrl: 'pages/create/createAccount/createAccount.html', controller: 'create_accountController' })
         .when('/createProduct', { templateUrl: 'pages/create/createProduct/create_product.html', controller: 'create_productController' })
-      
+
 
 
 });

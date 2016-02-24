@@ -14,6 +14,17 @@ scotchApp.controller('homeController', function ($rootScope, $interval, $timeout
     var imageIDData = $cookieStore.get('bankIDImg');
     $scope.imgIdDdURL= imageIDData;
  
+    $scope.saving = function () {
+       
+        $scope.Navigation = 'saving';
+        $location.path('/dd/'+$scope.Navigation);
+    }
+
+    $scope.management = function () {
+
+        $scope.Navigation = 'management';
+        $location.path('/dd/' + $scope.Navigation);
+    }
 
     $scope.imgDetails = [
         {

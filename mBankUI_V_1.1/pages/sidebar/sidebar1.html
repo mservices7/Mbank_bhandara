@@ -1,283 +1,128 @@
 ﻿<div ng-controller="sidebarController" ng-init="CheckLogin()">
-    <header class="main-header">
-        <!-- Logo -->
-        <a href="" class="logo">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>mBank</b></span>
-        </a>
-        <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
-            <!-- Sidebar toggle button-->
-            
-            <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-                    <li ng-show="logoutLoading">
-                        <a href="" class="">
-                            <i class="fa fa-spinner"></i> Logout in {{counter}} Sec....
+    
+    
 
-                        </a>
-                    </li>
-                    <!-- Messages: style can be found in dropdown.less-->
-                    <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" >
-                            <span ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
-                                <img src={{imgData.imgUrl}} class="user-image pull-left" alt="User Image">
-                            </span>
-                            <span ng-style="{'width':dataLength}">{{bmName}}</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <!-- User image -->
-                            <li class="user-header">
-                                <div ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
-                                    <img src={{imgData.imgUrl}} style="width:100%;height:100px" alt="User Image">
-                                </div>
-                                <p>
-                                    {{bmName}} <br /> Branch Manager
-                                    <!--  <small>Member since Nov. 2012</small>-->
-                                </p>
-                            </li>
-                          
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#/home" class="btn btn-default btn-flat">Profile</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="" class="btn btn-default btn-flat" ng-click="logout()">Sign out</a>
-                                </div>
-                            </li>
-                            
-                        </ul>
-                    </li>
-                    
-                </ul>
+    <div class="header">
+        <div class="header_left">
+            <div class="logo_mbank"><a href="#/homes"><img src="images/mbank_logo.png" /></a></div>
+            <div class="companyname1">MBANK</div>
+        </div>
+        <div class="header_right">
+            <div class="logo">
+                <a href="index.html">
+                    <!--<img src="images/logo.png" />-->
+                    <span ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
+                        <img src={{imgData.imgUrl}} alt="User Image" />
+                    </span>
+                </a>
             </div>
-        </nav>
-    </header>
-    <!-- Left side column. contains the logo and sidebar -->
-    <div class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-            <!-- Sidebar user panel -->
-            <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu">
-                <li ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
-                    <img src={{imgData.imgUrl}} style="width:100%;height:100px" alt="User Image">
-                </li>
-                <li class="header"><span style="color:aqua">MAIN NAVIGATION</span></li>
-                <li>
-                    <a href="" ng-click="dashboardPage()">
-                        <i class="fa fa-dashboard"></i>Dashboard
-                    </a>
+            <!-- <div class="companyname2">The Maharashtra Nagri Sahakari Patasanstha</div>-->
+            <div class="companyname2"> {{brName}}</div>
+            <div class="logoutbar">
+                <!--<div class="logoutbar_text">Mugdha Damle</div>
+                <div class="logoutbar_img"><img src="images/photoicon1.png" /></div>-->
 
-                </li>
-               
-                <li class="treeview">
-                    <a href="">
-                        <i class="fa fa-pie-chart"></i>
-                        <span>Transactions </span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="treeview">
-                            <a href="">
-                                <i class="fa fa-files-o"></i>
-                                <span>Transaction By Accounts </span>
-                                <i class="fa fa-angle-left pull-right"></i>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!--<li ng-show="logoutLoading">
+                            <a href="" class="">
+                                <i class="fa fa-spinner"></i> Logout in {{counter}} Sec....
 
                             </a>
-                            <ul class="treeview-menu">
-                                <li ng-repeat="acc in accounts">
-                                    <a href="" ng-click="goToPage(id=acc.Id)">
-                                        <i class="fa fa-circle-o"></i> {{acc.pType}}
-                                    </a>
+                        </li>-->
+                        <!-- Messages: style can be found in dropdown.less-->
+                        <!-- User Account: style can be found in dropdown.less-->
+                        <li class="dropdown user user-menu" style="width: 160px;">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                <!--  <span ng-style="{'width':dataLength}">{{bmName}}</span>-->
+                                <span ng-style="{'width':dataLength}">Suresh Bharane</span>
+                                <span ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
+                                    <img src={{imgData.imgUrl}} class="user-image pull-left" alt="User Image">
+                                </span>
+
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image-->
+                                <li class="user-header">
+                                    <div class="pull-left" ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
+                                        <img src={{imgData.imgUrl}} style="width:120%;height:95px" alt="User Image">
+                                    </div>
+
+                                    <div class="pull-right">
+                                        <b> {{bmName}} </b>  <br /> <b>Branch Manager</b>
+                                        <!--  <small>Member since Nov. 2012</small>-->
+                                    </div>
+                                </li>
+
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <!-- <a href="#/home" class="btn btn-default btn-flat">Profile</a>-->
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="" class="btn btn-default btn-flat" ng-click="logout()">Sign out</a>
+                                    </div>
                                 </li>
 
                             </ul>
                         </li>
 
-                        <li class="sub-menu">
-                            <a href="" ng-click="allTransactions()" class="">
-                                <i class="fa fa-circle-o"></i>
-                                All Transactions
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" ng-click="DateWiseTrxn()" class="">
-                                <i class="fa fa-circle-o"></i>
-                                Date Wise Transactions
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" ng-click="approvedTrxn()" class="">
-                                <i class="fa fa-circle-o"></i>
-                                Approve Transactions
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" ng-click="notApprovedTrxn()" class="">
-                                <i class="fa fa-circle-o"></i>
-                                Not Approve Transactions
-
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="" ng-click="TodaysTrxns()" class="">
-                                <i class="fa fa-circle-o"></i>
-                                Today Transaction
-
-
-                            </a>
-                        </li>
-
                     </ul>
-                </li>
-                <li class="treeview">
-                    <a href="">
-                        <i class="fa fa-search"></i>
-                        <span>Search </span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="sub-menu">
-                            <a href="" ng-click="customers()" class="">
+                </div>
 
-                                <i class="fa fa-circle-o"></i> Search Customers
-                            </a>
-
-                        </li>
-                        <li class="sub-menu">
-
-                            <a href="" ng-click="search_agent()" class="">
-
-                                <i class="fa fa-circle-o"></i> Search Agent
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="">
-                        <i class="fa fa-edit"></i>
-                        <span>Request</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-
-
-                    <ul class="treeview-menu">
-                        
-                        <li class="sub-menu">
-                            <a href="" ng-click="reqCustomers()" class="">
-
-                                <i class="fa fa-circle-o"></i> Requested Customers
-                            </a>
-
-                        </li>
-                      
-
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="">
-                        <i class="fa fa-edit"></i>
-                        <span>Create</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-
-
-                    <ul class="treeview-menu">
-                        <!--<li class="sub-menu">
-
-                            <a href="" ng-click="createProduct()" class="">
-
-                                <i class="fa fa-circle-o"></i> Create Product
-                            </a>
-                        </li>-->
-                        <!--<li class="sub-menu">
-                            <a href="" ng-click="reqCustomers()" class="">
-
-                                <i class="fa fa-circle-o"></i> Requested Customers
-                            </a>
-
-                        </li>-->
-                        <li class="sub-menu">
-                            <a href="" ng-click="createAccount()" class="">
-
-                                <i class="fa fa-circle-o"></i> Create Account
-                            </a>
-
-                        </li>
-                        <li class="sub-menu">
-                            <a href="" ng-click="createbranch()" class="">
-
-                                <i class="fa fa-circle-o"></i> Create Branches
-                            </a>
-
-                        </li>
-                       
-                        <li class="sub-menu">
-                            <a href="" ng-click="createCustomers()" class="">
-
-                                <i class="fa fa-circle-o"></i> Create Customers
-                            </a>
-
-                        </li>
-                        <li class="sub-menu">
-
-                            <a href="" ng-click="createAgent()" class="">
-
-                                <i class="fa fa-circle-o"></i> Create Agent
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="">
-                        <i class="fa fa-database"></i> <span>Reports</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="sub-menu">
-                            <a href="" ng-click="reportCustomer()" class="">
-                                <i class="fa fa-circle-o"></i>Customer Report
-
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" ng-click="reportAgent()" class="">
-                                <i class="fa fa-circle-o"></i>Agent Report
-
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" ng-click="reportEOD()" class="">
-                                <i class="fa fa-circle-o"></i>End Of Day Report
-
-                            </a>
-                        </li>
-                       
-                    </ul>
-                </li>
-                <li class="header"><span style="color:aqua">Logout Here</span></li>
-                
-                <li><a href="" ng-click="logout()"><i class="fa fa-exclamation-circle text-red"></i> <span>Logout</span> </a></li>
-                <li ng-show="logoutLoading">
-                    <a href="" class="">
-                        <i class="fa fa-spinner"></i> Logout in {{counter}} Sec....
-
-                    </a>
-                </li>
-            </ul>
-        </section>
-        <!-- /.sidebar -->
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
     </div>
+
+
+
+
+    
+    <div class="contentarea">
+        <div class="contentarealeft">
+            <div class="userbar">
+                <div class="userbar_1"><img src="images/photoicon2.png" class="circular" /></div>
+                <div class="userbar_2">MANAGER</div>
+                <div class="clear"></div>
+                <!--<div class="userbar_3">
+                    <div class="userbar_3_img1"><a href="#"><img src="images/profileicon.png" /></a></div>
+                    <div class="userbar_3_img1"><a href="#"><img src="images/emailicon.png" /></a></div>
+                    <div class="userbar_3_img1"><a href="#"><img src="images/notificationicon.jpg" /></a></div>
+                    <div class="userbar_3_img2"><a href="#"><img src="images/logouticon.jpg" /></a></div>
+                    <div class="clear"></div>
+                </div>-->
+            </div>
+            <div class="menubar">
+                <ul class="menu">
+                    <li><a class="active" href="#/homes">Dashboard</a></li>
+                    <li><a class="active" ng-show="savingMenu">Savings</a></li>
+
+                    <!--<li><a href="#">Bank</a></li>
+            <li><a href="#">Management</a></li>-->
+                </ul>
+                 
+
+
+            </div>
+
+            <div class="circle_dd" ng-show="dd"><a href="#/dd/{{navigation}}" >DD</a></div>
+            <div class="circle_rd" ng-show="rd"><a href="#/rd" >RD</a></div>
+            <div class="circle_fd"  ng-show="fd"><a href="#/fd">FD</a></div>
+            <div class="circle_savings" ng-show="saving1"><a href="#/saving" >Savings</a></div>
+
+        </div>
+        <!--<div class="contentarearight">
+            <div class="contentarearight_panel">
+                <div class="contentarearight_panel_1"><a href="#"><img src="images/saving_img.png" border="0" /></a></div>
+                <div class="contentarearight_panel_2"><a href="#"><img src="images/loan_img.png" border="0" /></a></div>
+                <div class="clear"></div>
+                <div class="contentarearight_panel_3"><a href="#"><img src="images/management_img.png" border="0" /></a></div>
+            </div>
+        </div>
+        <div class="clear"></div>-->
+    </div>
+
+
 
 </div>

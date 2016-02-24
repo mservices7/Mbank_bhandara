@@ -9,13 +9,19 @@ scotchApp.controller('customerDetailsController', function ($rootScope, $scope, 
 
     }
 
-
     $scope.exact_log = $routeParams.Cust_ID;
    
     var roughtDetails = $cookieStore.get('user');
     var imageIDData = $cookieStore.get('bankIDImg');
     $scope.imgIdDdURL = imageIDData;
 
+     
+    $scope.savingMenu = true;
+        $scope.rd = true;
+        $scope.dd = true;
+        $scope.fd = true;
+        $scope.saving1 = true;
+    
 
     var linkglobal = $cookieStore.get('urlBanks');  //Bank Bhandara
 

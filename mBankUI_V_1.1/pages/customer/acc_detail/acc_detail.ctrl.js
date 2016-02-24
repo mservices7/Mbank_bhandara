@@ -10,7 +10,14 @@ scotchApp.controller('acc_detailController', function ($rootScope, $interval, $t
 
     }
    
-
+    
+    $scope.savingMenu = true;
+        $scope.rd = true;
+        $scope.dd = true;
+        $scope.fd = true;
+        $scope.saving1 = true;
+    
+ 
     var roughtDetails = $cookieStore.get('user');
     var imageIDData = $cookieStore.get('bankIDImg');
     $scope.imgIdDdURL = imageIDData;
@@ -67,8 +74,12 @@ scotchApp.controller('acc_detailController', function ($rootScope, $interval, $t
      
 
         $http.get(linkglobal + '/accounts?$filter=cust_id eq ' + $scope.customer_id).success(function (response) {
-            var cust1 = response; var cust2 = cust1.value; $scope.customers = cust2; var count = cust2.length;
+            var cust1 = response;
+            var cust2 = cust1.value;
+            $scope.customers = cust2;
+            var count = cust2.length;
             var gettrxDetails = cust2[0].trx_type;
+
             $http.get(linkglobal + '/trxn_views?$filter=cust_id eq ' + $scope.customer_id + ' and trx_data eq ' + gettrxDetails).success(function (response) {
                 var customer1 = response;
                 var customer2 = customer1.value;
