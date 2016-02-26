@@ -41,7 +41,7 @@ scotchApp.controller('savingController', function ($rootScope, $interval, $timeo
     $scope.trxData = $routeParams.exbank_id;
 
 
-    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data eq 4')
+    $http.get(linkglobal + '/View_Customer?$filter=bank_id eq ' + imageIDData + ' and trx_type eq 4')
                                .success(function (response) {
                                    var trans1 = response;
                                    var user1 = trans1.value;
@@ -51,7 +51,12 @@ scotchApp.controller('savingController', function ($rootScope, $interval, $timeo
                                    // alert(count);
                                });
 
+    //for showing next 30 records..
+    $scope.limit = 30;
 
+    $scope.next = function () {
+        $scope.limit = $scope.limit + 30;
+    };
 
 
 
@@ -61,57 +66,57 @@ scotchApp.controller('savingController', function ($rootScope, $interval, $timeo
 
 
     /////rohit
-    $scope.customerDetails = function () {
+    //$scope.customerDetails = function () {
 
-        alert(this.ID);
-        var custmerId = this.ID;
-        $scope.customerDetails = false;
-        $scope.customerinfo = true;
-        $scope.divCustomerAccountDetails = true;
-
-
-
-        $http.get(linkglobal + '/accounts?$filter=cust_id eq ' + custmerId).success(function (response) {
-            var cust1 = response; var cust2 = cust1.value; $scope.customers = cust2; var count = cust2.length;
-            var gettrxDetails = cust2[0].trx_type;
-            $http.get(linkglobal + '/trxn_views?$filter=cust_id eq ' + custmerId + ' and trx_data eq ' + gettrxDetails).success(function (response) {
-                var customer1 = response;
-                var customer2 = customer1.value;
-                $scope.datadetails = customer2;
-                var count = customer2.length;
-
-                $scope.gettrxDetails = customer2[0].trx_data;
-
-                $scope.gettrxDetails = customer2[0].trx_data;
-                $scope.getDetails = customer2[0].trx_data;
-
-            });
-        });
-
-        custmerId = null;
-    }
+    //    alert(this.ID);
+    //    var custmerId = this.ID;
+    //    $scope.customerDetails = false;
+    //    $scope.customerinfo = true;
+    //    $scope.divCustomerAccountDetails = true;
 
 
 
+    //    $http.get(linkglobal + '/accounts?$filter=cust_id eq ' + custmerId).success(function (response) {
+    //        var cust1 = response; var cust2 = cust1.value; $scope.customers = cust2; var count = cust2.length;
+    //        var gettrxDetails = cust2[0].trx_type;
+    //        $http.get(linkglobal + '/trxn_views?$filter=cust_id eq ' + custmerId + ' and trx_data eq ' + gettrxDetails).success(function (response) {
+    //            var customer1 = response;
+    //            var customer2 = customer1.value;
+    //            $scope.datadetails = customer2;
+    //            var count = customer2.length;
 
-    //customer Search
-    $scope.customerName = function () {
+    //            $scope.gettrxDetails = customer2[0].trx_data;
 
-        // alert('working...');
+    //            $scope.gettrxDetails = customer2[0].trx_data;
+    //            $scope.getDetails = customer2[0].trx_data;
 
+    //        });
+    //    });
 
-        // $location.path('/dd');
-
-        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data eq 4')
-                               .success(function (response) {
-                                   var trans1 = response;
-                                   var user1 = trans1.value;
-                                   $scope.transDetailsAccTypes = user1;
-
-                                   var count = user1.length;
-                               });
+    //    custmerId = null;
+    //}
 
 
 
-    }
+
+    ////customer Search
+    //$scope.customerName = function () {
+
+    //    // alert('working...');
+
+
+    //    // $location.path('/dd');
+
+    //    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data eq 4')
+    //                           .success(function (response) {
+    //                               var trans1 = response;
+    //                               var user1 = trans1.value;
+    //                               $scope.transDetailsAccTypes = user1;
+
+    //                               var count = user1.length;
+    //                           });
+
+
+
+    //}
 })

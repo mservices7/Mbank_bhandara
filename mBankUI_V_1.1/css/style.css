@@ -1,6 +1,10 @@
 
 /*Font Face*/
-@font-face {font-family: marathifont; src: url(Shivaji01.ttf);src: url(Shivaji02.ttf);src: url(Shivaji05.ttf);font-weight: bold;}
+@font-face {font-family: marathifont;
+             src: url(Shivaji01.ttf);
+             src: url(Shivaji02.ttf);
+             src: url(Shivaji05.ttf);
+             font-weight: 2500;}
 
 .marathifont {font-family:marathifont;}
 
