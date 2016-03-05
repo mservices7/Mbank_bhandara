@@ -20,6 +20,13 @@ scotchApp.controller('search_agentssController', function ($rootScope, $scope, $
     //Route Data
     $scope.trxData = $routeParams.exbank_id;
 
+    //for Showing a menu
+    $scope.transaction = true;
+    $scope.search = true;
+    $scope.request = true;
+    $scope.create = true;
+    $scope.reports = true;
+
     $scope.exact_user = $routeParams.user_id;
     var exact = $scope.exact_user;
 

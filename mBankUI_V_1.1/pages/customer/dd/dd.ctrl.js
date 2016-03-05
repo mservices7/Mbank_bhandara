@@ -15,12 +15,13 @@ scotchApp.controller('ddController', function ($rootScope, $interval, $timeout, 
     $scope.imgIdDdURL = imageIDData;
 
 
-    $scope.savingMenu = true;
-        $scope.rd = true;
-        $scope.dd = true;
-        $scope.fd = true;
-        $scope.saving1 = true;
-   
+    //$scope.savingMenu = true;
+    //    $scope.rd = true;
+    //    $scope.dd = true;
+    //    $scope.fd = true;
+    //    $scope.saving1 = true;
+    $scope.saving = true;
+
 
     $scope.imgDetails = [
         {

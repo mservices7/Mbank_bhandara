@@ -1,19 +1,44 @@
-﻿<div ng-controller="sidebarController" ng-init="CheckLogin()">
+﻿<!--google translate code start-->
+<div id="google_translate_element"></div>
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'en,hi,mr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!--google translate code end-->
+<div ng-controller="sidebarController" ng-init="CheckLogin()">
     <header class="main-header">
         <!-- Logo -->
         <a href="" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>mBank</b></span>
+            <span class="logo-lg">
+                <b>
+
+                    <img src="images/mbank_logo.png" class="pull-left" />
+
+                    mBank
+                </b>
+            </span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
             <!-- Sidebar toggle button-->
-            <div class="companyname2 pull-left">HO Branch Maharashtra Nagrik Sahakari Pat Sanstha Maryadit </div>
-            
+            <div class="logo pull-lef" style="width:75px">
+                <!--<img src="images/logo.png" />-->
+                <span ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
+                    <img src={{imgData.imgUrl}} alt="Bank Image" />
+                </span>
+            </div>
+            <div class="companyname2 pull-left">
+                {{brName}}
+                <!--HO Branch Maharashtra Nagrik Sahakari Pat Sanstha Maryadit-->
+            </div>
+
             <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav"> 
-                     
+                <ul class="nav navbar-nav">
+
                     <!--<li ng-show="logoutLoading">
                         <a href="" class="">
                             <i class="fa fa-spinner"></i> Logout in {{counter}} Sec....
@@ -23,26 +48,29 @@
                     <!-- Messages: style can be found in dropdown.less-->
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" >
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown">
                             <span ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
-                              <!--  <img src={{imgData.imgUrl}} class="user-image pull-left" alt="User Image">-->
+                                <!--  <img src={{imgData.imgUrl}} class="user-image pull-left" alt="User Image">-->
                             </span>
                             <!--<span ng-style="{'width':dataLength}">{{bmName}}</span>-->
                             <span ng-style="{'width':dataLength}">Suresh Bharne</span>
+                            <span ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
+                                <img src={{imgData.imgUrl}} class="user-image pull-left" alt="User Image">
+                            </span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
                                 <div ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
-                                   <!-- <img src={{imgData.imgUrl}} style="width:100%;height:100px" alt="User Image">-->
+                                    <!-- <img src={{imgData.imgUrl}} style="width:100%;height:100px" alt="User Image">-->
                                 </div>
                                 <p>
                                     HO Branch Maharashtra Nagrik Sahakari Pat Sanstha Maryadit
-                                     <br /> Branch Manager
+                                    <br /> Branch Manager
                                     <!--  <small>Member since Nov. 2012</small>-->
                                 </p>
                             </li>
-                          
+
                             <li class="user-footer">
                                 <div class="pull-left">
                                     <a href="#/home" class="btn btn-default btn-flat">Profile</a>
@@ -51,10 +79,10 @@
                                     <a href="" class="btn btn-default btn-flat" ng-click="logout()">Sign out</a>
                                 </div>
                             </li>
-                            
+
                         </ul>
                     </li>
-                    
+
                 </ul>
             </div>
         </nav>
@@ -67,7 +95,7 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li ng-repeat="imgData in imgDetails | filter:{bankIDimg:imgIdDdURL}">
-                <!--<img src={{imgData.imgUrl}} style="width:100%;height:100px" alt="User Image">-->    
+                    <!--<img src={{imgData.imgUrl}} style="width:100%;height:100px" alt="User Image">-->
                 </li>
                 <li class="header"><span style="color:aqua">MAIN NAVIGATION</span></li>
                 <li>
@@ -77,7 +105,7 @@
 
                 </li>
 
-                <li class="treeview">
+                <!--<li class="treeview" ng-show="saving">
                     <a href="">
                         <i class="fa fa-database"></i> <span>Saving</span>
                         <i class="fa fa-angle-left pull-right"></i>
@@ -104,15 +132,50 @@
                             </a>
                         </li>
                         <li>
-                            <!-- <a href="" ng-click="reportEOD()" class="">-->
+
                             <a href="#/saving" class="">
                                 <i class="fa fa-circle-o"></i>Saving
 
                             </a>
                         </li>
                     </ul>
+                </li>-->
+                <li class=" active treeview" ng-show="saving">
+                    <a>
+                        <i class="fa fa-database"></i> <span>Saving</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="sub-menu">
+                            <a href="#/dd" class="circle_dd" style="color:#FFFFFF;">
+                                DD &nbsp; &nbsp;
+
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/rd" class="circle_rd" style="color:#FFFFFF;">
+                                RD &nbsp; &nbsp;
+
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/fd" class="circle_fd" style="color:#FFFFFF;">
+                                FD &nbsp; &nbsp;
+
+                            </a>
+                        </li>
+                        <li>
+                            <!-- <a href="" ng-click="reportEOD()" class="">-->
+                            <a href="#/saving" class="circle_savings" style="color:#FFFFFF;">
+                                Saving &nbsp; &nbsp;
+
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="treeview">
+                <li class="treeview" ng-show="transaction">
                     <a href="">
                         <i class="fa fa-pie-chart"></i>
                         <span>Transactions </span>
@@ -176,7 +239,7 @@
 
                     </ul>
                 </li>
-                <li class="treeview">
+                <li class="treeview" ng-show="search">
                     <a href="">
                         <i class="fa fa-search"></i>
                         <span>Search </span>
@@ -200,7 +263,7 @@
 
                     </ul>
                 </li>
-                <li class="treeview">
+                <li class="treeview" ng-show="request">
                     <a href="">
                         <i class="fa fa-edit"></i>
                         <span>Request</span>
@@ -209,7 +272,7 @@
 
 
                     <ul class="treeview-menu">
-                        
+
                         <li class="sub-menu">
                             <a href="" ng-click="reqCustomers()" class="">
 
@@ -217,11 +280,11 @@
                             </a>
 
                         </li>
-                      
+
 
                     </ul>
                 </li>
-                <li class="treeview">
+                <li class="treeview" ng-show="create">
                     <a href="">
                         <i class="fa fa-edit"></i>
                         <span>Create</span>
@@ -258,7 +321,7 @@
                             </a>
 
                         </li>
-                       
+
                         <li class="sub-menu">
                             <a href="" ng-click="createCustomers()" class="">
 
@@ -276,7 +339,7 @@
 
                     </ul>
                 </li>
-                <li class="treeview">
+                <li class="treeview" ng-show="reports">
                     <a href="">
                         <i class="fa fa-database"></i> <span>Reports</span>
                         <i class="fa fa-angle-left pull-right"></i>
@@ -302,14 +365,14 @@
 
                             </a>
                         </li>
-                       
+
                     </ul>
                 </li>
 
 
 
                 <li class="header"><span style="color:aqua">Logout Here</span></li>
-                
+
                 <li><a href="" ng-click="logout()"><i class="fa fa-exclamation-circle text-red"></i> <span>Logout</span> </a></li>
                 <li ng-show="logoutLoading">
                     <a href="" class="">

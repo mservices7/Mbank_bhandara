@@ -24,7 +24,7 @@
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label" style="font-size:15pt;padding-top:3px">Search Here :</label>
                                 <div class="col-sm-4">
-                                    <input type="text" ng-model="search" class="form-control" placeholder="Search Customer Here" />
+                                    <input type="text" ng-model="searchs" class="form-control" placeholder="Search Customer Here" />
 
                                 </div>
                                 <div class="col-sm-6">
@@ -49,7 +49,7 @@
                                         <th>Approve Customer</th>
                                     </tr>
                                     <tr style="background-color:lightblue; width:100%">
-                                        <td colspan="3"><input type="text" ng-model="search" class="form-control" style="float:right;" /> </td>
+                                        <td colspan="3"><input type="text" ng-model="searchs" class="form-control" style="float:right;" /> </td>
                                         <td>Search Customer</td>
                                         <td></td>
                                     </tr>
@@ -61,7 +61,7 @@
                                         <td colspan="5" style="font-size:15pt;color:red;text-align:center"><b>Their Is No Request For New Customer</b></td>
 
                                     </tr>
-                                    <tr class="warning" ng-repeat="customer in reqcustomers |filter:{status:0} | filter:search | limitTo:limit">
+                                    <tr class="warning" ng-repeat="customer in reqcustomers |filter:{status:0} | filter:searchs | limitTo:limit">
                                         <td class="" style="font-size:15pt">
                                             {{customer.cust_name}}
                                         </td>

@@ -1,10 +1,9 @@
-﻿<div class="wrapper" ng-init="CheckLogin()" ng-controller="statementSearchController" style="height:1000px">
+﻿<div class="wrapper" ng-init="CheckLogin()" ng-controller="statementSearchController" style="height:690px">
     <ng-include src="'pages/sidebar/sidebar.html'"></ng-include>
 
-   
 
     <div class="content-wrapper">
-          
+
         <!-- Main content -->
         <section class="content">
 
@@ -47,21 +46,170 @@
 
                         </div>
                     </div>
+                    <div class="col-sm-12" ng-show="serachConditionDiv">
 
-                    <div class="row  search_content">
+                        <div class="col-lg-12 " style="margin-top:25px">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <a class="btn btn-primary btn-sm pull-left col-sm-12" style="text-decoration:none;font-size:25px" ng-click="LastMonth()">  &nbsp;Last Month</a>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <a class="btn btn-primary btn-sm pull-right col-sm-12" style="text-decoration:none; font-size:25px" ng-click="LastThreeMonth()"> &nbsp;Last 3 Months</a>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12" style="margin-top:20px; text-align:center">
+
+
+                                From
+                                <input type="date" ng-model="fromdate">
+                                To
+                                <input type="date" ng-model="todate">
+
+
+                                <!-- <div class="col-sm-1 "> From </div>
+
+                                                    <div class="col-sm-5">
+
+
+                                                       <div class="input-group date  " data-provide="datepicker">
+                                                            <input type="date" class="form-control" ng-model="fromdate" ng-change="changeFromeDate()">
+                                                            <div class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-th"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <input type="date" ng-model="fromdate" ng-change="changeFromeDate()">
+                                                            <!--<div class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-th"></span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!--TEST:
+                                                    {{frmDate}}
+                                                    <div class="col-sm-1 "> To </div>
+                                                    <div class="col-sm-5">
+
+                                                        <!--<div class="input-group date  " data-provide="datepicker">
+                                                            <input type="text" class="form-control" ng-model="todate">
+                                                            <div class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-th"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <input type="date" ng-model="fromdate" ng-change="changeFromeDate()">
+                                                            <!--<div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                                                        </div>-->
+                            </div>
+
+
+                            <div class="col-sm-12" style="margin-top:20px">
+                                <div class="col-sm-3">
+                                    <!--<ul class="nav navbar-nav navbar-right">
+                                        <li><a href="#">Link</a></li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Action</a></li>
+                                                <li><a href="#">Another action</a></li>
+                                                <li><a href="#">Something else here</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Separated link</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>-->
+                                </div>
+                                <div class="col-sm-1">
+                                    Transaction
+                                </div>
+                                <div class="col-sm-4">
+                                    <select ng-model="trancationType" class="selectpicker form-control ">
+                                        <option value="">Select Transaction Type</option>
+                                        <option value="All">All</option>
+                                        <option value="dbt">Debit</option>
+                                        <option value="cr">Credit</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div>
+                                <div class="col-sm-12" style="text-align:center;margin-top:20px">
+                                    <a class="btn btn-primary btn-lg  " style="width:95px" ng-click="Ok()">
+                                        Ok
+                                    </a>
+                                    <a class="btn btn-danger btn-lg  " ng-click="Cancel()">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row  search_content" style="margin-top:50px;" ng-show="showRecordsDiv">
 
                         <div class="content">
+                            <div class="pull-left" ng-show="backDiv">
+                                <a class="btn btn-primary btn-sm  " style="text-decoration:none;" ng-click="Back()">
+                                    <i class="glyphicon glyphicon-circle-arrow-left"> </i>
+                                    &nbsp;Back
+                                </a>
+
+                            </div>
                             <div class="panel content_table">
                                 <div class="box-body">
-                                    
+
+                                    <div class="col-lg-12" style="height:450px;overflow:scroll">
+                                        <table id="example2" class="table table-bordered table-hover">
+                                            <thead>
+
+                                                <!--  <tr style="background-color:skyblue;border-color:skyblue;">-->
+                                                <tr class="content_headrow">
+                                                    <th>Sr.No</th>
+                                                    <th style="width:30%">Date</th>
+                                                    <th style="width:30%">Debit</th>
+                                                    <th style="width:30%">Credit</th>
+                                                    <th style="width:30%">Balance</th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <!-- <tr ng-repeat="data in transDetailsAccTypes | filter:Name | filter:AccountNo | filter:agentname |unique:cust_id">-->
+
+                                                <tr ng-repeat="Customer in CustomerRecordStatement">
+                                                    <th>{{$index+1}}</th>
+                                                    <td>{{Customer.Date}}</td>
+                                                    <td>{{Customer.Debit}}</td>
+                                                    <td>{{Customer.Credit}} ₹</td>
+                                                    <td>{{Customer.Balance}} ₹</td>
+
+
+                                                </tr>
+                                              
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
                                 </div>
                             </div>
 
 
                         </div>
 
+
+
+
                     </div>
-               
+
+
                 </div>
 
             </div>

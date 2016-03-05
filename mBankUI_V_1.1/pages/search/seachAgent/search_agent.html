@@ -24,7 +24,7 @@
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label" style="font-size:15pt;padding-top:3px">Search Here :</label>
                                 <div class="col-sm-4">
-                                    <input type="text" ng-model="search" class="form-control" placeholder="Search Agent Here" />
+                                    <input type="text" ng-model="searchs" class="form-control" placeholder="Search Agent Here" />
 
                                 </div>
                                 <div class="col-sm-12">
@@ -61,20 +61,24 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-show="!agents">
-                                        <td colspan="7" style="font-size:15pt;color:green;text-align:center"><b>Loading.....</b></td>
+                                        <td colspan="7" style="font-size:15pt;color:green;text-align:center">
+                                            <div class="overlay">
+                                                <i class="fa fa-refresh fa-spin"></i>
+                                            </div>
+                                        <b>Loading.....</b></td>
 
                                     </tr>
                                     <tr ng-show="agents.length == '0'">
                                         <td colspan="7" style="font-size:15pt;color:red;text-align:center">
                                             <b>
-                                                Their Is No Transactions Yet
+                                                yet no Transactions  
                                             </b>
                                         </td>
 
                                     </tr>
 
 
-                                    <tr ng-model="referesh.trx_id" ng-repeat="data in agents | filter:search" ng-hide="agent.role_id==2">
+                                    <tr ng-model="referesh.trx_id" ng-repeat="data in agents | filter:searchs" ng-hide="agent.role_id==2">
                                         <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}" >{{data.agent_name}}</td>
                                         <!--  <td ng-show="{{data.trx_data}}!=1">{{data.cust_name}}</td>-->
                                         <td>

@@ -52,10 +52,23 @@
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini " style="background-color:#222d32">
-    <div class="wrapper">
+    <!--google translate code start-->
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'en,hi,mr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!--google translate code end-->
+
+     <div class="wrapper">
 
         <!-- Content Wrapper. Contains page content -->
-        <div ng-view></div>
+        <div ng-view>
+
+
+        </div>
 
 
     </div><!-- ./wrapper -->
@@ -130,7 +143,7 @@
     <script src="pages/customer/acc_detail/acc_detail.ctrl.js"></script>
     <script src="pages/customer/acc_detail/customerDetail/customerDetail.ctrl.js"></script>
     <script src="pages/customer/statement/statementSearch/statementSearch.ctrl.js"></script>
-
+   <!-- <script src="pages/customer/statement/statementDetails/statementDetails.ctrl.js"></script>-->
 
 
     <!--end new code-->

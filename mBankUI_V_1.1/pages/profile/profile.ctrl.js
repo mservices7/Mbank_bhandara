@@ -14,6 +14,12 @@ app.controller('profileController', function ($rootScope, $scope, $http, $locati
     var imageIDData = $cookieStore.get('bankIDImg');
     $scope.imgIdDdURL = imageIDData;
 
+    //for Showing a menu
+    $scope.transaction = true;
+    $scope.search = true;
+    $scope.request = true;
+    $scope.create = true;
+    $scope.reports = true;
 
     var linkglobal = $cookieStore.get('urlBanks');  //Bank Bhandara
     $scope.Date1 = $filter('date')(new Date(), 'dd-MM-yyyy');

@@ -13,6 +13,12 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
     var imageIDData = $cookieStore.get('bankIDImg');
     $scope.imgIdDdURL = imageIDData;
 
+    //for Showing a menu
+    $scope.transaction = true;
+    $scope.search = true;
+    $scope.request = true;
+    $scope.create = true;
+    $scope.reports = true;
 
     var linkglobal = $cookieStore.get('urlBanks');  //Bank Bhandara
 

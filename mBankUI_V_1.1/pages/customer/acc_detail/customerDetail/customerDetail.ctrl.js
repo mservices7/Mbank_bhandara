@@ -16,12 +16,13 @@ scotchApp.controller('customerDetailsController', function ($rootScope, $scope, 
     $scope.imgIdDdURL = imageIDData;
 
      
-    $scope.savingMenu = true;
-        $scope.rd = true;
-        $scope.dd = true;
-        $scope.fd = true;
-        $scope.saving1 = true;
-    
+    //$scope.savingMenu = true;
+    //    $scope.rd = true;
+    //    $scope.dd = true;
+    //    $scope.fd = true;
+    //    $scope.saving1 = true;
+    $scope.saving = true;
+
 
     var linkglobal = $cookieStore.get('urlBanks');  //Bank Bhandara
 

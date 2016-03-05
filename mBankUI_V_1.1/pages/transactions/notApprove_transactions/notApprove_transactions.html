@@ -56,13 +56,18 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-show="!trans35">
-                                        <td colspan="7" style="font-size:15pt;color:green;text-align:center"><b>Loading.....</b></td>
+                                        <td colspan="7" style="font-size:15pt;color:green;text-align:center">
+                                        
+                                            <div class="overlay">
+                                                <i class="fa fa-refresh fa-spin"></i>
+                                            </div>
+                                        <b>Loading.....</b></td>
 
                                     </tr>
                                     <tr ng-show="trans35.length == '0'">
                                         <td colspan="7" style="font-size:15pt;color:red;text-align:center">
                                             <b>
-                                                Their Is No Transactions Yet
+                                                yet no Transactions  
                                             </b>
                                         </td>
 

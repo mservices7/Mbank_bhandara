@@ -20,6 +20,13 @@ scotchApp.controller('datewise_transactionsController', function ($rootScope, $s
     $scope.imgIdDdURL = imageIDData;
 
 
+    //for Showing a menu
+    $scope.transaction = true;
+    $scope.search = true;
+    $scope.request = true;
+    $scope.create = true;
+    $scope.reports = true;
+
     var linkglobal = $cookieStore.get('urlBanks');  //Bank Bhandara
 //Today Date
     $scope.Date1 = $filter('date')(new Date(), 'dd-MM-yyyy');

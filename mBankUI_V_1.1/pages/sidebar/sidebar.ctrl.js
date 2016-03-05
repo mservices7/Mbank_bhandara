@@ -56,7 +56,7 @@ var scotchApp = angular.module('app.sidebar', ['ngRoute'])
 //            });
 
 
-//    ///for Branch Name
+//    //for Branch Name
 //    $http.get(linkglobal + '/branches?$filter=bank_id eq ' + imageIDData)
 //          .success(function (res) {
 //              var acc = res;
@@ -179,9 +179,44 @@ scotchApp.controller('sidebarController', function ($rootScope, $scope, $http, $
         },
         {
             bankIDimg: 1,
-            imgUrl: "images/bankimg/demo.png"
+            imgUrl: "images/logo.png"
         }
     ];
+   //for Branch Name
+        $http.get(linkglobal + '/branches?$filter=bank_id eq ' + imageIDData+ 'and branch_id eq 1')
+              .success(function (res) {
+                  var acc = res;
+                  var acc1 = acc.value;
+                  $scope.brName = acc1[0].branch_name;
+                  var aaa = acc1[0].branch_name;
+                  $scope.dataLength = aaa.length + '0px';
+              });
+
+
+        $scope.navigation = $routeParams.Navigation;
+      //  alert($scope.navigation);
+        if ($scope.navigation == "saving") {
+            $scope.saving = true;
+            //alert('work');
+            $scope.transaction = false;
+            $scope.search = false;
+            $scope.request = false;
+            $scope.create = false;
+            $scope.reports = false;
+            //$scope.fd = true;
+            //$scope.saving1 = true;
+        } 
+        if ($scope.navigation == "management") {
+
+            $scope.saving = false;
+            //alert('work');
+            $scope.transaction = true;
+            $scope.search = true;
+            $scope.request = true;
+            $scope.create = true;
+            $scope.reports = true;
+         }
+
 
     $http.get('http://mbankwcfdataservice.azurewebsites.net/mBankDataService.svc/products?$filter=bank_id eq ' + imageIDData)//linkglobal + '/products')
             .success(function (res) { var acc = res; var acc1 = acc.value; $scope.accounts = acc1; });

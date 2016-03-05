@@ -73,7 +73,11 @@
 
                                                 <tbody>
                                                     <tr class="warning text-center" ng-show="!todayRecordTrans">
-                                                        <th colspan="4">Loading...</th>
+                                                        <th colspan="4">
+                                                            <div class="overlay">
+                                                                <i class="fa fa-refresh fa-spin"></i>
+                                                            </div>
+                                                        Loading...</th>
 
                                                     </tr>
                                                     <tr class="warning text-center" ng-show="todayRecordTrans.length == 0">

@@ -17,6 +17,12 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
 
     var linkglobal = $cookieStore.get('urlBanks');  //Bank Bhandara
 
+    //for Showing a menu
+    $scope.transaction = true;
+    $scope.search = true;
+    $scope.request = true;
+    $scope.create = true;
+    $scope.reports = true;
 
     $scope.limit = 30;
 

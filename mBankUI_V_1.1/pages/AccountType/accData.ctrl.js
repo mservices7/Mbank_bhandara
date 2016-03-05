@@ -28,8 +28,12 @@ scotchApp.controller('accDataController', function ($rootScope, $scope, $http, $
             var acc1 = acc.value;
             $scope.pData = acc1;
         });
-
-
+    //for Showing a menu
+    $scope.transaction = true;
+    $scope.search = true;
+    $scope.request = true;
+    $scope.create = true;
+    $scope.reports = true;
 
     $scope.limit = 30;
 

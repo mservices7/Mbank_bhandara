@@ -19,7 +19,12 @@ scotchApp.controller('userController', function ($rootScope, $interval, $timeout
     $scope.Date1 = $filter('date')(new Date(), 'dd-MM-yyyy');
     var date2 = "'" + $scope.Date1 + "'";
 
-   
+    //for Showing a menu
+    $scope.transaction = true;
+    $scope.search = true;
+    $scope.request = true;
+    $scope.create = true;
+    $scope.reports = true;
 
     $http.get(linkglobal + '/branches?$filter=bank_id eq ' + imageIDData).success(function (response) {
         var amt = 0; var trx1 = response; var user1 = trx1.value; $scope.branches = user1;

@@ -1,5 +1,5 @@
-﻿<div class="wrapper" ng-init="CheckLogin()" ng-controller="ddController" style="height:1000px">
-    <ng-include src="'pages/sidebar/sidebar.html'"></ng-include>
+﻿<div class="wrapper" ng-init="CheckLogin()" ng-controller="statementDetailsController">
+ <ng-include src="'pages/sidebar/sidebar.html'"></ng-include>
 
    
 
@@ -9,24 +9,41 @@
         <section class="content">
             <div class="panel">
                 <div class="box-body">
-                    <div class="col-lg-12 searchpanel" style="height:80px">
-                        <div class="col-lg-4">
-                            <span>Name:</span>
-                            <span class="">
-                                <input type="text" ng-model="Name.cust_name" class="form-control" style="float:right;" placeholder="Search Customer Here" /> </td>
-                            </span>
+                    <div class="col-lg-12 searchpanel">
+                        <div class="col-sm-12">
+                            <div class="col-sm-1">
+                                <span><b>Name:</b></span>
+                            </div>
+                            <div class="col-sm-5 pull-left marathifont" style="font-size: x-large;">
+                                <span><b>{{txtcust_name}}</b></span>
+                            </div>
+                            <div class="col-sm-2">
+                                <span>
+                                    <b>Mobile Number:</b>
+                                </span>
+                            </div>
+                            <div class="col-sm-4 pull-left">
+                                <span>{{txtcust_phoneno}}</span>
+                            </div>
+
                         </div>
-                        <div class="col-lg-4">
-                            <span>Account Number:</span>
-                            <span class="">
-                                <input type="text" ng-model="AccountNo.external_account_id" class="form-control" style="float:right;" placeholder="Search Customer Here" /> </td>
-                            </span>
-                        </div>
-                        <div class="col-lg-4">
-                            <span>Agent Name:</span>
-                            <span class="">
-                                <input type="text" ng-model="agentname.agent_name" class="form-control" style="float:right;" placeholder="Search Customer Here" /> </td>
-                            </span>
+                        <div class="col-sm-12" style="margin-top:20px">
+                            <div class="col-sm-2">
+                                <span><b>Account Number:</b></span>
+                            </div>
+                            <div class="col-sm-4 pull-left">
+                                <span>{{txtcust_accNo}}</span>
+                            </div>
+                            <div class="col-sm-2">
+                                <span>
+                                    <b>Email-Id:</b>
+                                </span>
+                            </div>
+                            <div class="col-sm-4 pull-left">
+                                <span>{{txtcust_emailId}}</span>
+
+                            </div>
+
                         </div>
                     </div>
                     <div class="row  search_content" style="margin-top:50px;">
@@ -41,10 +58,10 @@
                                                 <!--  <tr style="background-color:skyblue;border-color:skyblue;">-->
                                                 <tr class="content_headrow  ">
                                                     <th>Sr.No</th>
-                                                    <th style="width:30%">Name</th>
-                                                    <th style="width:30%">Account Number</th>
-                                                    <th style="width:30%">Agent Name</th>
-                                                    <th style="width:30%">Details</th>
+                                                    <th style="width:30%">Date</th>
+                                                    <th style="width:30%">Debit</th>
+                                                    <th style="width:30%">Credit</th>
+                                                    <th style="width:30%">Balance</th>
                                                 </tr>
 
                                             </thead>
@@ -52,9 +69,9 @@
                                                 <tr ng-repeat="data in transDetailsAccTypes | filter:Name | filter:AccountNo | filter:agentname |unique:cust_id">
                                                     <th>{{$index+1}}</th>
 
-                                                    <th class="marathifont    ">{{data.cust_name}}</th>
-                                                    <th class=" ">{{data.external_account_id}}</th>
-                                                    <th class="marathifont  ">{{data.agent_name}}</th>
+                                                    <th class="">{{data.cust_name}}</th>
+                                                    <th class="">{{data.external_account_id}}</th>
+                                                    <th class="">{{data.agent_name}}</th>
                                                     <td class="">
                                                         <a href="#/acc_detail/{{data.cust_id}}" class="btn btn-success btn-sm pull-left"><i class="glyphicon glyphicon-record"></i>Details</a>
                                                         <!--<a ng-click="customerDetails(ID=data.cust_id)" class="btn btn-success btn-sm pull-left"><i class="glyphicon glyphicon-record"></i>Details</a>-->

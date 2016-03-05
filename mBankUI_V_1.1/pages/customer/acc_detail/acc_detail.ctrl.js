@@ -11,12 +11,13 @@ scotchApp.controller('acc_detailController', function ($rootScope, $interval, $t
     }
    
     
-    $scope.savingMenu = true;
-        $scope.rd = true;
-        $scope.dd = true;
-        $scope.fd = true;
-        $scope.saving1 = true;
-    
+    //$scope.savingMenu = true;
+    //    $scope.rd = true;
+    //    $scope.dd = true;
+    //    $scope.fd = true;
+    //    $scope.saving1 = true;
+    $scope.saving = true;
+
  
     var roughtDetails = $cookieStore.get('user');
     var imageIDData = $cookieStore.get('bankIDImg');

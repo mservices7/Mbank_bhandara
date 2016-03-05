@@ -10,7 +10,8 @@ var scotchApp = angular.module('scotchApp',
         'app.acc_detail',
         'app.customerDetails',
         'app.fd',
-        'app.statementSearch'
+        'app.statementSearch',
+        //'app.statementDetails'
 
     ]);
 
@@ -37,8 +38,13 @@ scotchApp.config(function ($routeProvider, $httpProvider) {
             controller: 'statementSearchController'
         })
 
+        //.when('/statementDetails/:Cust_ID',all_transactions
+        //{
+        //    templateUrl: 'pages/customer/statement/statementDetails/statementDetails.html',
+        //    controller: 'statementDetailsController'
+        //})
 
-
+        .when('/all_transactions/:Navigation', { templateUrl: 'pages/transactions/all_transactions/all_transactions.html', controller: 'all_transactionsController' })
 
 
 
