@@ -89,13 +89,25 @@ scotchApp.controller('statementSearchController', function ($rootScope, $interva
 
                     for (var x = 0; x < count; x++) {
                         if (datedata[x].trx_dt == String(transactionDate)) {
-                            $scope.CustomerRecordStatement.push({
-                                Date: datedata[x].trx_dt,
-                                Debit: datedata[x].amt,
-                                Credit: datedata[x].amt,
-                                Balance: datedata[x].trx_balance
+                            if (datedata[x].trx_type == "dbt") {
+                                $scope.CustomerRecordStatement.push({
+                                    Date: datedata[x].trx_dt,
+                                    Debit: datedata[x].amt,
+                                    Credit: 0.0,
+                                    Balance: datedata[x].trx_balance
 
-                            })
+                                })
+                            }
+                            else
+                            {
+                                $scope.CustomerRecordStatement.push({
+                                    Date: datedata[x].trx_dt,
+                                    Debit: 0.0,
+                                    Credit: datedata[x].amt,
+                                    Balance: datedata[x].trx_balance
+
+                                })
+                            }
                         }
                     }
                 }
@@ -150,13 +162,24 @@ scotchApp.controller('statementSearchController', function ($rootScope, $interva
 
                      for (var x = 0; x < count; x++) {
                          if (datedata[x].trx_dt == String(transactionDate)) {
-                             $scope.CustomerRecordStatement.push({
-                                 Date: datedata[x].trx_dt,
-                                 Debit: datedata[x].amt,
-                                 Credit: datedata[x].amt,
-                                 Balance: datedata[x].trx_balance
+                             if (datedata[x].trx_type == "dbt") {
+                                 $scope.CustomerRecordStatement.push({
+                                     Date: datedata[x].trx_dt,
+                                     Debit: datedata[x].amt,
+                                     Credit: 0.0,
+                                     Balance: datedata[x].trx_balance
 
-                             })
+                                 })
+                             }
+                             else {
+                                 $scope.CustomerRecordStatement.push({
+                                     Date: datedata[x].trx_dt,
+                                     Debit: 0.0,
+                                     Credit: datedata[x].amt,
+                                     Balance: datedata[x].trx_balance
+
+                                 })
+                             }
                          }
                      }
 
@@ -248,13 +271,24 @@ scotchApp.controller('statementSearchController', function ($rootScope, $interva
                                 if (datedata1[x].trx_dt == String(transactionDate)) {
 
 
-                                    $scope.CustomerRecordStatement.push({
-                                        Date: datedata1[x].trx_dt,
-                                        Debit: datedata1[x].amt,
-                                        Credit: datedata1[x].amt,
-                                        Balance: datedata1[x].trx_balance,
+                                    if (datedata1[x].trx_type == "dbt") {
+                                        $scope.CustomerRecordStatement.push({
+                                            Date: datedata1[x].trx_dt,
+                                            Debit: datedata1[x].amt,
+                                            Credit: 0.0,
+                                            Balance: datedata1[x].trx_balance
 
-                                    })
+                                        })
+                                    }
+                                    else {
+                                        $scope.CustomerRecordStatement.push({
+                                            Date: datedata1[x].trx_dt,
+                                            Debit: 0.0,
+                                            Credit: datedata1[x].amt,
+                                            Balance: datedata1[x].trx_balance
+
+                                        })
+                                    }
                                 }
 
                             }
@@ -287,13 +321,24 @@ scotchApp.controller('statementSearchController', function ($rootScope, $interva
                                     //console.log(count);
                                     //console.log(datedata1[x].trx_dt);
 
-                                    $scope.CustomerRecordStatement.push({
-                                        Date: datedata1[x].trx_dt,
-                                        Debit: datedata1[x].amt,
-                                        Credit: datedata1[x].amt,
-                                        Balance: datedata1[x].trx_balance,
+                                    if (datedata1[x].trx_type == "dbt") {
+                                        $scope.CustomerRecordStatement.push({
+                                            Date: datedata1[x].trx_dt,
+                                            Debit: datedata1[x].amt,
+                                            Credit: 0.0,
+                                            Balance: datedata1[x].trx_balance
 
-                                    });
+                                        })
+                                    }
+                                    else {
+                                        $scope.CustomerRecordStatement.push({
+                                            Date: datedata1[x].trx_dt,
+                                            Debit: 0.0,
+                                            Credit: datedata1[x].amt,
+                                            Balance: datedata1[x].trx_balance
+
+                                        })
+                                    }
                                 }
                             }
 
@@ -327,13 +372,24 @@ scotchApp.controller('statementSearchController', function ($rootScope, $interva
                                     //console.log(count);
                                     //console.log(datedata1[x].trx_dt);
 
-                                    $scope.CustomerRecordStatement.push({
-                                        Date: datedata1[x].trx_dt,
-                                        Debit: datedata1[x].amt,
-                                        Credit: datedata1[x].amt,
-                                        Balance: datedata1[x].trx_balance,
+                                    if (datedata1[x].trx_type == "dbt") {
+                                        $scope.CustomerRecordStatement.push({
+                                            Date: datedata1[x].trx_dt,
+                                            Debit: datedata1[x].amt,
+                                            Credit: 0.0,
+                                            Balance: datedata1[x].trx_balance
 
-                                    });
+                                        })
+                                    }
+                                    else {
+                                        $scope.CustomerRecordStatement.push({
+                                            Date: datedata1[x].trx_dt,
+                                            Debit: 0.0,
+                                            Credit: datedata1[x].amt,
+                                            Balance: datedata1[x].trx_balance
+
+                                        })
+                                    }
                                 }
                             }
 

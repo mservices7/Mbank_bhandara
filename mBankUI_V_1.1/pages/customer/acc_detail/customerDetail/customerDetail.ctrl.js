@@ -42,7 +42,10 @@ scotchApp.controller('customerDetailsController', function ($rootScope, $scope, 
        });
 
     //customer update function
-
+    $scope.Back = function () {
+       // alert('work');
+        $location.path('acc_detail/' + $scope.exact_log);
+    }
     $http.get(linkglobal + '/customers?$filter=cust_id eq ' + $scope.exact_log)
                  .success(function (response) {
                      var cust = response;

@@ -29,12 +29,12 @@
 
                                     <tr>
                                         <td><h4><b>Customer Name</b></h4></td>
-                                        <td class=""><input type="text" ng-model="search" placeholder="Search Customer Here Select in Below Dropdown" class="form-control" /></td>
+                                        <td class=""><input type="text" ng-model="searchs" placeholder="Search Customer Here Select in Below Dropdown" class="form-control" /></td>
 
                                         <td>
                                             <select ng-model="accCustomerId" class="form-control" ng-change='agentfound(accountData=this.accCustomerId);accountType=""'>
                                                 <option value="">Select Customer Name</option>
-                                                <option ng-repeat="cust in customers | filter:search" value="{{cust.cust_id}}">{{cust.cust_name}}</option>
+                                                <option ng-repeat="cust in customers | filter:searchs" value="{{cust.cust_id}}">{{cust.cust_name}}</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -43,7 +43,7 @@
                                         <td colspan="2">
                                             <select type="text" ng-model="accountType" class="form-control" ng-change="accfound(accountData=this.accCustomerId)">
                                                 <option value="">Select Account Type</option>
-                                                <option ng-repeat="product in products" value="{{product.ID}}">{{product.pDetails}}</option>
+                                                <option ng-repeat="product in products" value="{{product.Id}}">{{product.pDetails}}</option>
                                             </select>
 
                                         </td>

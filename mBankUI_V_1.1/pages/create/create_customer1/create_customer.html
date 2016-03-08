@@ -88,7 +88,7 @@
                                     </div>
 
                                     <div class="col-sm-6">
-                                        <label for="inputPassword" class="col-sm-4 control-label">Permanant Address</label>
+                                        <label for="inputPassword" class="col-sm-4 control-label">Permanent Address</label>
                                         <div class="col-sm-8">
                                             <textarea type="text" class="form-control capitalize" ng-model="custAddress2" name="paddress" placeholder="Enter Address" required></textarea>
 
@@ -157,7 +157,7 @@
                                 <div class="form-group">
                                     <label for="inputPassword" class="col-sm-2 control-label">Pan Card No.</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" ng-model="custPanCard" placeholder="Enter 10 Digit PAN Card Number" name="pcno" ng-pattern="/^[a-zA-Z0-9\s]*$/" ng-minlength='10' maxlength='10' required>
+                                        <input type="text" class="form-control" ng-model="custPanCard" placeholder="Enter 10 Digit PAN Card Number" name="pcno" ng-pattern="/^[0-9\s]*$/" ng-minlength='10' maxlength='10' required>
                                         <span class="help-block" ng-show="myForm.pcno.$error.minlength" style="color:red">
 
                                             <b class="error">

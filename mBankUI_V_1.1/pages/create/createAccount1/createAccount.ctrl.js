@@ -13,6 +13,12 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
     var imageIDData = $cookieStore.get('bankIDImg');
     $scope.imgIdDdURL = imageIDData;
 
+    //for Showing a menu
+    $scope.transaction = true;
+    $scope.search = true;
+    $scope.request = true;
+    $scope.create = true;
+    $scope.reports = true;
 
     var linkglobal = $cookieStore.get('urlBanks');  //Bank Bhandara
 
@@ -220,110 +226,111 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
             alert('Please Select/Fill All Field');
         } else {
 
-        $http.get(linkglobal + '/products?$filter=ID eq ' + Account_Id)
-    .success(function (res) {
-        var Accounts = res;
-        var accType = Accounts.value;
-        accType = accType[0].pType;
+            $http.get(linkglobal + '/products?$filter=Id eq ' + this.accountType)
+        .success(function (res) {
+            var Accounts = res;
+            var accType = Accounts.value;
+            accType = accType[0].pType;
         
        
-        var external_account_id = String(accType + "/" + ModifiedDate);
-        if (this.accountType == 3)
-        {
-            var request = $http({
-                method: "post",
-                url: linkglobal+"/accounts",
-                crossDomain: true,
-                data: {
-                    external_account_id: external_account_id,
-                    //acc_id: acc_id,
-                    cust_id: cust_id,
-                    balance: balance,
-                    bank_id: imageIDData,
-                    branch_id: branch_id,
-                    agent_id: agent_id,
-                    status: 1,
-                    Account_Type: accType,
-                    bank_sync_dt: sync_dt,
-                    is_sync:true,
-                    sync_dt: sync_dt,
-                    trx_type: Account_Id,
-                    InstallmentDays: noDays,
-                    Percentage: interest
-                },
-                headers: { 'Content-Type': 'application/json' },
-            }).success(function (data) {
+            var external_account_id = String(accType + "/" + ModifiedDate);
+            if (this.accountType == 3)
+            {
+                var request = $http({
+                    method: "post",
+                    url: linkglobal+"/accounts",
+                    crossDomain: true,
+                    data: {
+                        external_account_id: external_account_id,
+                        //acc_id: acc_id,
+                        cust_id: cust_id,
+                        balance: balance,
+                        bank_id: imageIDData,
+                        branch_id: branch_id,
+                        agent_id: agent_id,
+                        status: 1,
+                        Account_Type: accType,
+                        bank_sync_dt: sync_dt,
+                        is_sync:true,
+                        sync_dt: sync_dt,
+                        trx_type: Account_Id,
+                        InstallmentDays: noDays,
+                        Percentage: interest
+                    },
+                    headers: { 'Content-Type': 'application/json' },
+                }).success(function (data) {
 
-                alert('Account Created');
-
-            });
-
-            //}).error(function (err) {
-
-            /// alert('Internet Not Available,Please Try Again');
-
-            
-        }
-        else {
-            var request = $http({
-                method: "post",
-                url: linkglobal + "/accounts",
-                crossDomain: true,
-                data: {
-                    external_account_id: external_account_id,
-                    //acc_id: acc_id,
-                    cust_id: cust_id,
-                    balance: balance,
-                    bank_id: imageIDData,
-                    branch_id: branch_id,
-                    agent_id: agent_id,
-                    status: 1,
-                    Account_Type: accType,
-                    bank_sync_dt: today_dt,
-                    sync_dt: today_dt,
-                    is_sync: true,
-                    trx_type: Account_Id,
-                    InstallmentDays: noDays,
-                    Percentage: interest
-                },
-                headers: { 'Content-Type': 'application/json' },
-            }).success(function (data) {
+          
+                    alert('Account Created');
 
 
-                alert('Account Created');
 
-            }).error(function (err) {
+                }).error(function (err) {
 
-                alert('Internet Not Available');
-            });
+                    alert('Internet Not Available,Please Try Again');
 
-        }
+                });
+            }
+            else {
+                var request = $http({
+                    method: "post",
+                    url: linkglobal + "/accounts",
+                    crossDomain: true,
+                    data: {
+                        external_account_id: external_account_id,
+                        //acc_id: acc_id,
+                        cust_id: cust_id,
+                        balance: balance,
+                        bank_id: imageIDData,
+                        branch_id: branch_id,
+                        agent_id: agent_id,
+                        status: 1,
+                        Account_Type: accType,
+                        bank_sync_dt: today_dt,
+                        sync_dt: today_dt,
+                        is_sync: true,
+                        trx_type: Account_Id,
+                        InstallmentDays: noDays,
+                        Percentage: interest
+                    },
+                    headers: { 'Content-Type': 'application/json' },
+                }).success(function (data) {
+
+
+                    alert('Account Created');
+
+
+
+                }).error(function (err) {
+
+                    alert('Internet Not Available,Please Try Again');
+
+                });
+            }
 
            
-    });
-        this.search = " ";
-        this.exAccountId = '';
-        $scope.openingDate = null;
-        $scope.dueDate = null;
-        this.accCustomerId = '';
-        this.accountBalane = null;
-        this.accountBankId = '';
-        this.accountBranchId = '';
-        this.accountAgentId = '';
-        this.accountType = null;
-        this.noOfDays = '';
-        this.interest = '';
+        });
+            this.exAccountId = '';
+            $scope.openingDate = null;
+            $scope.dueDate = null;
+            this.accCustomerId = '';
+            this.accountBalane = null;
+            this.accountBankId = '';
+            this.accountBranchId = '';
+            this.accountAgentId = '';
+            this.accountType = null;
+            this.noOfDays = '';
+            this.interest = '';
 
-        $scope.DaysPanel = false;
-        $scope.InterestPanel = false;
+            $scope.DaysPanel = false;
+            $scope.InterestPanel = false;
     }
 
    
-}
+    }
 
 
     $scope.clearData = function () {
-        $scope.search = " ";
         $scope.DueDate = false;
         $scope.accountBalane = "";
         $scope.openingDate =null;

@@ -238,8 +238,9 @@
                                         <th>Debit</th>
                                         <th>Credit</th>
                                         <th>Balance</th>
-                                        <th>Intrest Paid</th>
-                                        <th ng-show="getDetails==3">Daily Installment Amount</th>
+                                   <!--     <th>Intrest Paid</th>-->
+                                      <!--  <th ng-show="getDetails==3">Daily Installment Amount</th>-->
+                                        <!--<th>Daily Installment Amount</th>-->
                                         <th>Approve</th>
 
                                     </tr>
@@ -263,11 +264,12 @@
                                     <tr ng-repeat="data in datadetails |orderBy : '-sync_dt' |limitTo:limit">
                                         <td>{{data.trx_dt}}</td>
                                         <td>{{data.Account_Type}}</td>
-                                        <td><span ng-show="(data.trx_type=='dbt' && data.status==7 || data.status==10 || data.status==11) ">{{data.amt}}</span></td>
+                                        <!--<td><span ng-show="(data.trx_type=='dbt' && data.status==7 || data.status==10 || data.status==11) ">{{data.amt}}</span></td>-->
+                                        <td><span ng-show="(data.trx_type=='dbt' ) ">{{data.amt}}</span></td>
                                         <td><span ng-show="data.trx_type=='cr'">{{data.amt}}</span></td>
                                         <td>{{data.trx_balance}}</td>
-                                        <td ng-show="data.trx_data==3">{{data.InterestAmounts}}</td>
-                                        <td>{{data.amt}}</td>
+                                        <!--<td ng-show="data.trx_data==3">{{data.InterestAmounts}}</td>-->
+                                        <!--<td>{{data.amt}}</td>-->
                                         <td><input class="btn btn-primary" type="button" value="Approve" ng-disabled="(data.status==10 || data.status ==7 || data.status ==11)" ng-click="StatusApprove(trxid=data.trxId,status=11,accID=data.acc_id,DailyInAmt=data.amt)" /></td>
                                     </tr>
                                     <tr ng-show="datadetails.length > 30">

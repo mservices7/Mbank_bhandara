@@ -12,6 +12,7 @@ scotchApp.controller('ReportCustomerController', function ($rootScope, $scope, $
     var roughtDetails = $cookieStore.get('user');
     var imageIDData = $cookieStore.get('bankIDImg');
     $scope.imgIdDdURL = imageIDData;
+
     //for Showing a menu
     $scope.transaction = true;
     $scope.search = true;

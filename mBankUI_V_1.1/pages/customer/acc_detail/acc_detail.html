@@ -50,6 +50,13 @@
                             <div class="content">
                                 <div class="panel content_table">
                                     <div class="box-body">
+                                        <div class="pull-left">
+                                            <button class="btn btn-primary btn-sm" ng-click="Back()">
+                                                <i class="glyphicon glyphicon-circle-arrow-left"> </i>
+                                                &nbsp;Back
+                                            </button>
+
+                                        </div>
                                         <div class="col-lg-12 " style=" height:450px;overflow:scroll">
                                             <table id="example2" class="table table-bordered table-hover">
                                                 <thead>
@@ -85,7 +92,7 @@
                                                     <tr ng-repeat="data in datadetails|orderBy : '-sync_dt'">
                                                         <td>{{data.trx_dt}}</td>
                                                         <!--<td>{{data.Account_Type}}</td>-->
-                                                        <td><span ng-show="(data.trx_type=='dbt' && data.status==7 || data.status==10 || data.status==11) ">{{data.amt}}</span></td>
+                                                        <td><span ng-show="(data.trx_type=='dbt') ">{{data.amt}}</span></td>
                                                         <td><span ng-show="data.trx_type=='cr'">{{data.amt}}</span></td>
                                                         <td>{{data.trx_balance}}</td>
 

@@ -21,6 +21,12 @@ scotchApp.controller('create_customerController', function ($rootScope, $scope, 
     var imageIDData = $cookieStore.get('bankIDImg');
     $scope.imgIdDdURL = imageIDData;
 
+    //for Showing a menu
+    $scope.transaction = true;
+    $scope.search = true;
+    $scope.request = true;
+    $scope.create = true;
+    $scope.reports = true;
 
     var linkglobal = $cookieStore.get('urlBanks');  //Bank Bhandara
 
@@ -183,15 +189,66 @@ scotchApp.controller('create_customerController', function ($rootScope, $scope, 
 
             }).success(function (data) {
 
-                alert('Customer created successfully');
-                
-            }).error(function (err) {
+                //  var day = this.customerday;
+                // var interest = this.interests;
 
-                alert('Internet Not Available');
+                $http.get(linkglobal + "/customers" + "?$filter=external_cust_id eq '" + external_cust_id + "'").then(function (res) {
+
+                    var role = res.data;
+                    var users = role.value;
+                    console.log(users[0].cust_id);
+                    var getCustID = users[0].cust_id;
+
+
+                    var request = $http({
+                        method: "post",
+                        url: linkglobal + "/accounts",
+                        crossDomain: true,
+                        data: {
+                            external_account_id: external_account_id,
+                            //acc_id: custIDCreate,
+                            cust_id: getCustID,
+                            //  balance: 0.0,
+                            bank_id: bank_id,
+                            branch_id: branchID,
+                            agent_id: agent_id,
+                            status: status,
+                            bank_sync_dt: sync_dt,
+                            sync_dt: sync_dt,
+                            balance: Newamount,
+                            Account_Type: accType,
+                            trx_type: dataaccType,
+                            InstallmentDays: day,
+                            Percentage: interest,
+                            is_sync: true
+
+                        },
+                        headers: { 'Content-Type': 'application/json' },
+                    }).success(function (data) {
+                        // $location.path('/dashboard');
+                        alert('Customer Created');
+                        $http.get(linkglobal + '/products?$filter=bank_id eq ' + imageIDData).success(function (res) { var acc = res; var acc1 = acc.value; $scope.accounts = acc1; });
+
+                    }).error(function (err) {
+                        alert('Internet is Not Available');
+                    });
+
+
+
+                });
+
+
+            }).error(function (err) {
+                $location.path('/home');
+                alert('Internet is Not Available');
+                alert(err);
+                console.log(err);
+
             });
 
-            this.custAccType = null;
-            this.agentID = null;
+
+
+            this.custAccType = "";
             this.custFName = '';
             this.custLName = '';
             this.custAddress = '';
@@ -212,7 +269,6 @@ scotchApp.controller('create_customerController', function ($rootScope, $scope, 
 
 
     $scope.clearCutomer = function () {
-       
         this.custMobileNo2 = '';
         this.amount = "";
         this.custAccType = "";

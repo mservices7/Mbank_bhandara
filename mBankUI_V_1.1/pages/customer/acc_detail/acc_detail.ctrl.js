@@ -37,6 +37,11 @@ scotchApp.controller('acc_detailController', function ($rootScope, $interval, $t
         }
     ];
 
+    $scope.Back = function () {
+        // alert('work');
+        $location.path('/dd');
+    }
+
     var linkglobal = $cookieStore.get('urlBanks');  //Bank Bhandara
 
     //Today Date
