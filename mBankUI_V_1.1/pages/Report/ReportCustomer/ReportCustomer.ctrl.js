@@ -4,7 +4,8 @@ var scotchApp = angular.module('app.ReportCustomer', ['ngRoute'])
 
 
 scotchApp.controller('ReportCustomerController', function ($rootScope, $scope, $http, $routeParams, $location, $filter, $cookieStore) {
-    $scope.CheckLogin = function () {if ($cookieStore.get('bankIDImg') == undefined) { $location.path('/'); }
+    $scope.CheckLogin = function () {
+        if ($cookieStore.get('bankIDImg') == undefined) { $location.path('/'); }
 
     }
 
@@ -42,7 +43,24 @@ scotchApp.controller('ReportCustomerController', function ($rootScope, $scope, $
     };
 
     //Requested Customer
-    $http.get(linkglobal + '/customers?$filter=bank_id eq ' + imageIDData).success(function (response) { var cust1 = response; var cust2 = cust1.value; $scope.customers = cust2; var count = cust2.length; });
+    $http.get(linkglobal + '/customers?$filter=bank_id eq ' + imageIDData).success(function (response) {
+        var cust1 = response;
+        var cust2 = cust1.value;
+        $scope.customers = cust2;
+        var count = cust2.length;
+    });
+    $scope.GetCustomerRecords = function () {
+
+        if (this.cust_id == "" || this.cust_id == null) {
+            //$http.get(linkglobal + '/customers?$filter=bank_id eq ' + imageIDData).success(function (response) {
+            //    var cust1 = response;
+            //    var cust2 = cust1.value;
+            //    $scope.customers = cust2;
+            //    var count = cust2.length;
+            //});
+            alert('work');
+        }
+    }
 
     //Get Customer Record
     $scope.getCustAllData = function () {

@@ -33,16 +33,36 @@
                                         <th class="text-center">More Details</th>
                                     </tr>
                                     <tr style="background-color:lightblue;">
-                                        <th><input class="form-control" type="number" ng-model="search.cust_id" placeholder="SearchByID " /></th>
-                                        <th><input class="form-control" type="text" ng-model="search.cust_name" placeholder="Search By Name " /></th>
+                                        <th><input class="form-control" type="number" ng-model="custData.cust_id" placeholder="SearchByID "  /></th>
+                                        <th><input class="form-control" type="text" ng-model="custData.cust_name" placeholder="Search By Name "  /></th>
 
-                                        <th><input class="form-control" type="text" ng-model="search.cust_phno_1" placeholder="Search By MobileNo " /></th>
+                                        <th><input class="form-control" type="number" ng-model="custData.cust_phno_1" placeholder="Search By MobileNo "  /></th>
                                         <th class="text-right"> </th>
                                     </tr>
                                     
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="custData in customers | filter:search  | limitTo:limit">
+                                    <tr ng-show="!customers">
+
+                                        <td colspan="7" style="font-size:15pt;color:green;text-align:center">
+
+                                            
+                                            <b>Please Wait Transaction Is Loading.....</b>
+                                            <div class="overlay">
+                                                <i class="fa fa-refresh fa-spin"></i>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr ng-show="customers.length == '0'">
+                                        <td colspan="7" style="font-size:15pt;color:red;text-align:center">
+                                            <b>
+                                                yet no Transactions
+                                            </b>
+                                        </td>
+
+                                    </tr>
+                                    <tr ng-repeat="custData in customers | filter:custData  | limitTo:limit">
                                         <td>{{custData.cust_id}}</td>
                                         <td ng-class="{marathifont:{{custData.bank_id}}===1}">{{custData.cust_name}}</td>
                                         <td><div ng-show='custData.cust_phno_1 == ""' style="color:red">Not Available</div>{{custData.cust_phno_1}} </td>

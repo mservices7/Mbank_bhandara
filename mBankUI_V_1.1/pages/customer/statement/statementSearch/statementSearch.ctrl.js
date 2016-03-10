@@ -63,6 +63,10 @@ scotchApp.controller('statementSearchController', function ($rootScope, $interva
 
     }
 
+    $scope.BackToDetails = function () {
+        // alert('work');
+        $location.path('acc_detail/' + $scope.CustId);
+    }
     $scope.LastMonth = function () {
         $scope.serachConditionDiv = false;
         $scope.showRecordsDiv = true;

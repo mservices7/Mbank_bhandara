@@ -372,18 +372,43 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
 
 
     //generate xlsx file
+    //old
+   // $scope.exportData = function ($scope) {
+
+   //     $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=Status eq ' + 7 + ' and Bank_Id eq ' + imageIDData + ' and Transaction_Data ne 3')
+   //.success(function (res) {
+
+   //    var agent1 = res;
+   //    var user1 = agent1.value;
+   //    var count = user1.length;
+
+   //    if (count > 0) {
+
+   //        alasql('SELECT Customer_Name,External_Transaction_Id,Status,Transaction_Date,Amount,External_Account_Id,Agent_Name INTO XLSX("Report.xlsx",{headers:true})  FROM ?', [user1]);
+
+   //    }
+   //    else {
+   //        alert('Record not found');
+   //    }
+   //}).error(function (data) {
+   //    alert('Record not found');
+   //});
+
+   // };
+
+    //new 
     $scope.exportData = function ($scope) {
 
-        $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=Status eq ' + 7 + ' and Bank_Id eq ' + imageIDData + ' and Transaction_Data ne 3')
+        $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3')
    .success(function (res) {
 
        var agent1 = res;
        var user1 = agent1.value;
        var count = user1.length;
-
+       //alert(count);
        if (count > 0) {
 
-           alasql('SELECT Customer_Name,External_Transaction_Id,Status,Transaction_Date,Amount,External_Account_Id,Agent_Name INTO XLSX("Report.xlsx",{headers:true})  FROM ?', [user1]);
+           alasql('SELECT Customer_Name,External_Transaction_Id,status,Transaction_Date,Amount,external_account_id,agent_name INTO XLSX("Report.xlsx",{headers:true})  FROM ?', [user1]);
 
        }
        else {
@@ -391,9 +416,11 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
        }
    }).error(function (data) {
        alert('Record not found');
+       //console.log(data);
    });
 
     };
+
 
 
     //refresh code

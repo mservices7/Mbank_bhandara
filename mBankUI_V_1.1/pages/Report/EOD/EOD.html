@@ -62,7 +62,7 @@
 
                                                         <th>
                                                             <div class=" form-group-sm">
-                                                                <input type="text" class="form-control" ng-model="search" placeholder="Search Agent" />
+                                                                <input type="text" class="form-control" ng-model="searchs" placeholder="Search Agent" />
                                                             </div>
                                                         </th>
                                                         <th colspan="3">Search Agent Here</th>
@@ -85,7 +85,7 @@
 
                                                     </tr>
 
-                                                    <tr ng-repeat="data in todayRecordTrans |filter:search  | unique:'agent_id'">
+                                                    <tr ng-repeat="data in todayRecordTrans |filter:searchs  | unique:'agent_id'">
 
                                                         <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.agent_name}}</td>
                                                         <td>{{todayDates}}</td>

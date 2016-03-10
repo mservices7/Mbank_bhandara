@@ -40,12 +40,17 @@ scotchApp.controller('custAccDetailsController', function ($rootScope, $scope, $
     $scope.arr = [];
     var trxData;
     $http.get(linkglobal + '/customers?$filter=cust_id eq ' + exact).success(function (response) {
-        var cust1 = response; var cust2 = cust1.value; $scope.customer = cust2; var count = cust2.length;
+        var cust1 = response;
+        var cust2 = cust1.value;
+        $scope.customer = cust2;
+        var count = cust2.length;
         
 
     });
     $http.get(linkglobal + '/accounts?$filter=cust_id eq ' + exact).success(function (response) {
-        var cust1 = response; var cust2 = cust1.value; $scope.customers = cust2; var count = cust2.length;
+        var cust1 = response;
+        var cust2 = cust1.value;
+        $scope.customers = cust2; var count = cust2.length;
         var gettrxDetails = cust2[0].trx_type;
         $http.get(linkglobal + '/trxn_views?$filter=cust_id eq ' + exact + ' and trx_data eq ' + gettrxDetails ).success(function (response) {
             var customer1 = response;
@@ -59,6 +64,10 @@ scotchApp.controller('custAccDetailsController', function ($rootScope, $scope, $
         });
     });
 
+    $scope.Back = function () {
+      //   alert('work');
+         $location.path('/customers');
+    }
 
      $scope.rowClass = function(item, index){
          if(index == 0){
@@ -109,8 +118,11 @@ scotchApp.controller('custAccDetailsController', function ($rootScope, $scope, $
      $scope.refresh = function () {
          $scope.datadetails = null;
          $http.get(linkglobal + '/accounts?$filter=cust_id eq ' + exact).success(function (response) {
-             var cust1 = response; var cust2 = cust1.value; $scope.customers = cust2; var count = cust2.length;
+             var cust1 = response; var cust2 = cust1.value;
+             $scope.customers = cust2;
+             var count = cust2.length;
              var gettrxDetails = cust2[0].trx_type;
+
              $http.get(linkglobal + '/trxn_views?$filter=cust_id eq ' + exact + ' and trx_data eq ' + gettrxDetails).success(function (response) {
                  var customer1 = response;
                  var customer2 = customer1.value;
@@ -122,29 +134,57 @@ scotchApp.controller('custAccDetailsController', function ($rootScope, $scope, $
      }
 
     //generate xlsx file
+
+    //old
+    // $scope.exportData = function () {
+
+    //    // $http.get(linkglobal + '/trxn_views?$filter=trx_data eq ' + $scope.getDetails + ' and cust_id eq ' + exact + ' and status eq ' + 7 + 'or status eq ' + 10 + ' and trx_data eq ' + $scope.getDetails + ' and cust_id eq ' + exact).success(function (response) {
+    //     $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=Transaction_Data eq ' + $scope.getDetails + ' and Customer_Id eq ' + exact + ' and Status eq ' + 7 + 'or Status eq ' + 10 ).success(function (response) {
+
+    //     var trxn1 = response;
+    //         var trxn2 = trxn1.value;
+          
+    //    var count = trxn2.length;
+       
+    //    if (count > 0) {
+
+    //        alasql('SELECT Customer_Name,Account_Type,External_Transaction_Id,Status,Transaction_Date,Amount,External_Account_Id,Agent_NameINTO XLSX("Report.xlsx",{headers:true})  FROM ?', [trxn2]);
+
+    //    }
+    //    else {
+    //        alert('Record not found!');
+    //    }
+    //}).error(function (data) {
+    //    alert('Record not found');
+    //});
+
+    // };
+
+    //// new
      $scope.exportData = function () {
 
-        // $http.get(linkglobal + '/trxn_views?$filter=trx_data eq ' + $scope.getDetails + ' and cust_id eq ' + exact + ' and status eq ' + 7 + 'or status eq ' + 10 + ' and trx_data eq ' + $scope.getDetails + ' and cust_id eq ' + exact).success(function (response) {
-         $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=Transaction_Data eq ' + $scope.getDetails + ' and Customer_Id eq ' + exact + ' and Status eq ' + 7 + 'or Status eq ' + 10 ).success(function (response) {
+         // $http.get(linkglobal + '/trxn_views?$filter=trx_data eq ' + $scope.getDetails + ' and cust_id eq ' + exact + ' and status eq ' + 7 + 'or status eq ' + 10 + ' and trx_data eq ' + $scope.getDetails + ' and cust_id eq ' + exact).success(function (response) {
+         $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=trx_data eq ' + $scope.getDetails + ' and status eq ' + 7 + 'or status eq ' + 10).success(function (response) {
 
-         var trxn1 = response;
+             var trxn1 = response;
              var trxn2 = trxn1.value;
-          
-        var count = trxn2.length;
-       
-        if (count > 0) {
 
-            alasql('SELECT Customer_Name,Account_Type,External_Transaction_Id,Status,Transaction_Date,Amount,External_Account_Id,Agent_NameINTO XLSX("Report.xlsx",{headers:true})  FROM ?', [trxn2]);
+             var count = trxn2.length;
+             //alert(count);
+             if (count > 0) {
+                 //alert("inside if");
+                 alasql('SELECT Customer_Name,Account_Type,External_Transaction_Id,status,Transaction_Date,Amount,external_account_id,agent_name INTO XLSX("Report.xlsx",{headers:true})  FROM ?', [trxn2]);
 
-        }
-        else {
-            alert('Record not found!');
-        }
-    }).error(function (data) {
-        alert('Record not found');
-    });
+             }
+             else {
+                 alert('Record not found else!');
+             }
+         }).error(function (data) {
+             alert('Record not found');
+         });
 
      };
+
 
 
      $scope.StatusApprove = function () {
@@ -384,15 +424,19 @@ scotchApp.controller('custAccDetailsController', function ($rootScope, $scope, $
         var getTrxId1 = $scope.obtainValue;
         var getTrxId = ModifiedDate;
 
-    
+        //alert('getMonetType1'+getMonetType1);
+        //alert('MonetType'+getMonetType);
+
 
         var agentId =  $scope.IdFounds + '-' + ModifiedDate;
 
-        if (type==3) {
+     //   if (type==3) {
+        if (getMonetType == "dbt") {
             var balance = getbalnce - money;
-
+            //alert('dbt'+balance)
         } else {
             var balance = getbalnce + money;
+           // alert('cr' + balance)
 
         }
         //    switch (type) {
@@ -487,18 +531,20 @@ scotchApp.controller('custAccDetailsController', function ($rootScope, $scope, $
                 $scope.divshow = true;
 
                
-                $http.get(linkglobal + '/trxn_views?$filter=cust_id eq ' + exact + ' and trx_data eq ' + type + ' and status eq 7 or status eq 10 or status eq 11').success(function (response) {
-                    var cust1 = response; var cust2 = cust1.value; $scope.datadetails = cust2; var count = cust2.length;
+               // $scope.datadetails = null;
+                $http.get(linkglobal + '/accounts?$filter=cust_id eq ' + exact).success(function (response) {
+                    var cust1 = response; var cust2 = cust1.value;
+                    $scope.customers = cust2;
+                    var count = cust2.length;
+                    var gettrxDetails = cust2[0].trx_type;
 
-
-                });
-
-                $http.get(linkglobal + '/CustomerAccounts?$filter=cust_id eq ' + exact+ ' and trx_data eq ' + type).success(function (response) {
-                    var cust1 = response; var cust2 = cust1.value; $scope.customers = cust2; var count = cust2.length;
-                    $scope.customerName = cust2[0].cust_name;
-                    $scope.openDt = cust2[0].bank_sync_dt;
-
-
+                    $http.get(linkglobal + '/trxn_views?$filter=cust_id eq ' + exact + ' and trx_data eq ' + gettrxDetails).success(function (response) {
+                        var customer1 = response;
+                        var customer2 = customer1.value;
+                        $scope.datadetails = customer2;
+                        var count = customer2.length;
+                        $scope.gettrxDetails = customer2[0].trx_data;
+                    });
                 });
 
                  alert('Rs. ' + money + ' ' + dbttype + ' Account');

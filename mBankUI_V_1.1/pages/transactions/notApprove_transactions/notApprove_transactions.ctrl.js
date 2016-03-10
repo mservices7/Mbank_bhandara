@@ -4,10 +4,11 @@ var scotchApp = angular.module('app.notApprove_transactions', ['ngRoute'])
 
 
 scotchApp.controller('notApprove_transactionsController', function ($rootScope, $scope, $http, $routeParams, $location, $filter, $cookieStore) {
-    $scope.CheckLogin = function () {if ($cookieStore.get('bankIDImg') == undefined) { $location.path('/'); }
+    $scope.CheckLogin = function () {
+        if ($cookieStore.get('bankIDImg') == undefined) { $location.path('/'); }
 
-       
-     }
+
+    }
 
 
     var roughtDetails = $cookieStore.get('user');
@@ -43,7 +44,7 @@ scotchApp.controller('notApprove_transactionsController', function ($rootScope, 
                    amt1 = amt1 + transaction[i].amt;
                }
                $scope.amount1 = amt1;
-            
+
 
            });
 
@@ -232,19 +233,19 @@ scotchApp.controller('notApprove_transactionsController', function ($rootScope, 
         }
     };
 
-             
 
-          
 
-           $scope.allapprovedtrx = function () {
-                
-               $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3')
-                  .success(function (response) {
-                      var trans1 = response;
-                      var user1 = trans1.value;
-                      $scope.trans3 = user1;
-                      var count = user1.length;
-                      $scope.alertLoading = true;
+
+
+    $scope.allapprovedtrx = function () {
+
+        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3')
+           .success(function (response) {
+               var trans1 = response;
+               var user1 = trans1.value;
+               $scope.trans3 = user1;
+               var count = user1.length;
+               $scope.alertLoading = true;
 
                if (count > 0) {
                    for (var i = 0; i < count; i++) {
@@ -266,7 +267,7 @@ scotchApp.controller('notApprove_transactionsController', function ($rootScope, 
                        var status1 = user1[i].status;
 
 
-                      
+
 
 
                        //alert(trxId);
@@ -387,12 +388,34 @@ scotchApp.controller('notApprove_transactionsController', function ($rootScope, 
                else {
                    alert('Record not found');
                }
-                  });
-           };
+           });
+    };
 
 
+    //generate xlsx file
+    $scope.exportData = function ($scope) {
 
-     
+        $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=status ne 7 and status ne 10  and bank_id eq ' + imageIDData + ' and trx_data ne 3')
+   .success(function (res) {
+       var agent1 = res;
+       var user1 = agent1.value;
+       console.log('xlxs report date = ' + user1);
 
-    
+       var count = user1.length;
+       //alert(count);
+       if (count > 0) {
+           //alert("inside if");
+           alasql('SELECT Customer_Name,External_Transaction_Id,status,Transaction_Date,Amount,external_account_id,agent_name INTO XLSX("Report.xlsx",{headers:true})  FROM ?', [user1]);
+
+       }
+       else {
+           alert('Record not found');
+       }
+   }).error(function (data) {
+       alert('Record not found');
+   });
+
+    };
+
+
 })

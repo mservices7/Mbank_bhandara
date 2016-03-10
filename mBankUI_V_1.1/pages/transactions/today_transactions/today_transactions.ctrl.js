@@ -4,10 +4,11 @@ var scotchApp = angular.module('app.today_transactions', ['ngRoute'])
 
 
 scotchApp.controller('today_transactionsController', function ($rootScope, $scope, $http, $routeParams, $location, $filter, $cookieStore) {
-    $scope.CheckLogin = function () {if ($cookieStore.get('bankIDImg') == undefined) { $location.path('/'); }
+    $scope.CheckLogin = function () {
+        if ($cookieStore.get('bankIDImg') == undefined) { $location.path('/'); }
 
-       
-     }
+
+    }
 
 
     var roughtDetails = $cookieStore.get('user');
@@ -73,10 +74,10 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
 
     }
 
-    
-  
+
+
     //get total transactions dashaboard
-    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne '+3+ ' and trx_dt eq ' + date2 + ' or trx_dt eq ' + date3).success(function (response) {
+    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and trx_dt eq ' + date2 + ' or trx_dt eq ' + date3).success(function (response) {
         var trans1 = response; var user1 = trans1.value; $scope.todayRecordTrans = user1;
         var count = user1.length; var amt = 0; var count = user1.length;
         for (var i = 0; i < count; i++) { amt = amt + user1[i].amt; }
@@ -129,7 +130,7 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
                     url: linkglobal + "/trx_details(" + trxId + ")",
                     crossDomain: true,
                     data: {
-                        trx_id:trx_id ,
+                        trx_id: trx_id,
                         status: numberT,
                         trx_dt: dateT,
                         acc_id: accountidT,
@@ -208,7 +209,7 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
 
 
                     alert('Status Approved');
-                    
+
                     $http.get(linkglobal + "/trxn_views?$filter=trx_dt eq " + date2 + ' and bank_id eq ' + imageIDData + ' and trx_data ne 3').success(function (response) {
                         var trans1 = response; var user1 = trans1.value; $scope.todayRecordTrans = user1;
                         var count = user1.length; var amt = 0; var count = user1.length;
@@ -226,7 +227,7 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
 
     }
 
-    
+
 
 
     $scope.allapprovedtoday = function () {
@@ -364,7 +365,7 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
 
                } //for loop close 
 
-               
+
                //   $scope.allrecall();
 
            }
@@ -375,9 +376,36 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
     };
 
     //generate xlsx file
+
+    //New
+    // $scope.exportDatatoday = function ($scope) {
+
+    //     $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=Status eq ' + 7 + ' and Bank_Id eq ' + imageIDData + ' and Transaction_Data ne 3 ' + ' and Transaction_Date eq ' + date2 + ' or Transaction_Date eq ' + date3 + ' and Status eq ' + 7 + ' and Bank_Id eq ' + imageIDData + ' and Transaction_Data ne 3 ')
+    //.success(function (res) {
+    //    var agent1 = res;
+    //    var user1 = agent1.value;
+    //    console.log('xlxs report date = ' + user1);
+
+    //    var count = user1.length;
+
+    //    if (count > 0) {
+
+    //        alasql('SELECT Customer_Name,External_Transaction_Id,Status,Transaction_Date,Amount,External_Account_Id,Agent_Name INTO XLSX("Report.xlsx",{headers:true})  FROM ?', [user1]);
+
+    //    }
+    //    else {
+    //        alert('Record not found');
+    //    }
+    //}).error(function (data) {
+    //    alert('Record not found');
+    //});
+
+    // };
+
+    //new
     $scope.exportDatatoday = function ($scope) {
 
-        $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=Status eq ' + 7 + ' and Bank_Id eq ' + imageIDData + ' and Transaction_Data ne 3 ' + ' and Transaction_Date eq ' + date2 + ' or Transaction_Date eq ' + date3 + ' and Status eq ' + 7 + ' and Bank_Id eq ' + imageIDData + ' and Transaction_Data ne 3 ')
+        $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 ' + ' and Transaction_Date eq ' + date2 + ' or Transaction_Date eq ' + date3 + ' and bank_id eq ' + imageIDData + ' and trx_data ne 3 ')
    .success(function (res) {
        var agent1 = res;
        var user1 = agent1.value;
@@ -387,7 +415,7 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
 
        if (count > 0) {
 
-           alasql('SELECT Customer_Name,External_Transaction_Id,Status,Transaction_Date,Amount,External_Account_Id,Agent_Name INTO XLSX("Report.xlsx",{headers:true})  FROM ?', [user1]);
+           alasql('SELECT Customer_Name,External_Transaction_Id,status,Transaction_Date,Amount,external_account_id,agent_name INTO XLSX("Report.xlsx",{headers:true})  FROM ?', [user1]);
 
        }
        else {
