@@ -25,7 +25,7 @@
                                 <div class="form-group">
                                     <label for="inputEmail3" class="col-sm-2 control-label" style="font-size:15pt;padding-top:3px">Search Here :</label>
                                     <div class="col-sm-3">
-                                        <input type="text" ng-model="searchs" class="form-control"  placeholder="Search Customer Here" />
+                                        <input type="text" ng-model="searchs.external_account_id" class="form-control"  placeholder="Search Customer Here" />
 
                                     </div>
                                     <div class="col-sm-7">
@@ -43,13 +43,14 @@
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Customer_Name</th>
+                                            <th>Customer Name</th>
+                                            <th>Customer A/c Id</th>
                                             <th style="width:100px">Acc Type</th>
                                             <th>Status</th>
                                             <th>Transaction_Date</th>
                                             <th>Amount</th>
-                                            <th style="width:100px">Agent_ID</th>
-                                            <th style="width:100px">External_Agent_ID</th>
+                                            <!--<th style="width:100px">Agent_ID</th>-->
+                                            <th style="width:100px"> Agent ID</th>
                                             <th>Agent_Name</th>
                                             <th style="width:100px;">Status_Approve</th>
                                         </tr>
@@ -78,6 +79,7 @@
                                             <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}" class="">{{data.cust_name}}</td>
                                             <!--  <td ng-show="{{data.trx_data}}!=1">{{data.cust_name}}</td>-->
 
+                                            <td>{{data.external_account_id}}</td>
 
                                             <td>{{data.Account_Type}}</td>
                                             <td>
@@ -86,9 +88,9 @@
 
                                             <td>{{data.trx_dt}}</td>
                                             <td>{{data.amt}}</td>
-                                            <td>
+                                            <!--<td>
                                                 {{data.agent_id}}
-                                            </td>
+                                            </td>-->
                                             <td>
                                                 {{data.external_agent_id}}
                                             </td>

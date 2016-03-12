@@ -49,6 +49,15 @@ scotchApp.controller('ReportCustomerController', function ($rootScope, $scope, $
         $scope.customers = cust2;
         var count = cust2.length;
     });
+
+    $scope.refresh = function () {
+        $http.get(linkglobal + '/customers?$filter=bank_id eq ' + imageIDData).success(function (response) {
+            var cust1 = response;
+            var cust2 = cust1.value;
+            $scope.customers = cust2;
+            var count = cust2.length;
+        });
+    }
     $scope.GetCustomerRecords = function () {
 
         if (this.cust_id == "" || this.cust_id == null) {

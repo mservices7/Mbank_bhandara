@@ -4,11 +4,12 @@ var scotchApp = angular.module('app.create_account', ['ngRoute'])
 
 
 scotchApp.controller('create_accountController', function ($rootScope, $scope, $http, $routeParams, $location, $filter, $cookieStore) {
-    $scope.CheckLogin = function () {if ($cookieStore.get('bankIDImg') == undefined) { $location.path('/'); }
- 
+    $scope.CheckLogin = function () {
+        if ($cookieStore.get('bankIDImg') == undefined) { $location.path('/'); }
+
     }
 
-    
+
     var roughtDetails = $cookieStore.get('user');
     var imageIDData = $cookieStore.get('bankIDImg');
     $scope.imgIdDdURL = imageIDData;
@@ -16,28 +17,34 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
 
     var linkglobal = $cookieStore.get('urlBanks');  //Bank Bhandara
 
+    //for Showing a menu
+    $scope.transaction = true;
+    $scope.search = true;
+    $scope.request = true;
+    $scope.create = true;
+    $scope.reports = true;
 
     $scope.datechange = function () {
-     
+
         var Openigdt = $filter('date')(this.openingDate, 'yyyy-MM-dd');
-     
+
 
         var d = new Date();
         var toAdd = 100;
         d.setDate(d.getDate() + parseInt(toAdd));
         var Openigdt = $filter('date')(d, 'yyyy-MM-dd');
 
-       
-        $scope.dueDate =  $filter('date')(d, 'dd-MM-yyyy');
-       
-       
+
+        $scope.dueDate = $filter('date')(d, 'dd-MM-yyyy');
+
+
     }
 
 
     // code for create account page
 
     // get Customer id
-    $http.get(linkglobal+'/customers?$filter=bank_id eq ' + imageIDData)
+    $http.get(linkglobal + '/customers?$filter=bank_id eq ' + imageIDData)
     .success(function (res) {
 
         var Customers = res;
@@ -83,43 +90,54 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
   })
 
 
-    $scope.agentfound=function(){
+    $scope.agentfound = function () {
         // increase external account id        
         $http.get(linkglobal + '/accounts?$filter=cust_id eq ' + this.accountData)
         .success(function (res) {
             var Accounts = res;
             var account = Accounts.value;
-            $scope.foundAccounts = account[0].trx_type; 
+            $scope.foundAccounts = account[0].trx_type;
         })
     }
 
     $scope.accfound = function () {
         // increase external account id  
-        
+
         var accFount = $scope.accountType;
+        // alert(accFount);
+
+
         if (accFount == 1) {
-            accType = 'FD';
+            accType = 'DRD';
             $scope.DaysPanel = false;
             $scope.InterestPanel = false;
             $scope.openingDate = false;
             $scope.DueDate = false;
+            $scope.AgentIDPanel = true;
             this.noOfDays = "";
             this.interest = "";
+            // alert('DRD');
 
-        } else if (accFount == 2) {
+        }
+        else if (accFount == 2) {
             accType = 'RD.';
             $scope.DaysPanel = false;
             $scope.InterestPanel = false;
             $scope.openingDate = false;
             $scope.DueDate = false;
+            $scope.AgentIDPanel = true;
             this.noOfDays = "";
             this.interest = "";
+            //alert('RD');
+
         } else if (accFount == 3) {
             accType = 'LOAN';
             $scope.DaysPanel = true;
             $scope.InterestPanel = true;
             $scope.openingDate = true;
             $scope.DueDate = true;
+            $scope.AgentIDPanel = false;
+            //alert('LOAN');
 
         } else if (accFount == 4) {
             accType = 'SAVING';
@@ -127,38 +145,45 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
             $scope.InterestPanel = false;
             $scope.openingDate = false;
             $scope.DueDate = false;
+            $scope.AgentIDPanel = false;
             this.noOfDays = "";
             this.interest = "";
+            // alert('SAVING');
+
         } else if (accFount == 5) {
-            accType = 'DRD';
+            accType = 'FD';
             $scope.DaysPanel = false;
             $scope.InterestPanel = false;
             $scope.openingDate = false;
             $scope.DueDate = false;
+            $scope.AgentIDPanel = false;
             this.noOfDays = "";
             this.interest = "";
+            //alert('FD');
+
         }
 
 
-        $http.get(linkglobal + '/accounts?$filter=cust_id eq ' + this.accountData)
-        .success(function (res) {
-            var Accounts = res;
-            var account = Accounts.value;
 
-            var count = account.length;
-            
+        //$http.get(linkglobal + '/accounts?$filter=cust_id eq ' + this.accountData)
+        //.success(function (res) {
+        //    var Accounts = res;
+        //    var account = Accounts.value;
 
-            for (var i = 0; i <= count; i++) {
-             
-                if (account[i].trx_type == accFount) {
-                 
-                    $scope.accountType = "";
-                    alert(account[i].Account_Type + ' Account Already Created For This Customer');
-                }
+        //    var count = account.length;
 
-            }
-                 
-        })
+
+        //    for (var i = 0; i <= count; i++) {
+
+        //        if (account[i].trx_type == accFount) {
+
+        //            $scope.accountType = "";
+        //            alert(account[i].Account_Type + ' Account Already Created For This Customer');
+        //        }
+
+        //    }
+
+        //})
     }
 
 
@@ -180,7 +205,7 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
             }
 
             $scope.exAccountId = parseInt(externalAccId) + 1;
-            
+
         })
 
 
@@ -189,25 +214,95 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
     $scope.createaccount = function () {
         $scope.product_id;
 
+        //Accounts fields Start
+
         var ModifiedDate = Math.round(Math.random() * (+new Date)).toString();
 
         // var acc_id = this.accountId;
-        var cust_id =parseInt(this.accCustomerId);
+        var cust_id = parseInt(this.accCustomerId);
         var balance = this.accountBalane;
+        //  alert('balance' + balance);
         //var bank_id = this.accountBankId;
-        var branch_id =parseInt(this.accountBranchId);
-        var agent_id =parseInt( this.accountAgentId);
+        var branch_id = parseInt(this.accountBranchId);
+        // alert('branch_id' + branch_id);
+
+        var agent_id = parseInt(this.accountAgentId);
+        //  alert('agent_id' + agent_id);
         // var status = this.accountStatus;
-        var Account_Id =parseInt(this.accountType);
+        var Account_Id = parseInt(this.accountType);
+         alert('Account_Id' + Account_Id);
+
         var noDays = parseInt(this.noOfDays);
         var interest = parseInt(this.interest);
         var sync_dt = String($filter('date')(this.openingDate, 'yyyy-MM-ddTHH:mm:ss'));
         var today_dt = String($filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss'));
         var accType;
+        //Accounts fields end
 
-       
+
+
+
+        //customer fields Start
+
+        //var agentID = $scope.agentID;
+        var bankID = imageIDData;
+        var branchID = $scope.branchID;
+
+        //var latestSeqence_zero = ("000" + latestSeqPlus).slice(-3);
+        //Get Current Date and Time
+        $scope.ModifiedDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+        $scope.ModifiedDatee = $filter('date')(new Date(), 'HHMMss');
+
+        var DateForToday = $scope.ModifiedDate;
+
+        var TimeForToday = $scope.ModifiedDatee + 1;
+
+
+
+        //    var custIDCreate = agentID + '' + TimeForToday;
+        var custIDCreate = TimeForToday;
+
+        //  alert(custIDCreate);
+
+        var external_cust_id = custIDCreate;
+
+        // var cust_id = custIDCreate;
+        var cust_name = String(this.custFName + ' ' + this.custLName);
+
+        //  alert(cust_name);
+
+        var cust_local_add = String(this.custAddress);
+        //  alert(cust_local_add);
+        var cust_perm_add = String(this.custAddress2);
+        //  alert(cust_perm_add);
+        var cust_phno_1 = String(this.custMobileNo);
+        //  alert(cust_phno_1);
+        var cust_phno_2 = String(this.custMobileNo2);
+        //   alert(cust_phno_2);
+        var cust_photo = '';
+        var cust_pancard_no = this.custPanCard;
+        //  alert(cust_pancard_no);
+        var cust_email_id = this.custEmailId;
+        //  alert(cust_email_id);
+        var login_id = '';
+        var role_id = '';
+        //var agent_id = agentID;
+        var status = 1;
+        var is_sync = 'false';
+        var sync_dt = String($scope.ModifiedDate);
+        var bank_sync_dt = '';
+        var bank_id = bankID;
+
+
+        var day = this.customerday;
+        var interest = this.interests;
+        var dataaccType = this.custAccType;
+        var Newamount = this.amount;
+        //customer fields end
+
+
         if (this.noOfDays == null || this.interest == null || this.interest > 20) {
-            alert('Please Select/Fill All Field');
+            alert('Please Select/Fill All Field ');
             if (this.interest > 20) {
                 alert('Enter interest min 20');
                 return;
@@ -216,128 +311,297 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
         }
 
 
-        if (this.accCustomerId == null || this.accountBranchId == null || this.accountAgentId == null || this.accountBalane==null) {
-            alert('Please Select/Fill All Field');
-        } else {
+        if (this.accountBranchId == null ||
+            this.accountAgentId == null ||
+            this.accountAgentId == ""||
+            this.accountBalane == null ||
+            this.custFName == null ||
+            this.custLName == null ||
+            this.custMobileNo == null ||
+            this.custMobileNo2 == null ||
+            this.custAddress == null ||
+            this.custAddress2 == null ||
+            this.custPanCard == null ||
+            this.custEmailId == null) {
+            alert('Please Select/Fill All Fields.');
+            // alert(this.accCustomerId + '  ' + this.accountBranchId + '   ' + this.accountAgentId + ' ' + this.accountBalane);
 
-        $http.get(linkglobal + '/products?$filter=ID eq ' + Account_Id)
-    .success(function (res) {
-        var Accounts = res;
-        var accType = Accounts.value;
-        accType = accType[0].pType;
-        
-       
-        var external_account_id = String(accType + "/" + ModifiedDate);
-        if (this.accountType == 3)
-        {
-            var request = $http({
-                method: "post",
-                url: linkglobal+"/accounts",
-                crossDomain: true,
-                data: {
-                    external_account_id: external_account_id,
-                    //acc_id: acc_id,
-                    cust_id: cust_id,
-                    balance: balance,
-                    bank_id: imageIDData,
-                    branch_id: branch_id,
-                    agent_id: agent_id,
-                    status: 1,
-                    Account_Type: accType,
-                    bank_sync_dt: sync_dt,
-                    is_sync:true,
-                    sync_dt: sync_dt,
-                    trx_type: Account_Id,
-                    InstallmentDays: noDays,
-                    Percentage: interest
-                },
-                headers: { 'Content-Type': 'application/json' },
-            }).success(function (data) {
-
-                alert('Account Created');
-
-            });
-
-            //}).error(function (err) {
-
-            /// alert('Internet Not Available,Please Try Again');
-
-            
         }
+            //if (this.custFName == null || this.custLName == null || this.custMobileNo == null || this.custMobileNo2 == null || this.custAddress == null || this.custAddress2 == null || this.custPanCard == null || this.custEmailId == null) {
+            //    //if (this.custFName == null || this.custAccType == null || this.custLName == null || this.custMobileNo == null || this.custMobileNo2 == null || this.custAddress == null || this.custAddress2 == null || this.custPanCard == null || this.custEmailId == null || this.agentID==null || this.amount == null) {
+            //    alert("Please Select/Fill All Field 3")
+            //}
+
+
         else {
-            var request = $http({
-                method: "post",
-                url: linkglobal + "/accounts",
-                crossDomain: true,
-                data: {
-                    external_account_id: external_account_id,
-                    //acc_id: acc_id,
-                    cust_id: cust_id,
-                    balance: balance,
-                    bank_id: imageIDData,
-                    branch_id: branch_id,
-                    agent_id: agent_id,
-                    status: 1,
-                    Account_Type: accType,
-                    bank_sync_dt: today_dt,
-                    sync_dt: today_dt,
-                    is_sync: true,
-                    trx_type: Account_Id,
-                    InstallmentDays: noDays,
-                    Percentage: interest
-                },
-                headers: { 'Content-Type': 'application/json' },
-            }).success(function (data) {
+
+            $http.get(linkglobal + '/products?$filter=ID eq ' + Account_Id)
+        .success(function (res) {
+            var Accounts = res;
+            var accType = Accounts.value;
+            accType = accType[0].pType;
 
 
-                alert('Account Created');
+            var external_account_id = String(accType + "/" + ModifiedDate);
 
-            }).error(function (err) {
+            //Account_Id
+            //if (this.accountType == 3) {
+            if (Account_Id == 3) {
 
-                alert('Internet Not Available');
-            });
+                alert('actype 1st if' + Account_Id);
+                if (cust_phno_1 == cust_phno_2) {
+                    alert("Enter different phone number");
+                    // alert(cust_phno_2 + '  ' + cust_phno_2)
 
+                }
+                else {
+
+                    //var request = $http({
+                    //    method: "post",
+                    //    url: linkglobal + "/customers",
+                    //    crossDomain: true,
+                    //    data: {
+                    //        external_cust_id: external_cust_id,
+                    //        cust_name: cust_name,
+                    //        cust_local_add: cust_local_add,
+                    //        cust_perm_add:cust_perm_add,
+                    //        cust_phno_1: cust_phno_1,
+                    //        cust_phno_2: cust_phno_2,
+                    //        cust_pancard_no: cust_pancard_no,
+                    //        cust_email_id: cust_email_id,
+                    //        agent_id: agent_id,
+                    //        status: status,
+                    //        sync_dt: sync_dt,
+                    //        bank_id: bank_id,
+                    //        bank_sync_dt: sync_dt,
+                    //        InstallmentDays: day,
+                    //        Percentage: interest,
+                    //        is_sync: true
+
+                    //    },
+                    //    headers: { 'Content-Type': 'application/json' },
+
+                    //}).success(function (data) {
+
+                    //    //     alert('Customer created successfully');
+
+
+                    //    $http.get(linkglobal + '/customers?$filter=bank_id eq ' + imageIDData + ' and is_sync ne false and external_cust_id+eq+%27' + external_cust_id + '%27').success(function (response) {
+                    //        var cust1 = response;
+                    //        var cust2 = cust1.value;
+                    //        $scope.customersRecords = cust2;
+                    //        var customer_id = cust2[0].cust_id;
+
+
+
+
+                    //        var request = $http({
+                    //            method: "post",
+                    //            url: linkglobal + "/accounts",
+                    //            crossDomain: true,
+                    //            data: {
+                    //                external_account_id: external_account_id,
+                    //                //acc_id: acc_id,
+                    //                cust_id: customer_id,
+                    //                balance: balance,
+                    //                bank_id: imageIDData,
+                    //                branch_id: branch_id,
+                    //                agent_id: agent_id,
+                    //                status: 1,
+                    //                Account_Type: accType,
+                    //                bank_sync_dt: sync_dt,
+                    //                is_sync: true,
+                    //                sync_dt: sync_dt,
+                    //                trx_type: Account_Id,
+                    //                InstallmentDays: noDays,
+                    //                Percentage: interest
+                    //            },
+                    //            headers: { 'Content-Type': 'application/json' },
+                    //        }).success(function (data) {
+
+                    //            alert('Account Created and Account Number is ' + external_account_id);
+
+                    //        });
+                    //    })
+
+
+                    //});
+
+                }
+            }
+            else {
+                alert('actype 1st else' + Account_Id);
+
+                //if (cust_phno_1 == cust_phno_2) {
+                //    alert("Enter different phone number");
+                //    // alert(cust_phno_2 + '  ' + cust_phno_2)
+
+                //}
+                //else {
+
+
+                //    // alert('work');
+
+
+                //    var request = $http({
+                //        method: "post",
+                //        url: linkglobal + "/customers",
+                //        crossDomain: true,
+                //        data: {
+                //            external_cust_id: external_cust_id,
+                //            cust_name: cust_name,
+                //            cust_local_add: cust_local_add,
+                //            cust_phno_1: cust_phno_1,
+                //            cust_phno_2: cust_phno_2,
+                //            cust_pancard_no: cust_pancard_no,
+                //            cust_email_id: cust_email_id,
+                //            agent_id: agent_id,
+                //            status: status,
+                //            sync_dt: sync_dt,
+                //            bank_id: bank_id,
+                //            bank_sync_dt: sync_dt,
+                //            InstallmentDays: day,
+                //            Percentage: interest,
+                //            is_sync: true
+
+                //        },
+                //        headers: { 'Content-Type': 'application/json' },
+
+                //    }).success(function (data) {
+
+                //        //     alert('Customer created successfully');
+
+
+                //        $http.get(linkglobal + '/customers?$filter=bank_id eq ' + imageIDData + ' and is_sync ne false and external_cust_id+eq+%27' + external_cust_id + '%27').success(function (response) {
+                //            var cust1 = response;
+                //            var cust2 = cust1.value;
+                //            $scope.customersRecords = cust2;
+                //            var customer_id = cust2[0].cust_id;
+
+                //            //   alert('customer_id'+customer_id);
+                //            //////new code
+                //            //   alert('external_account_id' + external_account_id);
+                //            var request = $http({
+                //                method: "post",
+                //                url: linkglobal + "/accounts",
+                //                crossDomain: true,
+                //                data: {
+                //                    external_account_id: external_account_id,
+                //                    //acc_id: acc_id,
+                //                    cust_id: customer_id,
+                //                    balance: balance,
+                //                    bank_id: imageIDData,
+                //                    branch_id: branch_id,
+                //                    agent_id: agent_id,
+                //                    status: 1,
+                //                    Account_Type: accType,
+                //                    bank_sync_dt: today_dt,
+                //                    sync_dt: today_dt,
+                //                    is_sync: true,
+                //                    trx_type: Account_Id,
+                //                    InstallmentDays: noDays,
+                //                    Percentage: interest
+                //                },
+                //                headers: { 'Content-Type': 'application/json' },
+                //            }).success(function (data) {
+
+                //                alert('Account Created and Account Number is ' + external_account_id);
+
+                //                // alert('Account Created');
+
+                //            }).error(function (err) {
+
+                //                alert('Account Internet Not Available');
+                //            });
+
+                //        });
+
+                //    }).error(function (err) {
+
+                //        alert('Internet Not Available');
+                //    });
+
+
+
+                //}
+
+            }
+
+
+        });
+            this.search = " ";
+            this.exAccountId = '';
+            $scope.openingDate = null;
+            $scope.dueDate = null;
+            this.accCustomerId = '';
+            this.accountBalane = null;
+            this.accountBankId = '';
+            this.accountBranchId = '';
+            this.accountAgentId = '';
+            this.accountType = null;
+            this.noOfDays = '';
+            this.interest = '';
+
+            $scope.DaysPanel = false;
+            $scope.InterestPanel = false;
+
+
+
+
+            //new code
+            this.custAccType = null;
+            this.agentID = null;
+            this.custFName = '';
+            this.custLName = '';
+            this.custAddress = '';
+            this.custAddress2 = '';
+            this.amount = '';
+            this.custMobileNo2 = '';
+            this.custMobileNo = '';
+            this.custPanCard = '';
+            this.custEmailId = '';
+            this.customerday = '';
+            this.interests = '';
         }
 
-           
-    });
-        this.search = " ";
-        this.exAccountId = '';
-        $scope.openingDate = null;
-        $scope.dueDate = null;
-        this.accCustomerId = '';
-        this.accountBalane = null;
-        this.accountBankId = '';
-        this.accountBranchId = '';
-        this.accountAgentId = '';
-        this.accountType = null;
-        this.noOfDays = '';
-        this.interest = '';
 
-        $scope.DaysPanel = false;
-        $scope.InterestPanel = false;
     }
-
-   
-}
 
 
     $scope.clearData = function () {
-        $scope.search = " ";
-        $scope.DueDate = false;
+        //$scope.search = " ";
+        //$scope.DueDate = false;
         $scope.accountBalane = "";
-        $scope.openingDate =null;
-        $scope.dueDate = null;
-        $scope.accCustomerId = "";
+        //$scope.openingDate = null;
+        //$scope.dueDate = null;
+        //$scope.accCustomerId = "";
 
-        $scope.accountBankId = "";
+        //$scope.accountBankId = "";
         $scope.accountBranchId = "";
         $scope.accountAgentId = "";
         $scope.accountType = "";
-        this.noOfDays = "";
-        this.interest = "";
-        $scope.DaysPanel = false;
-        $scope.InterestPanel = false;
+        //this.noOfDays = "";
+        //this.interest = "";
+        //$scope.DaysPanel = false;
+        //$scope.InterestPanel = false;
 
+
+
+
+        this.custAccType = null;
+        this.agentID = "";
+        this.custFName = null;
+        this.custLName = null;
+        this.custAddress = null;
+        this.custAddress2 = null;
+        this.amount = "";
+        this.custMobileNo2 = null;
+        this.custMobileNo = null;
+        this.custPanCard = null;
+        this.custEmailId = null;
+        this.customerday = null;
+        this.interests = null;
+
+        $scope.myForm.$setPristine();
     }
 })

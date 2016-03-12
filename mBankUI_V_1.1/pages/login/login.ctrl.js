@@ -95,15 +95,16 @@ app.controller('loginController', function ($rootScope, $scope, $http, $location
                                                 $scope.loadLoginUserFail = true;
                                                 $scope.loadLoginFail = false;
                                             }
-                                            if (users[i].pwd != password && users[i].login_id == username) {
+                                           else if (users[i].pwd != password && users[i].login_id == username) {
 
                                                 $scope.loadLoginPasswordFail = true;
                                                 $scope.loadLoginFail = false;
 
                                             }
-                                            if (users[i].pwd != password && users[i].login_id != username) {
+                                          else if (users[i].pwd != password && users[i].login_id != username) {
 
-                                                $scope.loadLoginFail = true;
+                                              $scope.loadLoginFail = true;
+                                              
                                             }
                                                  
                                             break;
@@ -146,15 +147,16 @@ app.controller('loginController', function ($rootScope, $scope, $http, $location
                                                 $scope.loadLoginUserFail = true;
                                                 $scope.loadLoginFail = false;
                                             }
-                                            if (users[i].pwd != password && users[i].login_id == username) {
+                                          else  if (users[i].pwd != password && users[i].login_id == username) {
 
                                                 $scope.loadLoginPasswordFail = true;
                                                 $scope.loadLoginFail = false;
 
                                             }
-                                            if (users[i].pwd != password && users[i].login_id != username) {
+                                         else  if (users[i].pwd != password && users[i].login_id != username) {
 
-                                                $scope.loadLoginFail = true;
+                                             $scope.loadLoginFail = true;
+                                             
                                             }
                                             
                                             break;
@@ -174,15 +176,17 @@ app.controller('loginController', function ($rootScope, $scope, $http, $location
                                         $scope.loadLoginUserFail = true;
                                         $scope.loadLoginFail = false;
                                     }
-                                    if (users[i].pwd != password && users[i].login_id == username) {
+                                   else if (users[i].pwd != password && users[i].login_id == username) {
 
                                         $scope.loadLoginPasswordFail = true;
                                         $scope.loadLoginFail = false;
 
                                     }
-                                    if (users[i].pwd != password && users[i].login_id != username) {
+                                   else if (users[i].pwd != password && users[i].login_id != username) {
 
-                                        $scope.loadLoginFail = true;
+                                       $scope.loadLoginFail = true;
+                                      
+
                                     }
                                     break;
 
@@ -203,16 +207,18 @@ app.controller('loginController', function ($rootScope, $scope, $http, $location
                                 $scope.loadLoginUserFail = true;
                                 $scope.loadLoginFail = false;
                             }
-                            if (users[i].pwd != password && users[i].login_id == username)
+                          else  if (users[i].pwd != password && users[i].login_id == username)
                             {
 
                                 $scope.loadLoginPasswordFail = true;
                                 $scope.loadLoginFail = false;
 
                             }
-                            if (users[i].pwd != password && users[i].login_id != username) {
+                          else  if (users[i].pwd != password && users[i].login_id != username) {
 
-                                $scope.loadLoginFail = true;
+                              $scope.loadLoginFail = false;
+                            //  alert('else.. ')
+
                             }
                         }
                     }

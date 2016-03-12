@@ -24,7 +24,7 @@
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label" style="font-size:15pt;padding-top:3px">Search Here :</label>
                                 <div class="col-sm-4">
-                                    <input type="text" ng-model="searchs" class="form-control" placeholder="Search Agent Here" />
+                                    <input type="text" ng-model="searchs.external_agent_id" class="form-control" placeholder="Search Agent Here" />
 
                                 </div>
                                 <div class="col-sm-12">
@@ -50,7 +50,7 @@
                                     <tr>
                                         <th>Agent_Name</th>
                                         <th style="width:100px">Agent ID</th>
-                                        <th style="width:100px">External Agent ID</th>
+                                      <!--  <th style="width:100px">External Agent ID</th>-->
                                         <th style="width:100px">Login-ID</th>
                                         <th>Email</th>
                                         <th>Mobile No.</th>
@@ -81,9 +81,9 @@
                                     <tr ng-model="referesh.trx_id" ng-repeat="data in agents | filter:searchs" ng-hide="agent.role_id==2">
                                         <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}" >{{data.agent_name}}</td>
                                         <!--  <td ng-show="{{data.trx_data}}!=1">{{data.cust_name}}</td>-->
-                                        <td>
+                                        <!--<td>
                                             {{data.agent_id}}
-                                        </td>
+                                        </td>-->
                                         <td>
                                             {{data.external_agent_id}}
                                         </td>

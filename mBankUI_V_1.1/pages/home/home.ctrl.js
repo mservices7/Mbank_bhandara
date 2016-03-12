@@ -56,6 +56,28 @@ scotchApp.controller('homeController', function ($rootScope, $interval, $timeout
           });
 
 
+    $scope.counter = 5;
+    $scope.logout = function () {
+        $scope.logoutLoading = true;
+
+        $interval(function () {
+            $scope.counter--;
+        }, 1000);
+
+        $timeout(
+            function () {
+
+                $cookieStore.remove('urlBanks', 'erase'); $cookieStore.remove('bankIDImg', 'erase'); $cookieStore.remove('user', 'erase'); $location.path('/');
+            }
+
+            , 2000);
+
+    };
+
+    $scope.timeOut = function () {
+        $cookieStore.remove('urlBanks', 'erase'), $cookieStore.remove('bankIDImg', 'erase'), $cookieStore.remove('user', 'erase'), $location.path('/')
+    }
+
     ////Last Seven Days Transactions
     //for (var d = 0; d <= 7; d++) {
 

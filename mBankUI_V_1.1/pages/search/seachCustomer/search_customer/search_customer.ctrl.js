@@ -72,7 +72,12 @@ scotchApp.controller('search_customerController', function ($rootScope, $scope, 
         $scope.obtainValue = id1;
        // console.log($scope.obtainValue)
     })
-         $http.get(linkglobal + '/CustomerAccounts?$filter=bank_id eq ' + imageIDData + ' and is_sync ne false' + ' and trx_data ne 3').success(function (response) { var cust1 = response; var cust2 = cust1.value; $scope.customers = cust2; var count = cust2.length; });
+         $http.get(linkglobal + '/CustomerAccounts?$filter=bank_id eq ' + imageIDData + ' and is_sync ne false' + ' and trx_data ne 3').success(function (response) {
+             var cust1 = response;
+             var cust2 = cust1.value;
+             $scope.customers = cust2;
+             var count = cust2.length;
+         });
         
 
     }

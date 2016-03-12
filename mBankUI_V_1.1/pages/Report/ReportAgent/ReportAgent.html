@@ -37,7 +37,7 @@
                                         <th style="width:180px"><i class="glyphicon glyphicon-credit-card"></i> Transactions</th>
                                     </tr>
                                     <tr style="background-color:lightblue;">
-                                        <td colspan="3"><input type="text" ng-model="search" class="form-control" style="float:right;" /> </td>
+                                        <td colspan="3"><input type="text" ng-model="searchs.external_agent_id" class="form-control" style="float:right;" ng-pattern="/^[0-9\s]*$/" /> </td>
                                         <td>Search Agent Here</td>
 
                                     </tr>
@@ -54,9 +54,9 @@
                                         <td colspan="7" style="font-size:15pt;color:red;text-align:center"><b>Their Is No Transactions</b></td>
 
                                     </tr>
-                                    <tr ng-repeat="agent in agents | filter:search| limitTo:limit" ng-hide="agent.role_id==2">
+                                    <tr ng-repeat="agent in agents | filter:searchs| limitTo:limit" ng-hide="agent.role_id==2">
                                         <td ng-class="{marathifont:{{agent.bank_id}}===1}" style="font-size:15pt">{{agent.agent_name}}</td>
-                                        <td>{{agent.agent_id}}</td>
+                                        <td>{{agent.external_agent_id}}</td>
                                         <td>{{agent.agent_email_id}}</td>
                                         <td>
                                             <div class="btn-group">

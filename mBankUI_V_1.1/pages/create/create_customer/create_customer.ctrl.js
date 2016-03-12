@@ -15,7 +15,12 @@ scotchApp.controller('create_customerController', function ($rootScope, $scope, 
     //$scope.days = false;
     //$scope.interest = false;
 
-
+    //for Showing a menu
+    $scope.transaction = true;
+    $scope.search = true;
+    $scope.request = true;
+    $scope.create = true;
+    $scope.reports = true;
 
     var roughtDetails = $cookieStore.get('user');
     var imageIDData = $cookieStore.get('bankIDImg');
@@ -67,8 +72,18 @@ scotchApp.controller('create_customerController', function ($rootScope, $scope, 
     }
 
 
-  
+    $http.get(linkglobal + '/customers?$filter=bank_id eq ' + imageIDData + ' and is_sync ne false').success(function (response) {
+        var cust1 = response;
+        var cust2 = cust1.value;
+        $scope.customersRecords = cust2;
+        var count = cust2.length;
+    });
 
+    //customer reload button
+    $scope.limit = 30;
+    $scope.next = function () {
+        $scope.limit = $scope.limit + 30;
+    };
     //Create Customer Code
     $scope.createCutomer = function () {
         var accType = $scope.accType;
@@ -88,7 +103,8 @@ scotchApp.controller('create_customerController', function ($rootScope, $scope, 
         //    alert('Please Enter Valid 10 - DIGIT Mobile Numer');
 
         //}
-        if (this.custFName == null || this.custAccType == null || this.custLName == null || this.custMobileNo == null || this.custMobileNo2 == null || this.custAddress == null || this.custAddress2 == null || this.custPanCard == null || this.custEmailId == null || this.agentID==null || this.amount == null) {
+        if (this.custFName == null   || this.custLName == null || this.custMobileNo == null || this.custMobileNo2 == null || this.custAddress == null || this.custAddress2 == null || this.custPanCard == null || this.custEmailId == null) {
+            //if (this.custFName == null || this.custAccType == null || this.custLName == null || this.custMobileNo == null || this.custMobileNo2 == null || this.custAddress == null || this.custAddress2 == null || this.custPanCard == null || this.custEmailId == null || this.agentID==null || this.amount == null) {
             alert("Please Select/Fill All Field")
         }
 
@@ -114,9 +130,10 @@ scotchApp.controller('create_customerController', function ($rootScope, $scope, 
 
 
 
-            var custIDCreate = agentID + '' + TimeForToday;
+        //    var custIDCreate = agentID + '' + TimeForToday;
+            var custIDCreate = TimeForToday;
 
-
+          //  alert(custIDCreate);
 
             var external_cust_id = custIDCreate;
 
@@ -169,7 +186,7 @@ scotchApp.controller('create_customerController', function ($rootScope, $scope, 
                     cust_phno_2: cust_phno_2,
                     cust_pancard_no: cust_pancard_no,
                     cust_email_id: cust_email_id,
-                    agent_id: agent_id,
+                   // agent_id: 0,
                     status: status,
                     sync_dt: sync_dt,
                     bank_id: bank_id,
@@ -184,6 +201,14 @@ scotchApp.controller('create_customerController', function ($rootScope, $scope, 
             }).success(function (data) {
 
                 alert('Customer created successfully');
+
+
+                $http.get(linkglobal + '/customers?$filter=bank_id eq ' + imageIDData + ' and is_sync ne false').success(function (response) {
+                    var cust1 = response;
+                    var cust2 = cust1.value;
+                    $scope.customersRecords = cust2;
+                    var count = cust2.length;
+                });
                 
             }).error(function (err) {
 

@@ -24,13 +24,13 @@
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label" style="font-size:15pt;padding-top:3px">Search Here :</label>
                                 <div class="col-sm-4">
-                                    <input type="text" ng-model="datetrxn" class="form-control" placeholder="Search Customer Here" />
+                                    <input type="text" ng-model="datetrxn.external_account_id" class="form-control" placeholder="Search Customer Here" />
 
                                 </div>
-                                <div class="col-sm-6">
+                                <!--<div class="col-sm-6">
                                     <a class="btn btn-primary btn-sm pull-right" style="text-decoration:none;" href="#/createcustomer"><i class="glyphicon glyphicon-plus"></i>&nbsp;Create New Customer</a>
                                      
-                                </div>
+                                </div>-->
                                 
                             </div>
                            
@@ -44,9 +44,9 @@
 
                         <div class="box-body">
                             <table id="example2" class="table table-bordered table-hover">
-                                <thead>
+                                <thead >
 
-                                    <tr>
+                                    <tr >
                                         <th>Customer Name</th>
                                         <th>Customer Acc Id</th>
                                         <th style="width:100px">Acc. Type</th>
@@ -94,7 +94,7 @@
                                             </a>
                                             <div id="{{data.acc_id}}" class="modal fade" role="dialog">
                                                 <div class="modal-dialog">
-                                                    <!-- Modal content-->
+                                                    <!-- Modal content 
                                                     <div class="modal-content">
 
                                                         <div class="box box-info">
