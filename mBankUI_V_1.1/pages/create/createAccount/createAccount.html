@@ -349,8 +349,8 @@
                                                 <td colspan="2"><input type="number" ng-model="noOfDays" class="form-control" /></td>
                                             </tr>
                                             <tr ng-show="InterestPanel">
-                                                <td><h4><b>Interest</b></h4></td>
-                                                <td colspan="2"><input type="number" ng-model="interest" class="form-control" /></td>
+                                                <td><h4><b>Interest Rate</b></h4></td>
+                                                <td colspan="2"><input type="number" ng-model="interest" ng-change="RateOfInterest()" class="form-control" /></td>
                                             </tr>
                                             <tr>
                                                 <td><h4><b>Amount</b></h4></td>
