@@ -361,83 +361,83 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
             else {
 
                 $http.get(linkglobal + '/products?$filter=ID eq ' + Account_Id).success(function (res) {
-         var Accounts = res;
-         var accType = Accounts.value;
-         accType = accType[0].pType;
+                    var Accounts = res;
+                    var accType = Accounts.value;
+                    accType = accType[0].pType;
 
 
-         var external_account_id = String(accType + "/" + ModifiedDate);
+                    var external_account_id = String(accType + "/" + ModifiedDate);
 
-         var request = $http({
-             method: "post",
-             url: linkglobal + "/customers",
-             crossDomain: true,
-             data: {
-                 external_cust_id: external_cust_id,
-                 cust_name: cust_name,
-                 cust_local_add: cust_local_add,
-                 cust_perm_add:cust_perm_add,
-                 cust_phno_1: cust_phno_1,
-                 cust_phno_2: cust_phno_2,
-                 cust_pancard_no: cust_pancard_no,
-                 cust_email_id: cust_email_id,
-                 agent_id: agent_id,
-                 status: status,
-                 sync_dt: sync_dt,
-                 bank_id: bank_id,
-                 bank_sync_dt: sync_dt,
-                 InstallmentDays: day,
-                 Percentage: interest,
-                 is_sync: true
+                    var request = $http({
+                        method: "post",
+                        url: linkglobal + "/customers",
+                        crossDomain: true,
+                        data: {
+                            external_cust_id: external_cust_id,
+                            cust_name: cust_name,
+                            cust_local_add: cust_local_add,
+                            cust_perm_add:cust_perm_add,
+                            cust_phno_1: cust_phno_1,
+                            cust_phno_2: cust_phno_2,
+                            cust_pancard_no: cust_pancard_no,
+                            cust_email_id: cust_email_id,
+                            agent_id: agent_id,
+                            status: status,
+                            sync_dt: sync_dt,
+                            bank_id: bank_id,
+                            bank_sync_dt: sync_dt,
+                            InstallmentDays: day,
+                            Percentage: interest,
+                            is_sync: true
 
-             },
-             headers: { 'Content-Type': 'application/json' },
+                        },
+                        headers: { 'Content-Type': 'application/json' },
 
-         }).success(function (data) {
+                    }).success(function (data) {
 
-             //     alert('Customer created successfully');
-
-
-             $http.get(linkglobal + '/customers?$filter=bank_id eq ' + imageIDData + ' and is_sync ne false and external_cust_id+eq+%27' + external_cust_id + '%27').success(function (response) {
-                 var cust1 = response;
-                 var cust2 = cust1.value;
-                 $scope.customersRecords = cust2;
-                 var customer_id = cust2[0].cust_id;
+                        //     alert('Customer created successfully');
 
 
+                        $http.get(linkglobal + '/customers?$filter=bank_id eq ' + imageIDData + ' and is_sync ne false and external_cust_id+eq+%27' + external_cust_id + '%27').success(function (response) {
+                            var cust1 = response;
+                            var cust2 = cust1.value;
+                            $scope.customersRecords = cust2;
+                            var customer_id = cust2[0].cust_id;
 
 
-                 var request = $http({
-                     method: "post",
-                     url: linkglobal + "/accounts",
-                     crossDomain: true,
-                     data: {
-                         external_account_id: external_account_id,
-                         //acc_id: acc_id,
-                         cust_id: customer_id,
-                         balance: balance,
-                         bank_id: imageIDData,
-                         branch_id: branch_id,
-                         agent_id: agent_id,
-                         status: 1,
-                         Account_Type: accType,
-                         bank_sync_dt: sync_dt,
-                         is_sync: true,
-                         sync_dt: sync_dt,
-                         trx_type: Account_Id,
-                         InstallmentDays: noDays,
-                         Percentage: interest
-                     },
-                     headers: { 'Content-Type': 'application/json' },
-                 }).success(function (data) {
 
-                     alert('Account Created and Account Number is ' + external_account_id);
 
-                 });
-             })
+                            var request = $http({
+                                method: "post",
+                                url: linkglobal + "/accounts",
+                                crossDomain: true,
+                                data: {
+                                    external_account_id: external_account_id,
+                                    //acc_id: acc_id,
+                                    cust_id: customer_id,
+                                    balance: balance,
+                                    bank_id: imageIDData,
+                                    branch_id: branch_id,
+                                    agent_id: agent_id,
+                                    status: 1,
+                                    Account_Type: accType,
+                                    bank_sync_dt: sync_dt,
+                                    is_sync: true,
+                                    sync_dt: sync_dt,
+                                    trx_type: Account_Id,
+                                    InstallmentDays: noDays,
+                                    Percentage: interest
+                                },
+                                headers: { 'Content-Type': 'application/json' },
+                            }).success(function (data) {
+
+                                alert('Account Created and Account Number is ' + external_account_id);
+
+                            });
+                        })
          
-         });
-     });
+                    });
+                });
             }
              
             //For SAVING account Saving
@@ -572,7 +572,11 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
 
             }
 
+            if (Account_Id == 1 || Account_Id==2)
+            {
 
+            }
+       
 
 
 
@@ -838,7 +842,7 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
 
         }
 
-
+    }
         $scope.clearData = function () {
             //$scope.search = " ";
             //$scope.DueDate = false;
@@ -875,4 +879,5 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
 
             $scope.myForm.$setPristine();
         }
-    })
+    
+})
