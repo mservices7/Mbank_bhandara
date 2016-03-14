@@ -69,7 +69,7 @@
 
                                                 </tr>
                                                 <!--                         <tr ng-repeat="data in transDetailsAccTypes | filter:Name | filter:AccountNo | filter:agentname |unique:cust_id">-->
-                                                <tr ng-repeat="data in transDetailsAccTypes  | filter:AccountNo   |unique:cust_id">
+                                                <tr ng-repeat="data in transDetailsAccTypes  | filter:AccountNo  |limitTo:limit ">
                                                     <th>{{$index+1}}</th>
 
                                                     <th class="marathifont    ">{{data.cust_name}}</th>
