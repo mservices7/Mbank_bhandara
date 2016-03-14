@@ -1,4 +1,4 @@
-
+﻿
 
 <div class="wrapper" style="background-color:#222d32;">
     <div class="navbar-fixed-top"><ng-include src="'pages/sidebar/sidebar.html'"></ng-include></div>
@@ -50,7 +50,7 @@
                                         <div class="col-sm-6">
                                             <label for="inputPassword" class="col-sm-4 control-label">Last Name</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control capitalize" ng-model="custLName" name="lname" placeholder="Enter Last Name" ng-pattern="/^[a-zA-Z]*$/" required>
+                                                <input type="text" class="form-control capitalize" ng-model="custLName" name="lname" placeholder="Enter Last Name" ng-pattern="/^[a-zA-Z]*$/"   required>
                                                 <!--<span class="help-block" ng-show="myForm.lname.$error.required">
 
                                                     <b class="error">
@@ -338,12 +338,17 @@
                                             <tr ng-show="AgentIDPanel">
                                                 <td><h4><b>Agent Id</b></h4></td>
                                                 <td colspan="2">
-                                                    <select type="text" ng-model="accountAgentId" class="form-control">
-                                                        <option value="">Select Agent </option>
+                                                    <select type="text" ng-model="accountAgentId" class="form-control" ng-show="ddlAgentName" ng-change="ddlAgentNameChange()">
+                                                       <!-- <option value="">Select Agent </option>-->
+                                                        <option value="">Select Here</option>
                                                         <option ng-repeat="agectid in agents" class="marathifont" value="{{agectid.agent_id}}">{{agectid.agent_name}}</option>
                                                     </select>
+                                                    <b>
+                                                        <input type="text" ng-model="agentName" class="form-control marathifont" ng-show="txtAgentName" ng-click="agentNameClick()" />
+                                                    </b>
                                                 </td>
                                             </tr>
+                                            
                                             <tr ng-show="DaysPanel">
                                                 <td><h4><b>No. of Days</b></h4></td>
                                                 <td colspan="2"><input type="number" ng-model="noOfDays" class="form-control" /></td>

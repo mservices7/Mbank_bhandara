@@ -117,6 +117,8 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
             $scope.openingDate = false;
             $scope.DueDate = false;
             $scope.AgentIDPanel = true;
+            $scope.ddlAgentName = true;
+            $scope.txtAgentName = false;
             this.noOfDays = "";
             this.interest = "";
             $scope.dueDate = "";
@@ -130,6 +132,8 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
             $scope.openingDate = false;
             $scope.DueDate = false;
             $scope.AgentIDPanel = true;
+            $scope.ddlAgentName = true;
+            $scope.txtAgentName = false;
             this.noOfDays = "";
             this.interest = "";
             $scope.dueDate = "";
@@ -154,6 +158,7 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
             $scope.openingDate = false;
             $scope.DueDate = false;
             $scope.AgentIDPanel = false;
+            $scope.DueDate = false;
             this.noOfDays = "";
             this.interest = "";
             $scope.dueDate = "";
@@ -167,6 +172,7 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
             $scope.openingDate = false;
             $scope.DueDate = false;
             $scope.AgentIDPanel = false;
+            $scope.DueDate = false;
             this.noOfDays = "";
             this.interest = "";
             //alert('FD');
@@ -229,6 +235,28 @@ scotchApp.controller('create_accountController', function ($rootScope, $scope, $
         }
     }
 
+    $scope.agentNameClick = function () {
+       // alert('check txt');
+        $scope.ddlAgentName = true;
+        $scope.txtAgentName = false;
+
+    }
+
+    $scope.ddlAgentNameChange = function () {
+
+       // alert('check click');
+        $scope.ddlAgentName = false;
+        $scope.txtAgentName = true;
+
+        $http.get(linkglobal + '/agents?$filter=bank_id eq ' + imageIDData + 'and agent_id eq ' + this.accountAgentId)
+      .success(function (res) {
+
+          var Accounts = res;
+          var account = Accounts.value;
+          $scope.agentName = account[0].agent_name;
+      })
+        //$scope.agentName = this.accountAgentId;
+    }
     $scope.createaccount = function () {
         $scope.product_id;
 
