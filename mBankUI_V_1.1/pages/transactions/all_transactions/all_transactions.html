@@ -21,22 +21,28 @@
                                 </section>
                             </div><!-- /.box-header -->
                             <!-- form start -->
+                            <div class="col-sm-12">
+                                <a name="xlsbtn1" class="pull-right btn btn-reddit btn-sm" ng-click="exportData()"><i class="glyphicon glyphicon-download"></i> Generate XLS</a>
+                                <a name="alleed1" class="pull-right btn btn-reddit btn-sm" style="margin-right:5px" ng-click="allapprovedtrx()"><i class="glyphicon glyphicon-check"></i> Approve All</a>
+                                <b class="pull-right btn btn-info btn-sm" style="margin-right:5px">Total Amount : {{amount1}}</b>
+                                <a class="btn btn-success btn-sm pull-right" ng-show="alertLoading">Loading</a> <a class="btn btn-default btn-sm pull-right" ng-show="alertData">All Status Approved</a>
+                                <a class="btn btn-primary btn-sm pull-right" style="margin-right:5px" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></a>
+                            </div>
                             <div class=" box-header col-sm-12 form-group">
                                 <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-2 control-label" style="font-size:15pt;padding-top:3px">Search Here :</label>
+                                    <label for="inputEmail3" class="col-sm-2 control-label" style="font-size:15pt;padding-top:3px">Account Number:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" ng-model="searchs.external_account_id" class="form-control"  placeholder="Search Customer Here" />
+                                        <input type="text" ng-model="searchs.external_account_id" class="form-control"  placeholder="Search Customer Here By Account ID" />
 
                                     </div>
-                                    <div class="col-sm-7">
-                                        <a name="xlsbtn1" class="pull-right btn btn-reddit btn-sm" ng-click="exportData()"><i class="glyphicon glyphicon-download"></i> Generate XLS</a>
-                                        <a name="alleed1" class="pull-right btn btn-reddit btn-sm" style="margin-right:5px" ng-click="allapprovedtrx()"><i class="glyphicon glyphicon-check"></i> Approve All</a>
-                                        <b class="pull-right btn btn-info btn-sm" style="margin-right:5px">Total Amount : {{amount1}}</b>
-                                        <a class="btn btn-success btn-sm pull-right" ng-show="alertLoading">Loading</a> <a class="btn btn-default btn-sm pull-right" ng-show="alertData">All Status Approved</a>
-                                        <a class="btn btn-primary btn-sm pull-right" style="margin-right:5px" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></a>
+                                    <label for="inputEmail3" class="col-sm-2 control-label" style="font-size:15pt;padding-top:3px">Mobile Number:</label>
+                                    
+                                    <div class="col-sm-3">
+                                        <input type="text" ng-model="mobileNumber.cust_phno_1" class="form-control" style="float:right;" placeholder="Search Customer Here By Mobile No" /> </td>
                                     </div>
+                                  
                                 </div> 
-
+                               
                              
                             </div><!-- /.box-header -->
                             <div class="box-body">
@@ -46,6 +52,7 @@
                                             <th>Customer Name</th>
                                             <th>Customer A/c Id</th>
                                             <th style="width:100px">Acc Type</th>
+                                            <th>Mobile Number</th>
                                             <th>Status</th>
                                             <th>Transaction_Date</th>
                                             <th>Amount</th>
@@ -58,7 +65,7 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-show="!trans3">
-                                            <td colspan="7" style="font-size:15pt;color:green;text-align:center">
+                                            <td colspan="8" style="font-size:15pt;color:green;text-align:center">
                                                 <div class="overlay">
                                                     <i class="fa fa-refresh fa-spin"></i>
                                                 </div>
@@ -66,7 +73,7 @@
 
                                         </tr>
                                         <tr ng-show="trans3.length == '0'">
-                                            <td colspan="7" style="font-size:15pt;color:red;text-align:center">
+                                            <td colspan="8" style="font-size:15pt;color:red;text-align:center">
                                                 <b>
                                                     yet no Transactions  
                                                 </b>
@@ -75,16 +82,17 @@
                                         </tr>
 
 
-                                        <tr ng-model="data.trx_id" ng-repeat="data in trans3|filter:searchs |orderBy : '-sync_dt'| limitTo:limit">
+                                        <tr ng-model="data.trx_id" ng-repeat="data in trans3|filter:searchs |filter:mobileNumber|orderBy : '-sync_dt'| limitTo:limit">
                                             <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}" class="">{{data.cust_name}}</td>
                                             <!--  <td ng-show="{{data.trx_data}}!=1">{{data.cust_name}}</td>-->
 
                                             <td>{{data.external_account_id}}</td>
 
                                             <td>{{data.Account_Type}}</td>
+                                            <td>{{data.cust_phno_1}}</td>
                                             <td>
-                                                <span style="color:blue;" ng-if="(data.status==7 || data.status ==10)"><b>Approve</b></span>
-                                                <span style="color:red;" ng-if="!(data.status ==10 || data.status ==7)"><b>Not Approve</b></span>
+                                                <span style="color:blue;" ng-if="(data.status==7 || data.status ==10)"><b>Approved</b></span>
+                                                <span style="color:red;" ng-if="!(data.status ==10 || data.status ==7)"><b>Not Approved</b></span>
 
                                             <td>{{data.trx_dt}}</td>
                                             <td>{{data.amt}}</td>

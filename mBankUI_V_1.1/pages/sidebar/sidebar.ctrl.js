@@ -218,7 +218,7 @@ scotchApp.controller('sidebarController', function ($rootScope, $scope, $http, $
          }
 
 
-    $http.get('http://mbankwcfdataservice.azurewebsites.net/mBankDataService.svc/products?$filter=bank_id eq ' + imageIDData)//linkglobal + '/products')
+    $http.get(linkglobal + '/products?$filter=bank_id eq ' + imageIDData)//linkglobal + '/products')
             .success(function (res) { var acc = res; var acc1 = acc.value; $scope.accounts = acc1; });
 
     $http.get(linkglobal + '/banks?$filter=bank_id eq ' + imageIDData)

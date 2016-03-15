@@ -12,7 +12,7 @@
                         <div class="box-header with-border">
                             <section class="content-header">
                                 <h1>
-                                    Approve Transaction's
+                                    Approved Transaction's
                                 </h1>
                                 <ol class="breadcrumb">
                                     <li><a href="#/home"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -21,32 +21,42 @@
                             </section>
                         </div><!-- /.box-header -->
                         <div class="box-body">
+                        <table  class="table table-bordered table-hover">
+                            <tr class="bg-info">
+
+                                <th style=" width:150px;height:50px">Account Number:</th>
+                                <th colspan="4" class="form-group-sm">
+                                    <input type="text" ng-model="datetrxn.external_account_id" class="form-control" style="float:right;" placeholder="Search Customer Here By Account ID" /> </td>
+                                </th>
+                                <th style=" width:150px;height:50px">Mobile Number:</th>
+                                <th colspan="4" class="form-group-sm">
+                                    <input type="text" ng-model="mobileNumber.cust_phno_1" class="form-control" style="float:right;" placeholder="Search Customer Here By Mobile No" /> </td>
+                                </th>
+
+                                <th class="form-group-sm pull-left">
+                                    <!-- <b class="pull-right btn btn-info btn-sm" style="margin-right:5px">Total Amount : {{amount1}}</b>-->
+                                    <a class="btn btn-primary btn-sm pull-right" style="margin-right:5px" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></a>
+
+
+                                </th>
+
+                            </tr>
+                        </table>
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
-                                    <tr class="bg-info">
-
-                                        <th style=" width:150px;height:50px">Search Manually:</th>
-                                        <th colspan="3" class="form-group-sm">
-                                            <input type="text" ng-model="datetrxn.external_account_id" class="form-control" style="float:right;" placeholder="Search Customer Here" /> </td>
-                                        </th>
-
-                                        <th colspan="3" class="form-group-sm" style="height:50px">
-                                            <b class="pull-right btn btn-info btn-sm" style="margin-right:5px">Total Amount : {{amount1}}</b>
-                                            <a class="btn btn-primary btn-sm pull-right" style="margin-right:5px" ng-click="refresh()"><i class="glyphicon glyphicon-refresh"></i></a>
-
-
-                                        </th>
-
-                                    </tr>
+                                  
+                                    
                                     <tr>
+                                        <th>Sr. No</th>
                                         <th>Customer Name</th>
                                         <th>Customer A/c Id</th>
+                                        <th>Mobile Number</th>
                                         <th style="width:100px">Acc Type</th>
                                         <th>Status</th>
                                         <th>Transaction_Date</th>
                                         <th>Amount</th>
                                         <th style="width:100px">Agent ID</th>
-                                       <!-- <th style="width:100px">External Agent ID</th>-->
+                                        <!-- <th style="width:100px">External Agent ID</th>-->
                                         <th>Agent_Name</th>
                                         <th style="width:100px;">Status_Approve</th>
                                     </tr>
@@ -58,28 +68,31 @@
                                             <div class="overlay">
                                                 <i class="fa fa-refresh fa-spin"></i>
                                             </div>
-                                        <b>Loading.....</b></td>
+                                            <b>Loading.....</b>
+                                        </td>
 
                                     </tr>
                                     <tr ng-show="trans34.length == '0'">
                                         <td colspan="7" style="font-size:15pt;color:red;text-align:center">
                                             <b>
-                                                yet no Transactions  
+                                                yet no Transactions
                                             </b>
                                         </td>
 
                                     </tr>
 
 
-                                    <tr ng-model="data.trx_id" ng-repeat="data in trans34|filter:datetrxn|orderBy : '-sync_dt' | limitTo:limit">
+                                    <tr ng-model="data.trx_id" ng-repeat="data in trans34|filter:datetrxn |filter:mobileNumber|orderBy : '-sync_dt' | limitTo:limit">
+                                        <td>{{$index+1}}</td>
                                         <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}" class="capitalize">{{data.cust_name}}</td>
                                         <!--  <td ng-show="{{data.trx_data}}!=1">{{data.cust_name}}</td>-->
                                         <td>{{data.external_account_id}}</td>
+                                        <td>{{data.cust_phno_1}}</td>
 
                                         <td>{{data.Account_Type}}</td>
                                         <td>
-                                            <span style="color:blue;" ng-if="(data.status==7 || data.status ==10)"><b>Approve</b></span>
-                                            <span style="color:red;" ng-if="!(data.status ==10 || data.status ==7)"><b>Not Approve</b></span>
+                                            <span style="color:blue;" ng-if="(data.status==7 || data.status ==10)"><b>Approved</b></span>
+                                            <span style="color:red;" ng-if="!(data.status ==10 || data.status ==7)"><b>Not Approved</b></span>
 
                                         <td>{{data.trx_dt}}</td>
                                         <td>{{data.amt}}</td>
@@ -122,5 +135,5 @@
 
 
 
- 
+
 
