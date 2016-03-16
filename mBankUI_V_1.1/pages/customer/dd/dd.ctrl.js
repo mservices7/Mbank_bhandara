@@ -64,5 +64,12 @@ scotchApp.controller('ddController', function ($rootScope, $interval, $timeout, 
         $scope.limit = $scope.limit + 30;
     };
      
-   
-})
+    //get
+    $http.get(linkglobal + '/CustomerAccounts?$filter=bank_id eq ' + imageIDData + ' and trx_type eq 1').success(function (response) {
+        var cust1 = response;
+        var cust2 = cust1.value;
+        $scope.customers = cust2;
+        var count = cust2.length;
+    });
+
+})//Last

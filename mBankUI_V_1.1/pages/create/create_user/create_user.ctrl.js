@@ -10,7 +10,7 @@ scotchApp.controller('userController', function ($rootScope, $interval, $timeout
     }
     var vm = this;
 
-
+   // alert('wi');
     var roughtDetails = $cookieStore.get('user');
     var imageIDData = $cookieStore.get('bankIDImg');
     $scope.imgIdDdURL = imageIDData;
@@ -146,6 +146,40 @@ scotchApp.controller('userController', function ($rootScope, $interval, $timeout
             headers: { 'Content-Type': 'application/json' },
 
         }).success(function () {
+
+            $http.get(linkglobal + '/agents?$filter=bank_id eq ' + imageIDData + ' and external_agent_id+eq+' + "'" + login_id + "'").success(function (response) {
+                var amt = 0;
+                var agent = response;
+                var agents = agent.value;
+                var agent_id = agents[0].agent_id;
+                
+               // alert('agent_id '+agent_id);
+                var request = $http({
+                    method: "put",
+                    url: linkglobal + "/agents(" + agent_id + ")",
+                    crossDomain: true,
+                    data: {
+                        external_agent_id: String(login_id),
+                        agent_name: String(agent_name),
+                        agent_local_add: String(agent_local_add),
+                        agent_perm_add: String(agent_perm_add),
+                        agent_phno_1: String(agent_phno_1),
+                        agent_phno_2: String(agent_phno_2),
+                        agent_email_id: String(agent_email_id),
+                        login_id: agent_id,
+                        status: status,
+                        bank_id: imageIDData,
+                        branch_id: branch_id,
+                        role_id: 1,
+                        is_sync: is_sync,
+                        sync_dt: sync_dt,
+                        bank_sync_dt: bank_sync_dt
+                    },
+                    headers: { 'Content-Type': 'application/json' },
+
+                })
+            });
+
 
 
             $scope.clearData();

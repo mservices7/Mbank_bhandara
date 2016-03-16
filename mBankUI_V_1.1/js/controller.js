@@ -11,8 +11,9 @@ var scotchApp = angular.module('scotchApp',
         'app.customerDetails',
         'app.fd',
         'app.statementSearch',
-        //'app.statementDetails'
-
+       'app.customerAccountDetailsController',
+       'app.customerPersonalDetails',
+       'app.agent_details',
     ]);
 
 
@@ -46,6 +47,9 @@ scotchApp.config(function ($routeProvider, $httpProvider) {
 
         .when('/all_transactions/:Navigation', { templateUrl: 'pages/transactions/all_transactions/all_transactions.html', controller: 'all_transactionsController' })
 
+       .when('/CusomerAccountDetails/:user_id', { templateUrl: 'pages/customer/customer_account_Details/customerAccountDetails.html', controller: 'customerAccountDetailsController' })
+        .when('/customerPersonaldetails/:cust_id', { templateUrl: 'pages/customer/customer_account_Details/customer_detail/customer_detail.html', controller: 'customerPersonalDetailsController' })
+
 
 
         //end new code
@@ -73,8 +77,9 @@ scotchApp.config(function ($routeProvider, $httpProvider) {
         .when('/depositeAmt/:user_id', { templateUrl: 'pages/search/accDetails/custAccDetails.html', controller: 'custAccDetailsController' })
         .when('/createAccount', { templateUrl: 'pages/create/createAccount/createAccount.html', controller: 'create_accountController' })
         .when('/createProduct', { templateUrl: 'pages/create/createProduct/create_product.html', controller: 'create_productController' })
+        .when('/agent_details/:agent_id', { templateUrl: 'pages/search/seachAgent/agent_detail/agentdetail.html', controller: 'agent_detailsController', })
 
-
+    
 
 });
 

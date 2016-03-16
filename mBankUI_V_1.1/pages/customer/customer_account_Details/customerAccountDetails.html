@@ -46,7 +46,7 @@
                                 </div>
 
                             </div>-->
-                            <div class="col-sm-3"  >
+                            <div class="col-sm-3">
                                 <div class="input-group">
                                     <div class="input-group-addon bg-black">
                                         MobileNo1
@@ -57,7 +57,7 @@
 
                             </div>
 
-                            <div class="col-sm-3" >
+                            <div class="col-sm-3">
                                 <div class="input-group">
                                     <div class="input-group-addon bg-black">
                                         MobileNo2
@@ -240,6 +240,7 @@
                                 <thead>
                                     <tr class="success">
                                         <th>Sr. No.</th>
+
                                         <th>Transaction DT</th>
                                         <th>Acc Type</th>
                                         <th>Debit</th>
@@ -277,8 +278,8 @@
                                         <td><span ng-show="data.trx_type=='cr'">{{data.amt}}</span></td>
                                         <td>{{data.trx_balance}}</td>
                                         <!--<td ng-show="data.trx_data==3">{{data.InterestAmounts}}</td>-->
-                                        <!--<td>{{data.amt}}</td>
-                                        <td><input class="btn btn-primary" type="button" value="Approve" ng-disabled="(data.status==10 || data.status ==7 || data.status ==11)" ng-click="StatusApprove(trxid=data.trxId,status=11,accID=data.acc_id,DailyInAmt=data.amt)" /></td>-->
+                                        <!--<td>{{data.amt}}</td>-->
+                                        <!--<td><input class="btn btn-primary" type="button" value="Approve" ng-disabled="(data.status==10 || data.status ==7 || data.status ==11)" ng-click="StatusApprove(trxid=data.trxId,status=11,accID=data.acc_id,DailyInAmt=data.amt)" /></td>-->
                                     </tr>
                                     <tr ng-show="datadetails.length > 30">
                                         <td colspan="5"></td>

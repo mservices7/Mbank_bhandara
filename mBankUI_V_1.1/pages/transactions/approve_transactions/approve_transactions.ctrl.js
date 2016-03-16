@@ -9,7 +9,7 @@ scotchApp.controller('approve_transactionsController', function ($rootScope, $sc
        
      }
 
-
+   // alert('work');
     var roughtDetails = $cookieStore.get('user');
     var imageIDData = $cookieStore.get('bankIDImg');
     $scope.imgIdDdURL = imageIDData;
@@ -32,7 +32,7 @@ scotchApp.controller('approve_transactionsController', function ($rootScope, $sc
     }
 
     //get total transactions dashaboard
-    $http.get(linkglobal + '/trx_details?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3')
+    $http.get(linkglobal + '/trx_details?$filter=bank_id eq ' + imageIDData + ' and trx_type ne '+"'"+3+"'")
            .success(function (response) {
                var amt1 = 0;
                var trx = response;
@@ -43,8 +43,8 @@ scotchApp.controller('approve_transactionsController', function ($rootScope, $sc
                    amt1 = amt1 + transaction[i].amt;
                }
                $scope.amount1 = amt1;
-            
-
+               console.log($scope.amount1);
+              // alert($scope.amount1);
            });
 
     //get total transactions dashaboard
