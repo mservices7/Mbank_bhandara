@@ -97,7 +97,8 @@
                                 <div class="form-group" ng-class="{ 'has-error': form.password_n.$dirty && (form.password_n.$error.required || form.password_n.$error.pattern || form.password_n.$error.minlength || form.password_n.$error.maxlength) }">
                                     <label for="inputPassword" class="col-sm-2 control-label">Password:</label>
                                     <div class="col-sm-10">
-                                        <input type="password" name="password_n" ng-model="apass" placeholder="Please Enter Password" class="form-control" ng-minlength="8" maxlength="12" onchange="onPasswordChange()" required />
+                                        <!--<input type="password" name="password_n" ng-model="apass" placeholder="Please Enter Password" class="form-control" ng-minlength="8" maxlength="12" onchange="onPasswordChange()" required />-->
+                                        <input type="password" name="password_n" ng-model="apass" placeholder="Please Enter Password" class="form-control" ng-minlength="8" maxlength="12" required />
                                         <span ng-show="form.password_n.$dirty && form.password_n.$error.required" class="help-block">Password is required</span>
                                         <span ng-show="form.password_n.$dirty && form.password_n.$error.minlength" class="help-block">Enter min 8 characters</span>
 
