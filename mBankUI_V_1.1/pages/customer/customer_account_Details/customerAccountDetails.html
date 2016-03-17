@@ -88,7 +88,7 @@
                                     <div class="input-group-addon" ng-class="{'success': data.Account_Type === 'SAVING' , 'bg-blue-active': data.Account_Type == 'LOAN'}">
                                         AccNo
                                     </div>
-                                    <input type="text" ng-model="data.acc_id" placeholder="Please Enter Branch Name" class="form-control" disabled />
+                                    <input type="text" ng-model="data.external_account_id" placeholder="Please Enter Branch Name" class="form-control" disabled />
 
                                 </div>
 
@@ -108,7 +108,8 @@
                                     <div class="input-group-addon" ng-class="{'success': data.Account_Type === 'SAVING' , 'bg-blue-active': data.Account_Type == 'LOAN'}">
                                         {{data.Account_Type}} Amount Rs.
                                     </div>
-                                    <input type="text" ng-model="data.balance" placeholder="Please Enter Branch Name" class="form-control" disabled />
+                                   <!-- <input type="text" ng-model="data.balance" placeholder="Please Enter Branch Name" class="form-control" disabled />-->
+                                    <input type="text" ng-model="balances" placeholder="Please Enter Branch Name" class="form-control" disabled />
 
                                 </div>
 
