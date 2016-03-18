@@ -1,0 +1,203 @@
+﻿
+<div class="wrapper" style="background-color:#222d32;">
+    <div class="navbar-fixed-top"><ng-include src="'pages/sidebar/sidebar.html'"></ng-include></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="margin-top:50px;padding-bottom:300px">
+        <!-- Main content -->
+
+        <section class="content">
+            <div class="panel ">
+                <div class="box-body">
+                    <div class="col-lg-12 searchpanel" style="height:80px">
+                        <div class="col-sm-12">
+                            <div class="col-sm-1">
+                                <span><b>Name:</b></span>
+                            </div>
+                            <div class="col-sm-5 pull-left marathifont" style="font-size: x-large;">
+                                <span><b>{{txtAgentName}}</b></span>
+                            </div>
+                            <div class="col-sm-2">
+                                <span>
+                                    <b>Mobile Number:</b>
+                                </span>
+                            </div>
+                            <div class="col-sm-4 pull-left">
+                                <span>{{txtcust_phoneno}}</span>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12" style="margin-top:20px">
+                            <div class="col-sm-2">
+                                <span><b>Agent ID:</b></span>
+                            </div>
+                            <div class="col-sm-4 pull-left">
+                                <span>{{txtAgentID}}</span>
+                            </div>
+                            <div class="col-sm-2">
+                                <span>
+                                    <b>Email-Id:</b>
+                                </span>
+                            </div>
+                            <div class="col-sm-4 pull-left">
+                                <span>{{txtAgent_emailId}}</span>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row  search_content">
+
+                        <div class="content">
+                            <div class="panel content_table">
+                                <div class="box-body">
+                                    <div class="pull-left">
+                                        <button class="btn btn-primary btn-sm" ng-click="Back()">
+                                            <i class="glyphicon glyphicon-circle-arrow-left"> </i>
+                                            &nbsp;Back
+                                        </button>
+
+                                    </div>
+                                    <div class="pull-right">
+                                        <a class="btn btn-reddit btn-sm " style="padding-right:15px" ng-click="exportData()">
+                                            <i class="glyphicon glyphicon-download"></i> Generate XLS
+                                        </a>
+
+                                    </div>
+                                    <div class="row col-lg-12" style="padding-left:400px">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <h4>
+                                                        <b>
+                                                            Account Type
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                                        </b>
+                                                    </h4>
+                                                </td>
+                                                <td colspan="2">
+                                                    <select type="text" ng-model="accountType" class="form-control" ng-change="accfound(accountData=this.accCustomerId)">
+                                                        <option value="">Select Account Type</option>
+                                                        <option ng-repeat="product in products" value="{{product.ID}}">{{product.pDetails}}</option>
+                                                    </select>
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-sm-12" style="margin-top:20px; text-align:center">
+
+                                        <span>
+                                            <b> From:</b>
+                                        </span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="date" ng-model="fromdate" style="height:30px;width:200px">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span>
+                                            <b>  To:</b>
+                                        </span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        <input type="date" ng-model="todate" style="height:30px;width:200px">
+
+                                    </div>
+                                    <div>
+                                        <div class="col-sm-12" style="text-align:center;margin-top:20px">
+                                            <a class="btn btn-primary btn-lg  " style="width:95px" ng-click="Search()">
+                                                Search
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 " style=" height:500px;overflow:scroll">
+                                        <table id="example2" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr class="success">
+                                                    <th>Sr. No.</th>
+                                                    <th>Date</th>
+                                                    <th>Account Number</th>
+                                                    <th>Account Type</th>
+                                                    <th>Customer Name</th>
+                                                    <th>Amount Deposited</th>
+                                                    <!--<th>Intrest Paid</th>-->
+                                                    <!--<th ng-show="getDetails==3">Daily Installment Amount</th>-->
+                                                    <!--<th>Approve</th>-->
+
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <!--<tr ng-show="!AgentCustomerRecord">
+                                                    <td colspan="7" style="font-size:15pt;color:green;text-align:center"><b>Loading.....</b></td>
+
+                                                </tr>-->
+                                                <tr ng-show="AgentCustomerRecord.length == '0'">
+                                                    <td colspan="7" style="font-size:15pt;color:red;text-align:center">
+                                                        <b>
+                                                            yet no Transactions
+                                                        </b>
+                                                    </td>
+
+                                                </tr>
+
+
+                                                <!--<tr ng-repeat="data in datadetails |orderBy : '-sync_dt' |limitTo:limit">-->
+                                                <tr ng-repeat="data in AgentCustomerRecord">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{data.Date}}</td>
+                                                    <td>{{data.AccountNumber}}</td>
+
+                                                    <td> {{data.AccountType}} </td>
+                                                    <td> {{data.CustomerName}} </td>
+                                                    <td>{{data.AmountDeposited}}</td>
+
+
+                                                    <!--<td><span ng-show="(data.trx_type=='dbt') ">{{data.amt}}</span></td>
+                                                    <td><span ng-show="data.trx_type=='cr'">{{data.amt}}</span></td>-->
+                                                    <!--<td ng-show="dat
+                                                                    a.trx_data==3">{{data.InterestAmounts}}</td>
+                                                    <td>{{data.amt}}</td>
+                                                    <td><input class="btn btn-primary" type="button" value="Approve" ng-disabled="(data.status==10 || data.status ==7 || data.status ==11)" ng-click="StatusApprove(trxid=data.trxId,status=11,accID=data.acc_id,DailyInAmt=data.amt)" /></td>-->
+                                                </tr>
+
+
+                                                <tr ng-show="datadetails.length > 30">
+                                                    <td colspan="5"></td>
+                                                    <td><a class="btn btn-primary btn-sm" ng-click="limitTo()">Load More</a></td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                        <div class="pull-right" ng-show="totalbalnc" style="padding-right:150px">
+                                             <h3><b>Total Balance: &nbsp;&nbsp;&nbsp; &nbsp;{{totalBalance}}</b></h3>  
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <ng-include class="navbar-fixed-bottom" src="'bankPages/sidebar/footer.html'"></ng-include>
+</div>
+
+
+
+
+
+
+
+
+
+

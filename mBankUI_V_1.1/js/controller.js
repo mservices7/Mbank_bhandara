@@ -14,6 +14,7 @@ var scotchApp = angular.module('scotchApp',
        'app.customerAccountDetailsController',
        'app.customerPersonalDetails',
        'app.agent_details',
+       'app.AgentCustomerReport',
     ]);
 
 
@@ -49,6 +50,7 @@ scotchApp.config(function ($routeProvider, $httpProvider) {
 
        .when('/CusomerAccountDetails/:user_id', { templateUrl: 'pages/customer/customer_account_Details/customerAccountDetails.html', controller: 'customerAccountDetailsController' })
         .when('/customerPersonaldetails/:cust_id', { templateUrl: 'pages/customer/customer_account_Details/customer_detail/customer_detail.html', controller: 'customerPersonalDetailsController' })
+        .when('/AgentCustomerReport/:agent_id', { templateUrl: 'pages/Report/ReportAgent/AgentCustomerReport/AgentCustomerReport.html', controller: 'AgentCustomerReportController' })
 
 
 

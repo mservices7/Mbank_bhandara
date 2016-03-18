@@ -48,18 +48,21 @@ scotchApp.controller('ReportAgentController', function ($rootScope, $scope, $htt
 
     //Get Record Report
     $scope.getAgentAllData = function () {
-        var agentRecId = this.agentRecId;
-        $scope.tillDateAgentTransaction = '';
-        $http.get(linkglobal + '/customers?$filter=agent_id eq ' + agentRecId + ' and bank_id eq ' + imageIDData).success(function (response) { var cust1 = response; var cust2 = cust1.value; $scope.agentRecordCustomers = cust2.length; });
-        $http.get(linkglobal + '/trxn_views?$filter=agent_id eq ' + agentRecId + ' and bank_id eq ' + imageIDData).success(function (response) { var cust1 = response; var cust2 = cust1.value; var count = cust2.length; var amt = 0; for (var i = 0; i <= count; i++) { amt = amt + cust2[i].amt; $scope.tillDateAgentTransaction = amt; } });
 
-        for (var d = 0; d <= 7; d++) {
+        $location.path('/AgentCustomerReport');
 
-            var amtdd = 0; var today = new Date();
-            var lastWeeks = new Date(today.getFullYear(), today.getMonth(), today.getDate() - d);
-            var lastWeekdates = $filter('date')(lastWeeks, 'dd-MM-yyyy');
-            $http.get(linkglobal + "/trx_details?$filter=trx_dt eq '" + lastWeekdates + "' and agent_id eq " + agentRecId + ' and bank_id eq ' + imageIDData).success(function (response) { var trx = response; var transaction = trx.value; var count = transaction.length; amtdd = amtdd + transaction[0].amt; })
-                .success(function () { $scope.weekAgentCollectionDAte = amtdd; });
-        }
+        //var agentRecId = this.agentRecId;
+        //$scope.tillDateAgentTransaction = '';
+        //$http.get(linkglobal + '/customers?$filter=agent_id eq ' + agentRecId + ' and bank_id eq ' + imageIDData).success(function (response) { var cust1 = response; var cust2 = cust1.value; $scope.agentRecordCustomers = cust2.length; });
+        //$http.get(linkglobal + '/trxn_views?$filter=agent_id eq ' + agentRecId + ' and bank_id eq ' + imageIDData).success(function (response) { var cust1 = response; var cust2 = cust1.value; var count = cust2.length; var amt = 0; for (var i = 0; i <= count; i++) { amt = amt + cust2[i].amt; $scope.tillDateAgentTransaction = amt; } });
+
+        //for (var d = 0; d <= 7; d++) {
+
+        //    var amtdd = 0; var today = new Date();
+        //    var lastWeeks = new Date(today.getFullYear(), today.getMonth(), today.getDate() - d);
+        //    var lastWeekdates = $filter('date')(lastWeeks, 'dd-MM-yyyy');
+        //    $http.get(linkglobal + "/trx_details?$filter=trx_dt eq '" + lastWeekdates + "' and agent_id eq " + agentRecId + ' and bank_id eq ' + imageIDData).success(function (response) { var trx = response; var transaction = trx.value; var count = transaction.length; amtdd = amtdd + transaction[0].amt; })
+        //        .success(function () { $scope.weekAgentCollectionDAte = amtdd; });
+        //}
     }
 })

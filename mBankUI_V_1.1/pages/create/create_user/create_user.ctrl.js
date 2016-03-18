@@ -40,7 +40,7 @@ scotchApp.controller('userController', function ($rootScope, $interval, $timeout
             var trx1 = response; var user1 = trx1.value; var count = user1.length;
             $scope.maxLoginUsers= user1[0].login_id;
             $scope.maxLoginExterUser= user1[0].external_login_id;
-          // alert('userTable maxLoginExterUser' + $scope.maxLoginExterUser);
+           alert('userTable maxLoginExterUser' + $scope.maxLoginExterUser);
         })
 
         $http.get(linkglobal + '/agents?$orderby=external_agent_id desc').success(function (response) {
@@ -50,7 +50,7 @@ scotchApp.controller('userController', function ($rootScope, $interval, $timeout
             var trx1 = response;
             var user1 = trx1.value;
             $scope.maxAgentExterId = Math.max(user1[0].external_agent_id);
-           //alert('AgentTable maxAgentExterId' + $scope.maxAgentExterId);
+           alert('AgentTable maxAgentExterId' + $scope.maxAgentExterId);
 
         })
        
