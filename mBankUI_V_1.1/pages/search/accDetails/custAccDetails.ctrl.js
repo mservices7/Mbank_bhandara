@@ -441,14 +441,16 @@ scotchApp.controller('custAccDetailsController', function ($rootScope, $scope, $
         $scope.moneyDbt1 = 1;
         $scope.moneyDbt = 'dbt';
         $scope.dbttype = 'Debit From';
-
+        $scope.btnDepositeText = 'Withdrawal';
+       //alert('dbt');
     }
 
     $scope.cr = function () {
         $scope.moneyDbt1 = 2;
         $scope.moneyDbt = 'cr';
         $scope.dbttype = 'Credit in';
-
+        $scope.btnDepositeText = 'Deposite';
+        //alert('cr');
     }
 
     $scope.limit = 30;

@@ -37,7 +37,7 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
     //Total Amount
 
     //get total transactions dashaboard
-    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData +' and trx_data ne 3')
+    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData +' and trx_data ne 3 and status ne 7 and status ne 10 and status ne 11')
            .success(function (response) {
                var amt1 = 0;
                var trx = response;
@@ -54,7 +54,7 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
 
 //Get Data
 
-    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne '+3)
+    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status ne 7 and status ne 10 and status ne 11')
          .success(function (response) {
              var trans1 = response;
              var user1 = trans1.value;
@@ -196,7 +196,7 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
                             // $http.get(linkglobal + '/trxn_views')
                             //.success(function (response) { var trans1 = response; var user1 = trans1.value; $scope.trans3 = user1; });
                              
-                             $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne '+3)
+                             $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status ne 7 and status ne 10 and status ne 11')
                                   .success(function (response) {
                                       var trans1 = response;
                                       var user1 = trans1.value;
@@ -341,12 +341,33 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
                                  headers: { 'Content-Type': 'application/json' },
 
                              }).success(function (data) {
-                                 $http.get(linkglobal + '/trxn_views')
-                                .success(function (response) {
-                                    var trans1 = response;
-                                    var user1 = trans1.value;
-                                    $scope.trans3 = user1;
-                                })
+                                // $http.get(linkglobal + '/trxn_views')
+                                //.success(function (response) {
+                                //    var trans1 = response;
+                                //    var user1 = trans1.value;
+                                //    $scope.trans3 = user1;
+                                 //})
+
+
+
+                                 $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status ne 7 and status ne 10 and status ne 11')
+                                 .success(function (response) {
+                                     var trans1 = response;
+                                     var user1 = trans1.value;
+                                     $scope.trans3 = user1;
+                                     var count = user1.length;
+                                     var amt = 0;
+
+                                     $scope.trxs = user1;
+
+                                     var count = user1.length;
+                                     for (var i = 0; i < count; i++) {
+                                         amt = amt + user1[i].amt;
+
+                                     }
+
+                                     $scope.agentTransactionsApprove = amt;
+                                 })
                                  $scope.alertLoading = false;
                                  $scope.alertData = true;
                                  // alert('Data Updated On Server');
@@ -429,7 +450,7 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
 
       
         $scope.trans3 = null;
-        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData +' and trx_data ne 3')
+        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status ne 7 and status ne 10 and status ne 11')
            .success(function (response) {
                var amt1 = 0;
                var trx = response;
@@ -446,7 +467,7 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
 
         //Get Data
 
-        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne '+3)
+        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status ne 7 and status ne 10 and status ne 11')
              .success(function (response) {
                  var trans1 = response;
                  var user1 = trans1.value;

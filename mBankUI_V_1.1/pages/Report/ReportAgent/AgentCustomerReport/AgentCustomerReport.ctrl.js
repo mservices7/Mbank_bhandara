@@ -154,7 +154,7 @@ scotchApp.controller('AgentCustomerReportController', function ($rootScope, $sco
 
                     $scope.totalbalnc = false;
 
-                    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and agent_id eq ' + agent_id)
+                    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and agent_id eq ' + agent_id + ' or status eq 7 or status eq 10')
                         .success(function (response) {
                             var trx = response;
                             var datedata1 = trx.value;
@@ -219,104 +219,8 @@ scotchApp.controller('AgentCustomerReportController', function ($rootScope, $sco
                 }
 
             };
-            ////If Trnsaction Type is Debit
-            //else if (transactionType == "dbt") {
 
-
-            //    // alert(transactionType)
-            //    $http.get(linkglobal + '/trxn_views?$filter=cust_id eq ' + $scope.CustId + ' and bank_id eq ' + imageIDData + 'and trx_type+eq+%27dbt%27')
-            //        .success(function (response) {
-            //            var trx = response;
-            //            var datedata1 = trx.value;
-            //            var count = datedata1.length;
-            //            console.log(datedata1);
-
-            //            for (var i = diffDays; i >= 0; i--) {
-            //                var day = new Date(today.getFullYear(), today.getMonth(), today.getDate() + i, 0);
-            //                var transactionDate = $filter('date')(day, 'dd-MM-yyyy');
-            //                // alert(transactionDate);
-            //                for (var x = 0; x < count; x++) {
-            //                    if (datedata1[x].trx_dt == String(transactionDate)) {
-            //                        //console.log(transactionDate);
-            //                        //console.log(count);
-            //                        //console.log(datedata1[x].trx_dt);
-
-            //                        if (datedata1[x].trx_type == "dbt") {
-            //                            $scope.CustomerRecordStatement.push({
-            //                                Date: datedata1[x].trx_dt,
-            //                                Debit: datedata1[x].amt,
-            //                                Credit: 0.0,
-            //                                Balance: datedata1[x].trx_balance
-
-            //                            })
-            //                        }
-            //                        else {
-            //                            $scope.CustomerRecordStatement.push({
-            //                                Date: datedata1[x].trx_dt,
-            //                                Debit: 0.0,
-            //                                Credit: datedata1[x].amt,
-            //                                Balance: datedata1[x].trx_balance
-
-            //                            })
-            //                        }
-            //                    }
-            //                }
-
-
-            //            }
-            //        });
-            //}
-
-
-            //    ////If Trnsaction Type is Credit
-            //else if (transactionType == "cr") {
-
-
-            //    //alert(transactionType)
-
-            //    $http.get(linkglobal + '/trxn_views?$filter=cust_id eq ' + $scope.CustId + ' and bank_id eq ' + imageIDData + 'and trx_type+eq+%27cr%27')
-            //        .success(function (response) {
-            //            var trx = response;
-            //            var datedata1 = trx.value;
-            //            var count = datedata1.length;
-            //            console.log(datedata1);
-
-            //            for (var i = diffDays; i >= 0; i--) {
-            //                var day = new Date(today.getFullYear(), today.getMonth(), today.getDate() + i, 0);
-            //                var transactionDate = $filter('date')(day, 'dd-MM-yyyy');
-
-            //                // alert(transactionDate);
-            //                for (var x = 0; x < count; x++) {
-            //                    if (datedata1[x].trx_dt == String(transactionDate)) {
-            //                        //console.log(transactionDate);
-            //                        //console.log(count);
-            //                        //console.log(datedata1[x].trx_dt);
-
-            //                        if (datedata1[x].trx_type == "dbt") {
-            //                            $scope.CustomerRecordStatement.push({
-            //                                Date: datedata1[x].trx_dt,
-            //                                Debit: datedata1[x].amt,
-            //                                Credit: 0.0,
-            //                                Balance: datedata1[x].trx_balance
-
-            //                            })
-            //                        }
-            //                        else {
-            //                            $scope.CustomerRecordStatement.push({
-            //                                Date: datedata1[x].trx_dt,
-            //                                Debit: 0.0,
-            //                                Credit: datedata1[x].amt,
-            //                                Balance: datedata1[x].trx_balance
-
-            //                            })
-            //                        }
-            //                    }
-            //                }
-
-
-            //            }
-            //        });
-            //}
+             
 
         }
     }

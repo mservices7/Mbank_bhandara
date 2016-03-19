@@ -411,13 +411,17 @@ scotchApp.controller('customerAccountDetailsController', function ($rootScope, $
         $scope.moneyDbt1 = 1;
         $scope.moneyDbt = 'dbt';
         $scope.dbttype = 'Debit From';
+        $scope.btnDepositeText = 'Withdrawal';
+       // alert('dbt');
 
     }
 
     $scope.cr = function () {
+        //alert('cr');
         $scope.moneyDbt1 = 2;
         $scope.moneyDbt = 'cr';
         $scope.dbttype = 'Credit in';
+        $scope.btnDepositeText = 'Deposite';
 
     }
 
