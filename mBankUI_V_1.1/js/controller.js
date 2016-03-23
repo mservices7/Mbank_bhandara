@@ -48,6 +48,7 @@ scotchApp.config(function ($routeProvider, $httpProvider) {
 
         .when('/all_transactions/:Navigation', { templateUrl: 'pages/transactions/all_transactions/all_transactions.html', controller: 'all_transactionsController' })
 
+      // .when('/CusomerAccountDetails/:external_account_id', { templateUrl: 'pages/customer/customer_account_Details/customerAccountDetails.html', controller: 'customerAccountDetailsController' })
        .when('/CusomerAccountDetails/:user_id', { templateUrl: 'pages/customer/customer_account_Details/customerAccountDetails.html', controller: 'customerAccountDetailsController' })
         .when('/customerPersonaldetails/:cust_id', { templateUrl: 'pages/customer/customer_account_Details/customer_detail/customer_detail.html', controller: 'customerPersonalDetailsController' })
         .when('/AgentCustomerReport/:agent_id', { templateUrl: 'pages/Report/ReportAgent/AgentCustomerReport/AgentCustomerReport.html', controller: 'AgentCustomerReportController' })

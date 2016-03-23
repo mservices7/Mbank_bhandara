@@ -32,7 +32,7 @@ scotchApp.controller('approve_transactionsController', function ($rootScope, $sc
     }
 
     //get total transactions dashaboard
-    $http.get(linkglobal + '/trx_details?$filter=bank_id eq ' + imageIDData + ' and trx_type ne '+"'"+3+"'")
+    $http.get(linkglobal + '/trx_details?$filter=bank_id eq ' + imageIDData + ' and trx_type ne '+"'"+3+"'" +' and status eq 7')
            .success(function (response) {
                var amt1 = 0;
                var trx = response;
@@ -47,8 +47,9 @@ scotchApp.controller('approve_transactionsController', function ($rootScope, $sc
               // alert($scope.amount1);
            });
 
-    //get total transactions dashaboard
-    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status ne 7 and status ne 10 and status ne 11' + ' and trx_data ne ' + 3)
+    //get total Approved transactions 
+    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status eq 7')
+        //and status ne 10 and status ne 11 status ne 2')
       .success(function (response) {
           var trans1 = response;
           var user1 = trans1.value;
@@ -63,7 +64,8 @@ scotchApp.controller('approve_transactionsController', function ($rootScope, $sc
     $scope.refresh = function () {
        
         $scope.trans34 = null;
-        $http.get(linkglobal + '/trx_details?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status ne 7 and status ne 10 and status ne 11')
+        $http.get(linkglobal + '/trx_details?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status eq 7') 
+            //and status ne 10 and status ne 11')
           .success(function (response) {
               var amt1 = 0;
               var trx = response;
@@ -78,7 +80,8 @@ scotchApp.controller('approve_transactionsController', function ($rootScope, $sc
 
           });
 
-        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status ne 7 and status ne 10 and status ne 11' + ' and trx_data ne ' + 3)
+        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status eq 7 ')
+            //and status ne 10 and status ne 11' + ' and trx_data ne ' + 3)
      .success(function (response) {
          var trans1 = response;
          var user1 = trans1.value;

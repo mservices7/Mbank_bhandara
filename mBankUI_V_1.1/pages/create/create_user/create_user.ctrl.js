@@ -35,13 +35,13 @@ scotchApp.controller('userController', function ($rootScope, $interval, $timeout
 
     $scope.changeID = function () {
        
-        $http.get(linkglobal + '/user_details?$orderby=login_id desc').success(function (response) {
+        //$http.get(linkglobal + '/user_details?$orderby=login_id desc').success(function (response) {
 
-            var trx1 = response; var user1 = trx1.value; var count = user1.length;
-            $scope.maxLoginUsers= user1[0].login_id;
-            $scope.maxLoginExterUser= user1[0].external_login_id;
-           //alert('userTable maxLoginExterUser' + $scope.maxLoginExterUser);
-        })
+        //    var trx1 = response; var user1 = trx1.value; var count = user1.length;
+        //    $scope.maxLoginUsers= user1[0].login_id;
+        //    $scope.maxLoginExterUser= user1[0].external_login_id;
+        //   alert('userTable maxLoginExterUser' + $scope.maxLoginExterUser);
+        //})
 
         $http.get(linkglobal + '/agents?$orderby=external_agent_id desc').success(function (response) {
             
@@ -108,27 +108,27 @@ scotchApp.controller('userController', function ($rootScope, $interval, $timeout
 
    // alert('login_id' + login_id);
     //alert(password);
-        var request = $http({
-            method: "post",
-            url: linkglobal + "/user_details",
-            crossDomain: true,
-            data: {
-                external_login_id: external_login_id,
-                login_id: login_id,
-                pwd:password,
-                role_id:1,
-                status:1,
-                is_sync : true,
-                sync_dt : String($scope.ModifiedDate),
-                bank_sync_dt : String($scope.ModifiedDate),
-                bank_id:$scope.imgIdDdURL
-            },
+    //    var request = $http({
+    //        method: "post",
+    //        url: linkglobal + "/user_details",
+    //        crossDomain: true,
+    //        data: {
+    //            external_login_id: external_login_id,
+    //            login_id: login_id,
+    //            pwd:password,
+    //            role_id:1,
+    //            status:1,
+    //            is_sync : true,
+    //            sync_dt : String($scope.ModifiedDate),
+    //            bank_sync_dt : String($scope.ModifiedDate),
+    //            bank_id:$scope.imgIdDdURL
+    //        },
   
-        headers: { 'Content-Type': 'application/json' },
+    //    headers: { 'Content-Type': 'application/json' },
 
-    }).success(function (data) { 
+    //}).success(function (data) { 
         
-    }) 
+    //}) 
 
         var request = $http({
             method: "post",
@@ -143,7 +143,7 @@ scotchApp.controller('userController', function ($rootScope, $interval, $timeout
                 agent_phno_1: String(agent_phno_1),
                 agent_phno_2: String(agent_phno_2),
                 agent_email_id: String(agent_email_id),
-                login_id: login_id,
+                login_id: external_agent_id,
                 status: status,
                 bank_id: imageIDData,
                 branch_id: branch_id,

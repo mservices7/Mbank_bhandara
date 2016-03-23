@@ -36,7 +36,8 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
     var date2 = "'" + $scope.Date1 + "'";
     var date3 = "'" + $scope.Date3 + "'";
     //get total transactions dashaboard
-    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne ' + 3 + ' and trx_dt eq ' + date2 + ' or trx_dt eq ' + date3)
+   // $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne ' + 3 + ' and trx_dt eq ' + date2 + ' or trx_dt eq ' + date3)
+    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne ' + 3 + ' and trx_dt eq ' + date3)
            .success(function (response) {
                var amt1 = 0;
                var trx = response;
@@ -53,7 +54,8 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
     $scope.refresh = function () {
 
         $scope.todayRecordTrans = null;
-        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne ' + 3 + ' and trx_dt eq ' + date2 + ' or trx_dt eq ' + date3)
+     //   $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne ' + 3 + ' and trx_dt eq ' + date2 + ' or trx_dt eq ' + date3)
+        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne ' + 3 + ' and trx_dt eq ' + date3)
            .success(function (response) {
                var amt1 = 0;
                var trx = response;
@@ -66,7 +68,7 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
                $scope.amount1 = amt1;
            });
         //get total transactions dashaboard
-        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + 'and status ne 7 and status ne 10 and status ne 11 and trx_data ne ' + 3 + ' and trx_dt eq ' + date2 + ' or trx_dt eq ' + date3).success(function (response) {
+        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + 'and status ne 7 and status ne 10 and status ne 11 and trx_data ne ' + 3 + ' and trx_dt eq ' + date3).success(function (response) {
             var trans1 = response; var user1 = trans1.value; $scope.todayRecordTrans = user1;
             var count = user1.length; var amt = 0; var count = user1.length;
             for (var i = 0; i < count; i++) { amt = amt + user1[i].amt; }
@@ -74,10 +76,10 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
 
     }
 
-
+   // alert(date3);
 
     //get total transactions dashaboard
-    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne ' + 3 + ' and trx_dt eq ' + date2 + ' or trx_dt eq ' + date3).success(function (response) {
+    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne ' + 3 + ' and trx_dt eq ' + date3).success(function (response) {
         var trans1 = response; var user1 = trans1.value; $scope.todayRecordTrans = user1;
         var count = user1.length; var amt = 0; var count = user1.length;
         for (var i = 0; i < count; i++) { amt = amt + user1[i].amt; }
@@ -210,7 +212,7 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
 
                     alert('Status Approved');
 
-                    $http.get(linkglobal + "/trxn_views?$filter=trx_dt eq " + date2 + ' and bank_id eq ' + imageIDData + 'and status ne 7 and status ne 10 and status ne 11 and trx_data ne 3').success(function (response) {
+                    $http.get(linkglobal + "/trxn_views?$filter=trx_dt eq " + date3 + ' and bank_id eq ' + imageIDData + 'and status ne 7 and status ne 10 and status ne 11 and trx_data ne 3').success(function (response) {
                         var trans1 = response; var user1 = trans1.value; $scope.todayRecordTrans = user1;
                         var count = user1.length; var amt = 0; var count = user1.length;
                         for (var i = 0; i < count; i++) { amt = amt + user1[i].amt; }
@@ -354,7 +356,7 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
                            $scope.alertLoading = false;
                            $scope.alertData = true;
                            // alert('Data Updated On Server');
-                           $http.get(linkglobal + "/trxn_views?$filter=trx_dt eq " + date2 + ' and bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne 3').success(function (response) {
+                           $http.get(linkglobal + "/trxn_views?$filter=trx_dt eq " + date3 + ' and bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne 3').success(function (response) {
                                var trans1 = response; var user1 = trans1.value; $scope.todayRecordTrans = user1;
                                var count = user1.length; var amt = 0; var count = user1.length;
                                for (var i = 0; i < count; i++) { amt = amt + user1[i].amt; }
@@ -405,7 +407,8 @@ scotchApp.controller('today_transactionsController', function ($rootScope, $scop
     //new
     $scope.exportDatatoday = function ($scope) {
 
-        $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne 3 ' + ' and Transaction_Date eq ' + date2 + ' or Transaction_Date eq ' + date3 + ' and bank_id eq ' + imageIDData + ' and trx_data ne 3 ')
+       // $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne 3 ' + ' and Transaction_Date eq ' + date2 + ' or Transaction_Date eq ' + date3 + ' and bank_id eq ' + imageIDData + ' and trx_data ne 3 ')
+        $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=bank_id eq ' + imageIDData + ' and status ne 7 and status ne 10 and status ne 11 and trx_data ne 3 ' + ' and Transaction_Date eq ' + date3 + ' and bank_id eq ' + imageIDData)
    .success(function (res) {
        var agent1 = res;
        var user1 = agent1.value;

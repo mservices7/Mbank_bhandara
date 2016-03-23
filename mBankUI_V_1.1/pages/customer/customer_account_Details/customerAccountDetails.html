@@ -74,10 +74,10 @@
                     </div><!-- /.tab-pane -->
 
                 </div>
-                <ul class="nav nav-tabs">
+                <!--<ul class="nav nav-tabs">
                     <li class="" ng-repeat="data in customers | unique:'Account_Type'" ng-click="showTrns(trxId=data.trx_type)" ng-class="{active: $index == 0}"><a href="{{exact_user}}#{{data.Account_Type}}" style="cursor:pointer" data-toggle="tab">{{data.Account_Type}}</a></li>
 
-                </ul>
+                </ul>-->
                 <div class="tab-content">
                     <div class="tab-pane" ng-repeat="data in customers | unique:'Account_Type'" ng-class="{active: $index == 0}" id="{{data.Account_Type}}">
 
@@ -271,7 +271,7 @@
                                     </tr>
 
 
-                                    <tr ng-repeat="data in datadetails |orderBy : '-sync_dt' |limitTo:limit">
+                                    <tr ng-repeat="data in datadetails  |limitTo:limit">
                                         <td>{{$index+1}}</td>
                                         <td>{{data.trx_dt}}</td>
                                         <td>{{data.Account_Type}}</td>

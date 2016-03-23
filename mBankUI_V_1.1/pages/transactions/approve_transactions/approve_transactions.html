@@ -58,7 +58,7 @@
                                         <th style="width:100px">Agent ID</th>
                                         <!-- <th style="width:100px">External Agent ID</th>-->
                                         <th>Agent_Name</th>
-                                        <th style="width:100px;">Status_Approve</th>
+                                       <!-- <th style="width:100px;">Status_Approve</th>-->
                                     </tr>
 
                                 </thead>
@@ -101,13 +101,13 @@
                                             {{data.external_agent_id}}
                                         </td>
                                         <td ng-class="{marathifont:{{data.bank_id}}===1, capitalize:{{data.bank_id}}!=1}">{{data.agent_name}}</td>
-                                        <td>
+                                        <!--<td>
                                             <button ng-disabled="(data.status==10 || data.status ==7)" name="approvedbtn1" class="btn btn-success btn-sm center-block"
                                                     ng-click="statusApproveddatewise(trxId=data.trxId,status=data.status,selecttrx=data.trx_id,dateT=data.trx_dt,accountidT=data.acc_id,agentidT=data.agent_id,amtT=data.amt,bankidT=data.bank_id,banksyncdtT=data.bank_sync_dt,brachidT=data.brach_id,custidT=data.cust_id,externaltrxidT=data.external_trx_id,issyncT=data.is_sync,syncdtT=data.sync_dt,trxtypeT=data.trx_type)">
                                                 Approve
                                             </button>
 
-                                        </td>
+                                        </td>-->
 
                                     </tr>
                                     <tr ng-show="trans34.length > 30">
