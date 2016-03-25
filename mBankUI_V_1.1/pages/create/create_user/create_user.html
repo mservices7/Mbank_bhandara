@@ -37,7 +37,7 @@
                                 <div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty &&( form.firstName.$error.required || form.firstName.$error.pattern || form.firstName.$error.maxlength) }">
                                     <label for="inputPassword" class="col-sm-2 control-label">Agent Name:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="firstName" ng-model="aName" placeholder="Please Enter Agent Full Name"  class="form-control capitalize" ng-pattern="/^[a-zA-Z ]*$/" required />
+                                        <input type="text" name="firstName" ng-model="aName" placeholder="Please Enter Agent Full Name"  class="form-control marathifont" ng-pattern="/^[a-zA-Z ]*$/" required />
                                         <span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block"> Name is required</span>
                                         <span ng-show="form.firstName.$dirty &&  form.firstName.$error.pattern" class="help-block"> Name should only contain alphabets</span>
 

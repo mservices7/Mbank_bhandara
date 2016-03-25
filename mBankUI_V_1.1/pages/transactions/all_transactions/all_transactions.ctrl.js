@@ -37,7 +37,7 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
     //Total Amount
 
     //get total transactions dashaboard
-    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status ne 7 and status ne 10 and status ne 11')
+    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status eq 2')
            .success(function (response) {
                var amt1 = 0;
                var trx = response;
@@ -54,7 +54,7 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
 
     //Get Data
 
-    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status ne 7 and status ne 10 and status ne 11')
+    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status eq 2')
          .success(function (response) {
              var trans1 = response;
              var user1 = trans1.value;
@@ -69,7 +69,7 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
                  amt = amt + user1[i].amt;
 
              }
-             alert(count);
+             // alert(count);
              $scope.agentTransactionsApprove = amt;
 
 
@@ -92,7 +92,7 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
                  var issyncT = this.issyncT;
                  var syncdtT = this.syncdtT;
                  var trxtypeT = this.trxtypeT;
-                 var numberT = String(7);
+                 var numberT = String(17);
                  var status = this.status;
 
                  $scope.trxtypeT = this.trxtypeT;;
@@ -105,12 +105,7 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
                  var dateT = this.dateT;
                  var accountidT = this.accountidT;
 
-                 //         $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status ne 7 and status ne 10 and status ne 11 and trxId eq ' + trxId)
-                 //.success(function (response) {
-                 //    var selecedtrans1 = response;
-                 //    var selectedTransactionValue = selecedtrans1.value;
-                 //    $scope.tabTransactionAmount = selectedTransactionValue[0].amt;
-                 //});
+
                  $http.get(linkglobal + '/accounts?$filter=bank_id eq ' + imageIDData + ' and acc_id eq ' + accountidT)
                      .success(function (response) {
                          var trans1 = response;
@@ -163,9 +158,12 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
                                      headers: { 'Content-Type': 'application/json' },
 
                                  }).success(function (data) {
+
                                      var trxtypeT = $scope.trxtypeT;
                                      var accountidT = $scope.accountidT;
                                      var money = $scope.money;
+
+
                                      $http.get(linkglobal + "/accounts" + "?$filter=acc_id eq " + accountidT).then(function (res) {
                                          var role = res.data;
                                          var users = role.value;
@@ -193,6 +191,35 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
                                              var balance = getbalnce + money;
                                          }
 
+                                         //same transaction inserted into trx_details table
+                                         var request = $http({
+                                             method: "post",
+                                             url: linkglobal + "/trx_details",
+                                             crossDomain: true,
+                                             data: {
+                                                 trx_id: trx_id + 1,
+                                                 status: 7,
+                                                 trx_dt: dateT,
+                                                 acc_id: accountidT,
+                                                 agent_id: agentidT,
+                                                 amt: amtT,
+                                                 bank_id: bankidT,
+                                                 bank_sync_dt: banksyncdtT,
+                                                 brach_id: brachidT,
+                                                 cust_id: custidT,
+                                                 external_trx_id: externaltrxidT + 1,
+                                                 is_sync: issyncT,
+                                                 sync_dt: syncdtT,
+                                                 trx_type: trxtypeT,
+
+                                                 balance: totalBalance,
+                                                 InterestAmount: interestAmount,
+                                                 NumberOfDays: noOfDays,
+
+                                             },
+                                             headers: { 'Content-Type': 'application/json' },
+
+                                         })
 
 
                                          var request = $http({
@@ -222,8 +249,8 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
 
                                      // $http.get(linkglobal + '/trxn_views')
                                      //.success(function (response) { var trans1 = response; var user1 = trans1.value; $scope.trans3 = user1; });
-
-                                     $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status ne 7 and status ne 10 and status ne 11')
+                                     //status ne 17 and status ne 7 and status ne 10 and status ne 11 and
+                                     $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status eq 2')
                                           .success(function (response) {
                                               var trans1 = response;
                                               var user1 = trans1.value;
@@ -242,20 +269,7 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
                                               $scope.agentTransactionsApprove = amt;
                                           })
 
-                                     // $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status ne 7 and status ne 10 and status ne 11')
-                                     //.success(function (response) {
-                                     //    var amt1 = 0;
-                                     //    var trx = response;
-                                     //    var transaction = trx.value;
-                                     //    $scope.transactionsT = transaction;
-                                     //    var count = transaction.length;
-                                     //    for (var i = 0; i < count; i++) {
-                                     //        amt1 = amt1 + transaction[i].amt;
-                                     //    }
-                                     //    $scope.amount1 = amt1;
-                                     //    //console.log('dashboard transaction amt =' + amt1);
 
-                                     //});
 
 
                                  }).error(function (err) {
@@ -269,180 +283,250 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
                      })
 
              };
-
-             $scope.allapprovedtrx = function () {
-
-                 if (count > 0) {
-                     for (var i = 0; i < count; i++) {
-                         var trxId = user1[i].trxId;
-                         var external_trx_id = String(user1[i].external_trx_id);
-                         var trx_id = String(user1[i].trx_id);
-                         var bank_id = user1[i].bank_id;
-                         var branch_id = user1[i].branch_id;
-                         var cust_id = user1[i].cust_id;
-                         var acc_id = user1[i].acc_id;
-                         var agent_id = user1[i].agent_id;
-                         var amt = user1[i].amt;
-                         var trx_dt = user1[i].trx_dt;
-                         var trx_type = user1[i].trx_type;
-                         var status = String(10);
-                         var is_sync = user1[i].is_sync;
-                         var sync_dt = user1[i].sync_dt;
-                         var bank_sync_dt = user1[i].bank_sync_dt;
-                         var status1 = user1[i].status;
-
-                         alert(amt + 'amt')
-
-
-
-                         if (status1 == 7 || status1 == 10) {
-                             $scope.alertData = true;
-                             $scope.alertLoading = false;
-                             //alert('Status Already Approve OR Approved Remaining transaction Manually!')
-
-                         }
-                         else {
-                             $scope.alertLoading = true;
-
-                             $http.get(linkglobal + "/accounts" + "?$filter=acc_id eq " + user1[i].acc_id).then(function (res) {
-                                 var role = res.data;
-                                 var users = role.value;
-                                 var getbalnce = users[0].balance;
-
-                                 alert(getbalnce + 'getbalnce');
-
-                                 $scope.external_account_ids = users[0].external_account_id;
-                                 $scope.IdFounds = users[0].agent_id;
-
-                                 $scope.bank_ids = users[0].bank_id;
-                                 $scope.brach_ids = users[0].branch_id;
-                                 $scope.cust_ids = users[0].cust_id;
-                                 $scope.acc_ids = users[0].acc_id;
-                                 $scope.agent_ids = users[0].agent_id;
-                                 $scope.Account_Types = users[0].Account_Type;
-                                 $scope.trx_types = users[0].trx_type;
-                                 $scope.is_syncs = users[0].is_sync;
-                                 $scope.sync_dts = users[0].sync_dt;
-                                 $scope.bank_sync_dts = users[0].bank_sync_dt;
-
-
-
-                                 //if ($scope.trx_types == 3) {
-                                 //    var balance = getbalnce - money;
-                                 //} else {
-                                 //    var balance = getbalnce + money;
-                                 //}
-                                 if ($scope.trx_types == 3) {
-                                     $scope.balance1 = getbalnce - amt;
-                                 } else {
-                                     $scope.balance1 = getbalnce + amt;
-                                 }
-
-                                 alert($scope.balance1 + 'balance');
-
-
-
-                                 var request = $http({
-                                     method: "put",
-                                     url: linkglobal + "/accounts(" + $scope.acc_ids + ")",
-                                     crossDomain: true,
-                                     data: {
-                                         external_account_id: $scope.external_account_ids,
-                                         cust_id: $scope.cust_ids,
-                                         balance: $scope.balance1,
-                                         bank_id: $scope.bank_ids,
-                                         branch_id: $scope.branch_ids,
-                                         agent_id: $scope.agent_ids,
-                                         status: 1,
-                                         is_sync: true,
-                                         sync_dt: $scope.sync_dts,
-                                         bank_sync_dt: $scope.bank_sync_dts,
-                                         Account_Type: $scope.Account_Types,
-                                         trx_type: $scope.trx_types,
-                                     },
-                                     headers: { 'Content-Type': 'application/json' },
-                                 })
-
-                             })
-
-
-                             var request = $http({
-                                 method: "put",
-                                 url: linkglobal + "/trx_details(" + trxId + ")",
-                                 crossDomain: true,
-                                 data: {
-                                     external_trx_id: external_trx_id,
-                                     trx_id: trx_id,
-                                     bank_id: bank_id,
-                                     brach_id: branch_id,
-                                     cust_id: cust_id,
-                                     acc_id: acc_id,
-                                     agent_id: agent_id,
-                                     amt: amt,
-                                     trx_dt: trx_dt,
-                                     trx_type: trx_type,
-                                     status: 7,
-                                     is_sync: is_sync,
-                                     sync_dt: sync_dt,
-                                     bank_sync_dt: bank_sync_dt,
-
-                                     balance: $scope.balance1,
-                                     //balance: user1[i].trx_balance,
-                                     InterestAmount: user1[i].InterestAmounts,
-                                     NumberOfDays: user1[i].NumberOfDay,
-                                 },
-                                 headers: { 'Content-Type': 'application/json' },
-
-                             }).success(function (data) {
-                                 // $http.get(linkglobal + '/trxn_views')
-                                 //.success(function (response) {
-                                 //    var trans1 = response;
-                                 //    var user1 = trans1.value;
-                                 //    $scope.trans3 = user1;
-                                 //})
-
-
-
-                                 $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status ne 7 and status ne 10 and status ne 11')
-                                 .success(function (response) {
-                                     var trans1 = response;
-                                     var user1 = trans1.value;
-                                     $scope.trans3 = user1;
-                                     var count = user1.length;
-                                     var amt = 0;
-
-                                     $scope.trxs = user1;
-
-                                     var count = user1.length;
-                                     for (var i = 0; i < count; i++) {
-                                         amt = amt + user1[i].amt;
-
-                                     }
-
-                                     $scope.agentTransactionsApprove = amt;
-                                 })
-                                 $scope.alertLoading = false;
-                                 $scope.alertData = true;
-                                 // alert('Data Updated On Server');
-                             });
-
-                         }
-                     } //for loop close 
-
-
-
-
-
-                 }
-                 else {
-                     alert('Record not found');
-                 }
-
-             };
-
-
-
          });
+
+    $scope.allapprovedtrx = function () {
+        //ne 7 and status ne 10 and status ne 11
+        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status eq 2')
+.success(function (response) {
+    var trans1 = response;
+    var approveUser = trans1.value;
+    $scope.trans3 = approveUser;
+    var count = approveUser.length;
+    //var amt = 0;
+    // alert(count);
+    // $scope.trxs = approveUser;
+    if (count > 0) {
+
+
+
+        for (var i = 0; i < count; i++) {
+            // for (var i = 0; i < count; i++) {
+            var trxId = approveUser[i].trxId;
+            var external_trx_id = String(approveUser[i].external_trx_id);
+            var trx_id = String(approveUser[i].trx_id);
+            var bank_id = approveUser[i].bank_id;
+            var branch_id = approveUser[i].branch_id;
+            var cust_id = approveUser[i].cust_id;
+            var acc_id = approveUser[i].acc_id;
+            var agent_id = approveUser[i].agent_id;
+            var amt = approveUser[i].amt;
+            var trx_dt = approveUser[i].trx_dt;
+            var trx_type = approveUser[i].trx_type;
+            var status = String(7);
+            var is_sync = approveUser[i].is_sync;
+            var sync_dt = approveUser[i].sync_dt;
+            var bank_sync_dt = approveUser[i].bank_sync_dt;
+            var status1 = approveUser[i].status;
+            var InterestAmount = approveUser[i].InterestAmount;
+            var NumberOfDays = approveUser[i].NumberOfDays;
+            //alert(amt + 'amt')
+
+
+
+            if (status1 == 7 || status1 == 10) {
+                $scope.alertData = true;
+                $scope.alertLoading = false;
+                //alert('Status Already Approve OR Approved Remaining transaction Manually!')
+
+            }
+            else {
+
+                // for (var i = 0; i < count; i++) {
+
+
+                $scope.alertLoading = true;
+                var balance1 = 0;
+                $http.get(linkglobal + "/accounts" + "?$filter=acc_id eq " + approveUser[i].acc_id).then(function (res) {
+                    var role = res.data;
+                    var users = role.value;
+                    var getbalnce = users[0].balance;
+
+                    //  alert(getbalnce + 'getbalnce');
+
+                    $scope.external_account_ids = users[0].external_account_id;
+                    $scope.IdFounds = users[0].agent_id;
+
+                    $scope.bank_ids = users[0].bank_id;
+                    $scope.brach_ids = users[0].branch_id;
+                    $scope.cust_ids = users[0].cust_id;
+                    $scope.acc_ids = users[0].acc_id;
+                    $scope.agent_ids = users[0].agent_id;
+                    $scope.Account_Types = users[0].Account_Type;
+                    $scope.trx_types = users[0].trx_type;
+                    $scope.is_syncs = users[0].is_sync;
+                    $scope.sync_dts = users[0].sync_dt;
+                    $scope.bank_sync_dts = users[0].bank_sync_dt;
+
+
+
+                    //if ($scope.trx_types == 3) {
+                    //    var balance = getbalnce - money;
+                    //} else {
+                    //    var balance = getbalnce + money;
+                    //}
+                    if ($scope.trx_types == 3) {
+                        // $scope.balance1 = getbalnce - amt;
+                        balance1 = users[0].balance - amt;
+                    } else {
+                        // $scope.balance1 = getbalnce + amt;
+                        balance1 = users[0].balance + amt;
+                    }
+
+                    // alert(balance1 + 'balance');
+
+
+
+                    var request = $http({
+                        method: "put",
+                        url: linkglobal + "/accounts(" + $scope.acc_ids + ")",
+                        crossDomain: true,
+                        data: {
+                            external_account_id: $scope.external_account_ids,
+                            cust_id: $scope.cust_ids,
+                            balance: balance1,
+                            bank_id: $scope.bank_ids,
+                            branch_id: $scope.branch_ids,
+                            agent_id: $scope.agent_ids,
+                            status: 1,
+                            is_sync: true,
+                            sync_dt: $scope.sync_dts,
+                            bank_sync_dt: $scope.bank_sync_dts,
+                            Account_Type: $scope.Account_Types,
+                            trx_type: $scope.trx_types,
+                        },
+                        headers: { 'Content-Type': 'application/json' },
+                    }).success(function (data) {
+
+
+
+                        //ne 7 and status ne 10 and status ne 11
+                        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status eq 2')
+                        .success(function (response) {
+                            var trans1 = response;
+                            var approveUser = trans1.value;
+                            $scope.trans3 = approveUser;
+                            var count = approveUser.length;
+                            var amt = 0;
+
+                            $scope.trxs = approveUser;
+
+                            var count = approveUser.length;
+                            for (var i = 0; i < count; i++) {
+                                amt = amt + approveUser[i].amt;
+
+                            }
+
+                            $scope.agentTransactionsApprove = amt;
+                        })
+                        $scope.alertLoading = false;
+                        $scope.alertData = true;
+                        // alert('Data Updated On Server');
+                    });
+
+                    var request = $http({
+                        method: "put",
+                        url: linkglobal + "/trx_details(" + trxId + ")",
+                        crossDomain: true,
+                        data: {
+                            external_trx_id: external_trx_id,
+                            trx_id: trx_id,
+                            bank_id: bank_id,
+                            brach_id: branch_id,
+                            cust_id: cust_id,
+                            acc_id: acc_id,
+                            agent_id: agent_id,
+                            amt: amt,
+                            trx_dt: trx_dt,
+                            trx_type: trx_type,
+                            status: 17,
+                            is_sync: is_sync,
+                            sync_dt: sync_dt,
+                            bank_sync_dt: bank_sync_dt,
+                            balance: balance1,
+                            //balance: approveUser[i].trx_balance,
+                            InterestAmount: InterestAmount,
+                            NumberOfDays: NumberOfDays
+                        },
+                        headers: { 'Content-Type': 'application/json' },
+
+                    }).success(function (data) {
+
+                        var request = $http({
+                            method: "post",
+                            url: linkglobal + "/trx_details",
+                            crossDomain: true,
+                            data: {
+                                external_trx_id: external_trx_id + 1,
+                                trx_id: trx_id,
+                                bank_id: bank_id,
+                                brach_id: branch_id,
+                                cust_id: cust_id,
+                                acc_id: acc_id,
+                                agent_id: agent_id,
+                                amt: amt,
+                                trx_dt: trx_dt,
+                                trx_type: trx_type,
+                                status: 7,
+                                is_sync: is_sync,
+                                sync_dt: sync_dt,
+                                bank_sync_dt: bank_sync_dt,
+                                balance: balance1,
+                                //balance: approveUser[i].trx_balance,
+                                InterestAmount: InterestAmount,
+                                NumberOfDays: NumberOfDays
+                            },
+                            headers: { 'Content-Type': 'application/json' },
+
+                        })
+
+                        //ne 7 and status ne 10 and status ne 11
+                        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status eq 2')
+                        .success(function (response) {
+                            var trans1 = response;
+                            var approveUser = trans1.value;
+                            $scope.trans3 = approveUser;
+                            var count = approveUser.length;
+                            var amt = 0;
+
+                            $scope.trxs = approveUser;
+
+                            var count = approveUser.length;
+                            for (var i = 0; i < count; i++) {
+                                amt = amt + approveUser[i].amt;
+
+                            }
+
+                            $scope.agentTransactionsApprove = amt;
+                        })
+                        $scope.alertLoading = false;
+                        $scope.alertData = true;
+                        // alert('Data Updated On Server');
+                    });
+                })
+
+                // }
+
+
+            }
+            //alert(i);
+            //} //for loop close 
+        } //for loop close 
+
+
+
+
+
+    }
+    else {
+        alert('Record not found');
+    }
+})
+
+    }
+
+
+
 
 
     //generate xlsx file
@@ -472,8 +556,19 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
 
     //new 
     $scope.exportData = function ($scope) {
+        allCustomerTransaction = [];
 
-        $http.get(linkglobal + '/account_customer_agent_transaction_View?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3')
+        var CustomerName;
+        var CustomerAccountID;
+        var AccountType;
+        var MobileNumber;
+        var Status;
+        var Date;
+        var Amount;
+        var AgentID;
+        var AgentName;
+
+        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status eq 2')
    .success(function (res) {
 
        var agent1 = res;
@@ -481,8 +576,31 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
        var count = user1.length;
        //alert(count);
        if (count > 0) {
+           for (var x = 0; x < count; x++) {
 
-           alasql('SELECT Customer_Name,External_Transaction_Id,status,Transaction_Date,Amount,external_account_id,agent_name INTO XLSX("Report.xlsx",{headers:true})  FROM ?', [user1]);
+               if (user1[x].trx_type == "cr" || user1[x].trx_type == "Cr") {
+
+                   allCustomerTransaction.push({
+                       CustomerName: user1[x].cust_name,
+                       CustomerAccountID: user1[x].external_account_id,
+                       AccountType: user1[x].Account_Type,
+                       MobileNumber: user1[x].cust_phno_1,
+                       Status: "Not Approved",
+                       Date: user1[x].trx_dt,
+                       Amount: user1[x].amt,
+                       AgentID: user1[x].external_agent_id,
+                       AgentName: user1[x].agent_name
+
+                   })
+
+
+               }
+
+
+
+           }
+           //  alasql('SELECT Customer_Name,External_Transaction_Id,status,Transaction_Date,Amount,external_account_id,agent_name INTO XLSX("Report.xlsx",{headers:true})  FROM ?', [user1]);
+           alasql('SELECT CustomerName,CustomerAccountID,AccountType,MobileNumber,Status,Date,Amount,AgentID,AgentName INTO XLSX("AllTransactionReport.xlsx",{headers:true})  FROM ?', [allCustomerTransaction]);
 
        }
        else {
@@ -503,7 +621,8 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
 
 
         $scope.trans3 = null;
-        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status ne 7 and status ne 10 and status ne 11')
+        //ne 7 and status ne 10 and status ne 11
+        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and status eq 2')
            .success(function (response) {
                var amt1 = 0;
                var trx = response;
@@ -519,8 +638,8 @@ scotchApp.controller('all_transactionsController', function ($rootScope, $scope,
            });
 
         //Get Data
-
-        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status ne 7 and status ne 10 and status ne 11')
+        //ne 7 and status ne 10 and status ne 11
+        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne ' + 3 + ' and status eq 2')
              .success(function (response) {
                  var trans1 = response;
                  var user1 = trans1.value;

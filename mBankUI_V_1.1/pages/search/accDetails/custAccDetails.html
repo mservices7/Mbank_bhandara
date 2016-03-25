@@ -4,7 +4,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="margin-top:50px;padding-bottom:300px">
 
-       
+
         <div class=" box  " style="padding:10px 4px 0px 4px;">
             <!-- /.box-header -->
             <!-- /.nav-tabs-custom -->
@@ -14,14 +14,14 @@
                 </button>
             </div>-->
             <div class="pull-left ">
-                <button class="btn btn-primary btn-sm pull-left" ng-click="Back()"   >
+                <button class="btn btn-primary btn-sm pull-left" ng-click="Back()">
                     <i class="glyphicon glyphicon-circle-arrow-left"> </i>
-                    &nbsp;Back  
+                    &nbsp;Back
                 </button>
 
             </div>
             <div class="nav-tabs-custom box-body row" style="margin-top:10px">
-               
+
                 <div class="box-header with-border">
 
                     <div ng-repeat="data in customer | unique:'cust_id'">
@@ -46,7 +46,7 @@
                                 </div>
 
                             </div>-->
-                            <div class="col-sm-3"  >
+                            <div class="col-sm-3">
                                 <div class="input-group">
                                     <div class="input-group-addon bg-black">
                                         MobileNo1
@@ -57,7 +57,7 @@
 
                             </div>
 
-                            <div class="col-sm-3" >
+                            <div class="col-sm-3">
                                 <div class="input-group">
                                     <div class="input-group-addon bg-black">
                                         MobileNo2
@@ -74,10 +74,10 @@
                     </div><!-- /.tab-pane -->
 
                 </div>
-                <ul class="nav nav-tabs">
+                <!--<ul class="nav nav-tabs">
                     <li class="" ng-repeat="data in customers | unique:'Account_Type'" ng-click="showTrns(trxId=data.trx_type)" ng-class="{active: $index == 0}"><a href="{{exact_user}}#{{data.Account_Type}}" style="cursor:pointer" data-toggle="tab">{{data.Account_Type}}</a></li>
 
-                </ul>
+                </ul>-->
                 <div class="tab-content">
                     <div class="tab-pane" ng-repeat="data in customers | unique:'Account_Type'" ng-class="{active: $index == 0}" id="{{data.Account_Type}}">
 
@@ -108,7 +108,7 @@
                                     <div class="input-group-addon" ng-class="{'success': data.Account_Type === 'SAVING' , 'bg-blue-active': data.Account_Type == 'LOAN'}">
                                         {{data.Account_Type}} Amount Rs.
                                     </div>
-                                  <!--  <input type="text" ng-model="data.balance" placeholder="Please Enter Branch Name" class="form-control" disabled />-->
+                                    <!-- <input type="text" ng-model="data.balance" placeholder="Please Enter Branch Name" class="form-control" disabled />-->
                                     <input type="text" ng-model="balances" placeholder="Please Enter Branch Name" class="form-control" disabled />
 
                                 </div>
@@ -138,15 +138,19 @@
                                     <i style="color:wheat" class="glyphicon glyphicon-credit-card pull-left"></i>&nbsp; Debit Money
                                 </a>
                                 <a class="btn btn-primary btn-sm pull-left" style="margin-right:5px" ng-click="refresh()">
-                                    <i class="glyphicon glyphicon-refresh"></i>
+                                    <i class="glyphicon glyphicon-refresh"> </i>
                                 </a>
+
 
                                 <a class="btn btn-warning btn-sm  " style="padding-right:15px" data-toggle="modal" ng-hide="data.Account_Type=='LOAN'" ng-click="cr()" data-target="#1{{data.acc_id}}">
                                     <i class="glyphicon glyphicon-credit-card pull-left"></i>&nbsp; Credit Money
                                 </a>
                                 <!--<a class="btn btn-primary btn-sm " style="padding-right:15px" ng-click="showMain()" >
-                    <i style="color:wheat" class="glyphicon glyphicon-credit-card pull-left"></i>&nbsp; Show Trx
-                </a>-->
+                                    <i style="color:wheat" class="glyphicon glyphicon-credit-card pull-left"></i>&nbsp; Show Trx
+                                </a>-->
+                                <a class="btn btn-primary btn-sm " style="margin-right:0px" ng-click="refresh()">
+                                    <i class="glyphicon glyphicon-credit-card pull-left"></i> All Transaction
+                                </a>
                                 <a class="btn btn-info btn-sm " style="padding-right:15px" ng-click="collectB()">
                                     <i style="color:wheat" class="glyphicon glyphicon-credit-card pull-left"></i>&nbsp; Collect By Bank
                                 </a>
@@ -224,6 +228,7 @@
                                                     </div><!-- /.box-body -->
                                                     <div class="box-footer">
                                                         <button data-dismiss="modal" class="btn btn-default btn-sm  pull-right" style="margin-left:3px" ng-click="clear(this.money='')">Cancel</button>
+                                                        <!--<button data-dismiss="modal" class="btn btn-info btn-sm pull-right" ng-click="deposite(id=data.acc_id,type=data.trx_type);">Deposite</button>-->
                                                         <button data-dismiss="modal" class="btn btn-info btn-sm pull-right" ng-click="deposite(id=data.acc_id,type=data.trx_type);">{{btnDepositeText}}</button>
                                                     </div><!-- /.box-footer -->
                                                 </form>
@@ -241,13 +246,14 @@
                                 <thead>
                                     <tr class="success">
                                         <th>Sr. No.</th>
-                                        <th>Transaction DT</th>
+
+                                        <th>Transaction Date</th>
                                         <th>Acc Type</th>
                                         <th>Debit</th>
                                         <th>Credit</th>
                                         <th>Balance</th>
-                                   <!--     <th>Intrest Paid</th>-->
-                                      <!--  <th ng-show="getDetails==3">Daily Installment Amount</th>-->
+                                        <!--     <th>Intrest Paid</th>-->
+                                        <!--  <th ng-show="getDetails==3">Daily Installment Amount</th>-->
                                         <!--<th>Daily Installment Amount</th>
                                         <th>Approve</th>-->
 
@@ -262,14 +268,14 @@
                                     <tr ng-show="datadetails .length == '0'">
                                         <td colspan="6" style="font-size:15pt;color:red;text-align:center">
                                             <b>
-                                                yet no Transactions  
+                                                yet no Transactions
                                             </b>
                                         </td>
 
                                     </tr>
 
 
-                                    <tr ng-repeat="data in datadetails |orderBy : '-sync_dt' |limitTo:limit">
+                                    <tr ng-repeat="data in datadetails  |limitTo:limit">
                                         <td>{{$index+1}}</td>
                                         <td>{{data.trx_dt}}</td>
                                         <td>{{data.Account_Type}}</td>
@@ -278,8 +284,8 @@
                                         <td><span ng-show="data.trx_type=='cr'">{{data.amt}}</span></td>
                                         <td>{{data.trx_balance}}</td>
                                         <!--<td ng-show="data.trx_data==3">{{data.InterestAmounts}}</td>-->
-                                        <!--<td>{{data.amt}}</td>
-                                        <td><input class="btn btn-primary" type="button" value="Approve" ng-disabled="(data.status==10 || data.status ==7 || data.status ==11)" ng-click="StatusApprove(trxid=data.trxId,status=11,accID=data.acc_id,DailyInAmt=data.amt)" /></td>-->
+                                        <!--<td>{{data.amt}}</td>-->
+                                        <!--<td><input class="btn btn-primary" type="button" value="Approve" ng-disabled="(data.status==10 || data.status ==7 || data.status ==11)" ng-click="StatusApprove(trxid=data.trxId,status=11,accID=data.acc_id,DailyInAmt=data.amt)" /></td>-->
                                     </tr>
                                     <tr ng-show="datadetails.length > 30">
                                         <td colspan="5"></td>
@@ -320,7 +326,7 @@
                                     <tr ng-show="datadetails .length == '0'">
                                         <td colspan="7" style="font-size:15pt;color:red;text-align:center">
                                             <b>
-                                                yet no Transactions  
+                                                yet no Transactions
                                             </b>
                                         </td>
 
@@ -357,6 +363,9 @@
 
 
         </div>
+    </div>
+    <div ng-show="test">
+        {{gettrxDetails}}
     </div>
 
     <ng-include class="navbar-fixed-bottom" src="'bankPages/sidebar/footer.html'"></ng-include>

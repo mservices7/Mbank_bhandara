@@ -4,8 +4,9 @@ var scotchApp = angular.module('app.search_agentssTrxn', ['ngRoute'])
 
 
 scotchApp.controller('search_agentssTrxnController', function ($rootScope, $scope, $http, $routeParams, $location, $filter, $cookieStore) {
-    $scope.CheckLogin = function () {if ($cookieStore.get('bankIDImg') == undefined) { $location.path('/'); }
- 
+    $scope.CheckLogin = function () {
+        if ($cookieStore.get('bankIDImg') == undefined) { $location.path('/'); }
+
     }
 
 
@@ -40,10 +41,10 @@ scotchApp.controller('search_agentssTrxnController', function ($rootScope, $scop
         if (val && val != "")
             return parseInt(val);
     };
-    $http.get(linkglobal + '/products?$filter=bank_id eq ' + imageIDData ).success(function (res) { var acc = res; var acc1 = acc.value; $scope.pData = acc1; });
+    $http.get(linkglobal + '/products?$filter=bank_id eq ' + imageIDData).success(function (res) { var acc = res; var acc1 = acc.value; $scope.pData = acc1; });
 
 
-    $http.get(linkglobal + '/agents?$filter=bank_id eq ' + imageIDData+' and agent_id eq ' + exact)
+    $http.get(linkglobal + '/agents?$filter=bank_id eq ' + imageIDData + ' and agent_id eq ' + exact)
   .success(function (response) {
       var agent = response;
       var user = agent.value;
@@ -51,8 +52,15 @@ scotchApp.controller('search_agentssTrxnController', function ($rootScope, $scop
 
   });
 
+
+    $scope.Back = function () {
+
+        $location.path('/search_agent');
+
+    }
+
     //get total transactions dashaboard
-    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and agent_id eq ' + exact)
+    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3 and agent_id eq ' + exact + ' and trx_type ne %27dbt%27 and status ne 2 and status ne 17')
            .success(function (response) {
                var amt1 = 0;
                var trx = response;
@@ -67,59 +75,7 @@ scotchApp.controller('search_agentssTrxnController', function ($rootScope, $scop
 
            });
 
-
-    //code to calculate datewise amount
-    $scope.getDateAgentTrxnCount = function () {
-        $scope.showdatecount = true;
-        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3' + ' and agent_id eq ' + exact + " and trx_dt eq '" + this.getDateAgent+"'")
-          .success(function (response) {
-              var amt1 = 0;
-              var trx = response;
-              var transaction = trx.value;
-              $scope.transactions = transaction;
-              var count = transaction.length;
-              for (var i = 0; i < count; i++) {
-                  amt1 = amt1 + transaction[i].amt;
-              }
-              $scope.amount12 = amt1;
-              //console.log('dashboard transaction amt =' + amt1);
-
-          });
-
-    }
-
-
-    //code for refresh
-
-    $scope.refresh = function () {
-        $scope.transactions = null;
-
-        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3' + ' and agent_id eq ' + exact)
-           .success(function (response) {
-               var amt1 = 0;
-               var trx = response;
-               var transaction = trx.value;
-               $scope.transactionsT = transaction;
-               var count = transaction.length;
-               for (var i = 0; i < count; i++) {
-                   amt1 = amt1 + transaction[i].amt;
-               }
-               $scope.amount1 = amt1;
-               //console.log('dashboard transaction amt =' + amt1);
-
-           });
-        $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3' + ' and agent_id eq ' + exact)
- .success(function (res) {
-     var agent1 = res;
-     var user1 = agent1.value;
-     $scope.transactions = user1;
-     var transactioD = JSON.stringify($scope.transactions);
-     var del = JSON.parse(transactioD);
-     var count = user1.length;
- })
-    }
-
-    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3' + ' and agent_id eq ' + exact)
+    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3' + ' and agent_id eq ' + exact + ' and trx_type ne %27dbt%27 and status ne 2 and status ne 17')
   .success(function (res) {
       var agent1 = res;
       var user1 = agent1.value;
@@ -140,10 +96,62 @@ scotchApp.controller('search_agentssTrxnController', function ($rootScope, $scop
 
       $scope.agentTransactions = amt;
 
+      //code to calculate datewise amount
+      $scope.getDateAgentTrxnCount = function () {
+          $scope.showdatecount = true;
+          $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3' + ' and agent_id eq ' + exact + ' and trx_type ne %27dbt%27 and status ne 2 and status ne 17')
+            .success(function (response) {
+                var amt1 = 0;
+                var trx = response;
+                var transaction = trx.value;
+                $scope.transactions = transaction;
+                var count = transaction.length;
+                for (var i = 0; i < count; i++) {
+                    amt1 = amt1 + transaction[i].amt;
+                }
+                $scope.amount12 = amt1;
+                //console.log('dashboard transaction amt =' + amt1);
+
+            });
+
+      }
+
+
+      //code for refresh
+
+      $scope.refresh = function () {
+          $scope.transactions = null;
+
+          $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3' + ' and agent_id eq ' + exact + ' and trx_type ne %27dbt%27 and status ne 2 and status ne 17')
+             .success(function (response) {
+                 var amt1 = 0;
+                 var trx = response;
+                 var transaction = trx.value;
+                 $scope.transactionsT = transaction;
+                 var count = transaction.length;
+                 for (var i = 0; i < count; i++) {
+                     amt1 = amt1 + transaction[i].amt;
+                 }
+                 $scope.amount1 = amt1;
+                 //console.log('dashboard transaction amt =' + amt1);
+
+             });
+          $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3' + ' and agent_id eq ' + exact + ' and trx_type ne %27dbt%27 and status ne 2 and status ne 17')
+   .success(function (res) {
+       var agent1 = res;
+       var user1 = agent1.value;
+       $scope.transactions = user1;
+       var transactioD = JSON.stringify($scope.transactions);
+       var del = JSON.parse(transactioD);
+       var count = user1.length;
+   })
+      }
+
+
 
       //post status approved
       $scope.statusApproved = function () {
-        
+
           var trxId = this.trxId;
           var trx_id = String(this.selecttrx);
           var dateT = this.dateT;
@@ -163,13 +171,13 @@ scotchApp.controller('search_agentssTrxnController', function ($rootScope, $scop
           $scope.trxtypeT = this.trxtypeT;;
           $scope.accountidT = this.accountidT;
           $scope.money = this.amtT;
-          
+
           if (status == 10) {
               alert('Status can not Approve.Status is Bank Sync.')
           }
           else {
               if (status != 7) {
-                 
+
                   var request = $http({
                       method: "put",
                       url: linkglobal + "/trx_details(" + trxId + ")",
@@ -194,7 +202,7 @@ scotchApp.controller('search_agentssTrxnController', function ($rootScope, $scop
                       headers: { 'Content-Type': 'application/json' },
 
                   }).success(function (data) {
-                      
+
                       var trxtypeT = $scope.trxtypeT;
                       var accountidT = $scope.accountidT;
                       var money = $scope.money;
@@ -255,7 +263,8 @@ scotchApp.controller('search_agentssTrxnController', function ($rootScope, $scop
                       .success(function (res) {
                           var agent1 = res;
                           var user1 = agent1.value;
-                          $scope.transactions = user1;})
+                          $scope.transactions = user1;
+                      })
                   }).error(function (err) {
                       alert('Status Alerady Approved')
                   });
@@ -274,12 +283,12 @@ scotchApp.controller('search_agentssTrxnController', function ($rootScope, $scop
      var transactioD = JSON.stringify($scope.transactions);
      var del = JSON.parse(transactioD);
      var count = user1.length;
-          
+
 
  })
-          }
+      }
 
-      $scope.allapproved = function () { 
+      $scope.allapproved = function () {
 
           $scope.alertLoading = true;
           if (count > 0) {
@@ -383,7 +392,7 @@ scotchApp.controller('search_agentssTrxnController', function ($rootScope, $scop
                           headers: { 'Content-Type': 'application/json' },
 
                       }).success(function (data) {
-                         
+
                           $scope.transactions = null;
                           $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3' + ' and agent_id eq ' + exact)
                             .success(function (res) {
@@ -400,9 +409,9 @@ scotchApp.controller('search_agentssTrxnController', function ($rootScope, $scop
 
               } //for loop close 
 
-            //  $scope.transactions = null;
+              //  $scope.transactions = null;
               // $scope.trans3 = null;
-           //   $scope.recall();
+              //   $scope.recall();
               //   $scope.allrecall();
 
           }
@@ -414,33 +423,34 @@ scotchApp.controller('search_agentssTrxnController', function ($rootScope, $scop
 
       //generate xlsx file
       $scope.exportData = function ($scope) {
-         
 
-          $http.get(linkglobal + '/trxn_views?$filter=status eq ' + 7 + ' or status eq ' + 10 + ' and agent_id eq ' + exact)
-     .success(function (res) {
-         var agent1 = res;
-         var user1 = agent1.value;
-         
-         console.log('xlxs report data= ' + user1);
 
-         var count = user1.length;
-         alert(count);
-         if (count > 0) {
+          //   $http.get(linkglobal + '/trxn_views?$filter=status eq ' + 7 + ' or status eq ' + 10 + ' and agent_id eq ' + exact + ' and trx_type ne %27dbt%27 and status ne 2 and status ne 17')
+          $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and trx_data ne 3' + ' and agent_id eq ' + exact + ' and trx_type ne %27dbt%27 and status ne 2 and status ne 17')
+.success(function (res) {
+    var agent1 = res;
+    var user1 = agent1.value;
 
-             alasql('SELECT agent_id,cust_name,external_trx_id,status,trx_dt,amt,external_account_id,agent_name INTO XLSX("Report.xlsx",{headers:true})  FROM ?', [user1]);
+    console.log('xlxs report data= ' + user1);
 
-         }
-         else {
-             alert('Record not found');
-         }
-     }).error(function (data) {
-         alert('Record not found');
-     });
+    var count = user1.length;
+    // alert(count);
+    if (count > 0) {
+
+        alasql('SELECT agent_id,cust_name,external_trx_id,status,trx_dt,amt,external_account_id,agent_name INTO XLSX("Report.xlsx",{headers:true})  FROM ?', [user1]);
+
+    }
+    else {
+        alert('Record not found');
+    }
+}).error(function (data) {
+    alert('Record not found');
+});
 
       };
 
   });
-    
+
 
 
 })

@@ -78,7 +78,7 @@ scotchApp.controller('AgentCustomerReportController', function ($rootScope, $sco
   })
 
    
-
+   
     $scope.formatString = function (format) {
         var day = parseInt(format.substring(0, 2));
         var month = parseInt(format.substring(3, 5));
@@ -154,7 +154,7 @@ scotchApp.controller('AgentCustomerReportController', function ($rootScope, $sco
 
                     $scope.totalbalnc = false;
 
-                    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and agent_id eq ' + agent_id + ' or status eq 7 or status eq 10')
+                    $http.get(linkglobal + '/trxn_views?$filter=bank_id eq ' + imageIDData + ' and agent_id eq ' + agent_id + ' and status ne 2 and status ne 17 ')
                         .success(function (response) {
                             var trx = response;
                             var datedata1 = trx.value;
